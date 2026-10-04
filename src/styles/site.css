@@ -309,6 +309,14 @@ select:focus-visible {
   color: #b89b5e;
 }
 
+/* Keep dropdown hover effects aligned with the link's clickable box. */
+.site-header .primary-menu > li > .sub-menu > li {
+  padding: 0 !important;
+}
+.site-header .primary-menu > li > .sub-menu > li::after {
+  pointer-events: none;
+}
+
 /* Match the compact source form grid, including its final empty row gap. */
 .js-enabled .inquiry-form:not(.is-expanded) .inquiry-fields {
   padding-bottom: 16px;
