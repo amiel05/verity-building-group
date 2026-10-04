@@ -492,7 +492,7 @@ body.page:is(.case-studies-page, .contact-page) .entry-content {
 
 /* Published case studies are a single, full-card navigation target. */
 .case-study-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; margin:40px 0 24px; }
-.entry-content .case-study-card { display:flex; flex-direction:column; padding:0 28px 28px; border:1px solid #d9d0c3; background:#fff; color:#203140; text-decoration:none; }
+.entry-content .case-study-card { display:flex; flex-direction:column; padding:0 28px 28px; border:1px solid #d9d0c3; border-radius:8px; background:#fff; color:#203140; overflow:hidden; text-decoration:none; }
 .case-study-card > img { display:block; width:calc(100% + 56px); max-width:none; margin:0 -28px 28px; aspect-ratio:4/3; object-fit:cover; }
 .case-study-card h2 { margin:0 0 18px; }
 .case-study-card > p:last-child { margin-top:auto; margin-bottom:0; padding-top:24px; }
@@ -508,3 +508,6 @@ body.page:is(.case-studies-page, .contact-page) .entry-content {
 .entry-content .case-study-cta-button { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; background:#f2ece4; color:#203140; padding:16px 24px; min-height:56px; font-size:16px; font-weight:700; text-decoration:none; }
 .entry-content .case-study-cta-button:hover { background:#dec38f; }
 @media(max-width:800px) { .case-study-cards { grid-template-columns:1fr; }.case-study-cta { grid-template-columns:1fr; gap:28px; }.case-study-cta-button { justify-self:start; } }
+
+/* Match the contact process cards to the site's rounded card treatment. */
+.contact-page .vbg-process article { border-radius:8px; }

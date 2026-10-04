@@ -50,6 +50,7 @@
   padding: 32px;
   background: #faf8f4;
   border: 1px solid var(--services-line);
+  border-radius: 8px;
   color: var(--color-ink);
   text-decoration: none;
 }

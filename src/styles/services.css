@@ -124,6 +124,8 @@
 .services-offering__photo {
   aspect-ratio: 6 / 5;
   background: var(--color-cream);
+  border-radius: 8px;
+  overflow: hidden;
 }
 .services-offering__photo img {
   display: block;
