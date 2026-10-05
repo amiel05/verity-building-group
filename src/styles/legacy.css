@@ -181,12 +181,6 @@
 .land-page :is(#due-diligence, #development) {
   scroll-margin-top: 150px;
 }
-.land-page .land-introduction {
-  max-width: 900px;
-  margin-bottom: 40px;
-  color: var(--services-muted);
-  font-size: 17px;
-}
 .land-page .legacy-focus__list ul {
   margin: 0;
   padding-left: 20px;
@@ -242,27 +236,27 @@
   }
 }
 
-/* Legacy impact rows omit numbering and align copy from tablet upward. */
-.legacy-page #focus .legacy-focus__list article > .services-number {
+/* Editorial comparison rows share one unnumbered, aligned layout. */
+.legacy-focus--aligned .legacy-focus__list article > .services-number {
   display: none;
 }
 @media (min-width: 641px) {
-  .legacy-page #focus .legacy-focus__list article {
+  .legacy-focus--aligned .legacy-focus__list article {
     align-items: start;
     grid-template-columns: 0.8fr 1.2fr;
     gap: 64px;
   }
 }
 @media (min-width: 641px) and (max-width: 960px) {
-  .legacy-page #focus .legacy-focus__list article {
+  .legacy-focus--aligned .legacy-focus__list article {
     gap: 32px;
   }
 }
 @media (max-width: 640px) {
-  .legacy-page #focus .legacy-focus__list article {
+  .legacy-focus--aligned .legacy-focus__list article {
     grid-template-columns: 1fr;
   }
-  .legacy-page #focus .legacy-focus__list article p {
+  .legacy-focus--aligned .legacy-focus__list article > :is(p, ul, .about-copy) {
     grid-column: 1;
   }
 }
