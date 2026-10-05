@@ -194,6 +194,18 @@ select:focus-visible {
   line-height: 1;
   font-weight: 400;
 }
+.interface-icon.action-arrow {
+  display: inline-block;
+  flex: 0 0 auto;
+  font-size: 21.6px;
+  font-style: normal;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: normal;
+  line-height: 1;
+  position: relative;
+  text-transform: none;
+}
 /* Equivalent reveal timings; content stays visible if JavaScript is unavailable. */
 .js-motion .animated {
   opacity: 0;

@@ -79,7 +79,11 @@ const normalizePageHtml = (html: string) => {
     .replaceAll("↗", "→")
     .replace(
       /(<span(?![^>]*\binterface-icon\b)[^>]*>[^<]*?)\s*→\s*(<\/span>)/g,
-      '$1 <span aria-hidden="true"><span aria-hidden="true" class="interface-icon">→</span></span>$2',
+      '$1 <span aria-hidden="true"><span aria-hidden="true" class="interface-icon action-arrow">→</span></span>$2',
+    )
+    .replace(
+      /class="interface-icon">\s*→\s*<\/span>/g,
+      'class="interface-icon action-arrow">→</span>',
     );
   if (!singleHeadingPaths.has(path)) return normalized;
   normalized = normalized.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
