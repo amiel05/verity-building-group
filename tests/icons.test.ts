@@ -6,7 +6,7 @@ test("arrow icon markup uses one shared SVG path for every direction", () => {
   for (const direction of ["right", "down", "left"] as const) {
     const icon = arrowIconMarkup(direction);
     assert.match(icon, new RegExp(`action-arrow--${direction}`));
-    assert.match(icon, /<path d="M3 12h16m-5-5 5 5-5 5"\/>/);
+    assert.match(icon, /<path d="M1 12h21m-5-4 5 4-5 4"\/>/);
     assert.doesNotMatch(icon, /[→↗←↓↑]/);
   }
 });

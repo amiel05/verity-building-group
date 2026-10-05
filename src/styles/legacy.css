@@ -249,7 +249,13 @@
 @media (min-width: 641px) {
   .legacy-page #focus .legacy-focus__list article {
     align-items: start;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 64px;
+  }
+}
+@media (min-width: 641px) and (max-width: 960px) {
+  .legacy-page #focus .legacy-focus__list article {
+    gap: 32px;
   }
 }
 @media (max-width: 640px) {

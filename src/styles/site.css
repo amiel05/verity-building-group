@@ -202,9 +202,9 @@ select:focus-visible {
   overflow: visible;
   position: relative;
   stroke: currentColor;
-  stroke-linecap: square;
+  stroke-linecap: butt;
   stroke-linejoin: miter;
-  stroke-width: 1.75;
+  stroke-width: 1.5;
   vertical-align: middle;
   width: 21.6px;
 }
