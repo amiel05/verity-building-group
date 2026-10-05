@@ -1,5 +1,11 @@
-<span aria-hidden="true">
-  <span aria-hidden="true" class="interface-icon action-arrow">
-    →
-  </span>
-</span>
+---
+import { arrowIconMarkup, type ArrowDirection } from "../lib/icons";
+
+interface Props {
+  direction?: ArrowDirection;
+}
+
+const { direction = "right" } = Astro.props;
+---
+
+<Fragment set:html={arrowIconMarkup(direction)} />

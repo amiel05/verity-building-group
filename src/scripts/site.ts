@@ -1,4 +1,4 @@
-export {};
+import { arrowIconMarkup } from "../lib/icons";
 const doc = document;
 doc.documentElement.classList.add("js-enabled");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -100,12 +100,8 @@ doc.addEventListener("click", (event) => {
   if (
     link &&
     (link.classList.contains("js-verity-project-modal") ||
-      link.textContent
-        ?.trim()
-        .replace(/\s+/g, " ")
-        .replace(/→/g, "")
-        .trim()
-        .toLowerCase() === "start your project")
+      link.textContent?.trim().replace(/\s+/g, " ").trim().toLowerCase() ===
+        "start your project")
   ) {
     event.preventDefault();
     lastFocus = link;
@@ -211,6 +207,9 @@ doc.querySelectorAll<HTMLElement>(".work-gallery").forEach((gallery) => {
         button.classList.contains("swiper-button-next")
           ? "Next images"
           : "Previous images",
+      );
+      button.innerHTML = arrowIconMarkup(
+        button.classList.contains("swiper-button-next") ? "right" : "left",
       );
       const advance = () => {
         if (!track) return;

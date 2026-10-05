@@ -197,14 +197,22 @@ select:focus-visible {
 .interface-icon.action-arrow {
   display: inline-block;
   flex: 0 0 auto;
-  font-size: 21.6px;
-  font-style: normal;
-  font-weight: 400;
-  left: 0;
-  letter-spacing: normal;
-  line-height: 1;
+  fill: none;
+  height: 21.6px;
+  overflow: visible;
   position: relative;
-  text-transform: none;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-width: 1.75;
+  vertical-align: middle;
+  width: 21.6px;
+}
+.action-arrow--down {
+  transform: rotate(90deg);
+}
+.action-arrow--left {
+  transform: rotate(180deg);
 }
 /* Equivalent reveal timings; content stays visible if JavaScript is unavailable. */
 .js-motion .animated {
@@ -370,6 +378,10 @@ select:focus-visible {
 .work-gallery .swiper-button-next,
 .work-gallery .swiper-button-prev {
   cursor: pointer;
+}
+.work-gallery .swiper .swiper-button-next::before,
+.work-gallery .swiper .swiper-button-prev::before {
+  content: none;
 }
 [hidden] {
   display: none !important;

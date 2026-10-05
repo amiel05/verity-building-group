@@ -3,6 +3,7 @@ import Site from "../layouts/Site.astro";
 import Portfolio from "../components/Portfolio.astro";
 import BlogIndex from "../components/BlogIndex.astro";
 import ContactForm from "../components/ContactForm.astro";
+import { replaceArrowGlyphs } from "../lib/icons";
 const pages = import.meta.glob("../content/pages/*.json", {
   eager: true,
   import: "default",
@@ -75,16 +76,7 @@ const singleHeadingPaths = new Set([
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
 ]);
 const normalizePageHtml = (html: string) => {
-  let normalized = html
-    .replaceAll("↗", "→")
-    .replace(
-      /(<span(?![^>]*\binterface-icon\b)[^>]*>[^<]*?)\s*→\s*(<\/span>)/g,
-      '$1 <span aria-hidden="true"><span aria-hidden="true" class="interface-icon action-arrow">→</span></span>$2',
-    )
-    .replace(
-      /class="interface-icon">\s*→\s*<\/span>/g,
-      'class="interface-icon action-arrow">→</span>',
-    );
+  let normalized = replaceArrowGlyphs(html);
   if (!singleHeadingPaths.has(path)) return normalized;
   normalized = normalized.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
   return path === "/case-studies/"
