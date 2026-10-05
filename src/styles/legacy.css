@@ -241,3 +241,22 @@
     scroll-margin-top: 112px;
   }
 }
+
+/* Legacy impact rows omit numbering and align copy from tablet upward. */
+.legacy-page #focus .legacy-focus__list article > .services-number {
+  display: none;
+}
+@media (min-width: 641px) {
+  .legacy-page #focus .legacy-focus__list article {
+    align-items: start;
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+@media (max-width: 640px) {
+  .legacy-page #focus .legacy-focus__list article {
+    grid-template-columns: 1fr;
+  }
+  .legacy-page #focus .legacy-focus__list article p {
+    grid-column: 1;
+  }
+}
