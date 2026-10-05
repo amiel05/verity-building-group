@@ -78,7 +78,7 @@ const field = (name: string) => `${id}-${name}`;
         </label>
         <input id={field("location")} name="location" maxlength="500" />
       </div>
-      <div class="more half">
+      <div class="starter half">
         <label class="screen-reader-text" for={field("projectType")}>
           Project Type
         </label>
@@ -127,7 +127,7 @@ const field = (name: string) => `${id}-${name}`;
           maxlength="2000"
         ></textarea>
       </div>
-      <div class="more">
+      <div class="starter">
         <label class="screen-reader-text" for={field("message")}>
           Tell us about your project
         </label>
@@ -183,7 +183,7 @@ const field = (name: string) => `${id}-${name}`;
         <label for={field("bestTime")}>Best Time to Reach You</label>
         <input id={field("bestTime")} name="bestTime" maxlength="300" />
       </div>
-      <div class="more">
+      <div class="starter">
         <button type="submit" class="vbg-btn">
           SEND MESSAGE
         </button>
