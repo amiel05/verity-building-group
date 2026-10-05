@@ -69,14 +69,21 @@ const blogRoutes: Record<
 const blogProps = blogRoutes[path];
 const singleHeadingPaths = new Set([
   "/contact/",
+  "/case-studies/",
   "/custom-home-budget-planning-where-to-start-in-cornelius/",
   "/what-thoughtful-homebuilding-means-for-charlotte-families/",
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
 ]);
-const normalizePageHtml = (html: string) =>
-  singleHeadingPaths.has(path)
-    ? html.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "")
-    : html;
+const normalizePageHtml = (html: string) => {
+  if (!singleHeadingPaths.has(path)) return html;
+  const normalized = html.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
+  return path === "/case-studies/"
+    ? normalized.replace(
+        /<h2 class="vbg-display-title">([\s\S]*?)<\/h2>/,
+        '<h1 class="vbg-display-title">$1</h1>',
+      )
+    : normalized;
+};
 const page = Object.values(pages).find((p) => p.path === path);
 if (!page) Astro.response.status = 404;
 ---
