@@ -603,6 +603,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   min-height: 2.3em;
   margin-bottom: 18px;
 }
+.home .home-services .service-card__description,
 .home .home-services .service-card__body p {
   font-size: 16px;
   line-height: 1.7;
