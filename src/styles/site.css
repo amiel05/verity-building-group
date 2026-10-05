@@ -8,6 +8,11 @@
   --color-border: #d9d0c3;
   --color-muted: #59636a;
   --color-focus: var(--color-gold);
+  --font-size-page-title: 72px;
+  --font-size-page-lead: 18px;
+  --font-size-eyebrow: 12px;
+  --font-weight-heading: 700;
+  --font-weight-eyebrow: 400;
   --verity-ink: var(--color-ink);
   --verity-gold: var(--color-gold);
   --verity-cream: var(--color-cream);
@@ -21,6 +26,46 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+}
+body:not(.home) :is(h1, .entry-content .vbg-display-title) {
+  font-size: var(--font-size-page-title);
+  font-weight: var(--font-weight-heading);
+  line-height: 1.05;
+}
+:is(
+  .entry-content .eyebrow,
+  .services-page .services-eyebrow,
+  .blog-page .blog-kicker,
+  .portfolio-eyebrow,
+  .entry-content .field-guide-callout__eyebrow,
+  .entry-content .case-study-cta .case-study-cta-eyebrow,
+  .verity-project-modal__eyebrow
+) {
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-eyebrow);
+  letter-spacing: 0.15em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+body:not(.home)
+  :is(
+    .entry-content .lead,
+    .blog-heading > p:last-child,
+    .portfolio-heading > p:last-child,
+    .legacy-hero__copy > p:not(.services-eyebrow)
+  ) {
+  font-size: var(--font-size-page-lead);
+  line-height: 1.7;
+}
+@media (max-width: 960px) {
+  body:not(.home) :is(h1, .entry-content .vbg-display-title) {
+    font-size: 56px;
+  }
+}
+@media (max-width: 640px) {
+  body:not(.home) :is(h1, .entry-content .vbg-display-title) {
+    font-size: 44px;
+  }
 }
 html {
   scroll-behavior: smooth;
@@ -409,6 +454,23 @@ body.page:is(.case-studies-page, .contact-page) .entry-header,
 body.page:is(.case-studies-page, .contact-page) .entry-content {
   width: 100%;
   margin-inline: 0;
+}
+body.page:is(.case-studies-page, .contact-page) .basic-content-row {
+  padding-block: 0;
+}
+body.page:is(.case-studies-page, .contact-page) .entry-content {
+  margin-top: 0;
+  padding-block: 64px 96px;
+}
+body.page:is(.case-studies-page, .contact-page)
+  .entry-content
+  > .eyebrow:first-child {
+  margin-top: 0;
+}
+@media (max-width: 700px) {
+  body.page:is(.case-studies-page, .contact-page) .entry-content {
+    padding-block: 36px 64px;
+  }
 }
 
 /* Preserve the reading measure without compounding the outer container gutter. */
