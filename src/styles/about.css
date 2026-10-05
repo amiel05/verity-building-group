@@ -34,10 +34,13 @@
   padding-block: var(--services-space);
 }
 .about-page .about-areas__intro {
-  max-width: 900px;
-  margin-bottom: 40px;
+  max-width: none;
+  margin: 0;
   color: var(--services-muted);
   font-size: 17px;
+}
+.about-areas__heading {
+  margin-bottom: 40px;
 }
 .about-area-grid {
   display: grid;
