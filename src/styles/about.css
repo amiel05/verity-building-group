@@ -14,6 +14,11 @@
 .about-page #vbg-team-heading {
   margin-top: 20px;
 }
+@media (min-width: 641px) {
+  .about-page #our-team .legacy-focus__intro {
+    align-items: center;
+  }
+}
 .about-team {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

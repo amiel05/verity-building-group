@@ -180,19 +180,15 @@
 .services-planning .services-number {
   color: #dac48f;
 }
-.services-page .services-process-title {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
-  margin-top: 64px;
-  margin-bottom: 24px;
-}
 .services-process {
   list-style: none;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid #5d6871;
+}
+.services-page .services-process {
+  margin-top: 64px;
 }
 .services-process li {
   padding: 28px 28px 0 0;
@@ -369,7 +365,7 @@
   .services-process h4 {
     margin-top: 12px;
   }
-  .services-page .services-process-title {
+  .services-page .services-process {
     margin-top: 40px;
   }
   .services-faq summary {
