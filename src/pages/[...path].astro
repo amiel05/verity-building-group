@@ -75,8 +75,14 @@ const singleHeadingPaths = new Set([
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
 ]);
 const normalizePageHtml = (html: string) => {
-  if (!singleHeadingPaths.has(path)) return html;
-  const normalized = html.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
+  let normalized = html
+    .replaceAll("↗", "→")
+    .replace(
+      /(<span(?![^>]*\binterface-icon\b)[^>]*>[^<]*?)\s*→\s*(<\/span>)/g,
+      '$1 <span aria-hidden="true"><span aria-hidden="true" class="interface-icon">→</span></span>$2',
+    );
+  if (!singleHeadingPaths.has(path)) return normalized;
+  normalized = normalized.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
   return path === "/case-studies/"
     ? normalized.replace(
         /<h2 class="vbg-display-title">([\s\S]*?)<\/h2>/,

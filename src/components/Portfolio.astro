@@ -1,5 +1,6 @@
 ---
 import photos from '../content/portfolio.json';
+import ActionArrow from './ActionArrow.astro';
 import '../styles/portfolio.css';
 ---
 <main id="primary" class="portfolio-page">
@@ -18,7 +19,7 @@ import '../styles/portfolio.css';
   <div class="portfolio-grid">
     {photos.map(photo => <a class="portfolio-photo" href={photo.src} data-space={photo.category} aria-label={`Enlarge: ${photo.alt}`}>
       <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
-      <span class="portfolio-photo-caption">{photo.alt}<span aria-hidden="true">↗</span></span>
+      <span class="portfolio-photo-caption">{photo.alt}<ActionArrow /></span>
     </a>)}
   </div>
   <noscript><p>Photos open at full size. Enable JavaScript for filters and the slideshow.</p></noscript>

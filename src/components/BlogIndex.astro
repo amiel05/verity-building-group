@@ -1,5 +1,6 @@
 ---
 import { posts, topics, locations, filterPosts } from "../lib/blog";
+import ActionArrow from "./ActionArrow.astro";
 import "../styles/blog.css";
 interface Props {
   initialTopic?: string;
@@ -84,7 +85,7 @@ const date = (value: string) =>
           ))}
         </select>
         <button type="submit">
-          Explore articles <span aria-hidden="true">→</span>
+          Explore articles <ActionArrow />
         </button>
         {hasQueryFilters && (
           <a class="blog-reset" href={Astro.url.pathname + "#articles"}>
@@ -96,7 +97,7 @@ const date = (value: string) =>
         <p class="blog-kicker">From idea to possibility</p>
         <p>Have a property or a project in mind?</p>
         <a href="/contact/">
-          Start a conversation <span aria-hidden="true">→</span>
+          Start a conversation <ActionArrow />
         </a>
       </div>
     </aside>
@@ -143,7 +144,7 @@ const date = (value: string) =>
               </p>
               <p>{featured.excerpt}</p>
               <a class="blog-read" href={featured.path}>
-                Read the article <span aria-hidden="true">→</span>
+                Read the article <ActionArrow />
               </a>
             </div>
           </article>
@@ -177,7 +178,7 @@ const date = (value: string) =>
                     </p>
                     <p>{post.excerpt}</p>
                     <a class="blog-read" href={post.path}>
-                      Read the article <span aria-hidden="true">→</span>
+                      Read the article <ActionArrow />
                     </a>
                   </div>
                 </article>
@@ -194,7 +195,7 @@ const date = (value: string) =>
           <h2>No articles match those filters.</h2>
           <p>Try a different topic, location, or search term.</p>
           <a class="blog-read" href={Astro.url.pathname + "#articles"}>
-            View all articles <span aria-hidden="true">→</span>
+            View all articles <ActionArrow />
           </a>
         </div>
       )}

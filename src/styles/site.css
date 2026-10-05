@@ -13,11 +13,25 @@
   --font-size-eyebrow: 12px;
   --font-weight-heading: 700;
   --font-weight-eyebrow: 400;
+  --site-container-max: 1280px;
+  --site-container-gutter: 80px;
   --verity-ink: var(--color-ink);
   --verity-gold: var(--color-gold);
   --verity-cream: var(--color-cream);
   --font-body: "Lato", sans-serif;
   --font-heading: "Cormorant Garamond", serif;
+}
+.container,
+.services-wrap,
+.blog-wrap,
+body.single .entry-header,
+body.single .entry-content {
+  width: min(
+    var(--site-container-max),
+    calc(100% - (var(--site-container-gutter) * 2))
+  );
+  max-width: none;
+  margin-inline: auto;
 }
 h1,
 h2,
@@ -62,9 +76,19 @@ body:not(.home)
     font-size: 56px;
   }
 }
+@media (max-width: 1024px) {
+  :root {
+    --site-container-gutter: 32px;
+  }
+}
 @media (max-width: 640px) {
   body:not(.home) :is(h1, .entry-content .vbg-display-title) {
     font-size: 44px;
+  }
+}
+@media (max-width: 767px) {
+  :root {
+    --site-container-gutter: 20px;
   }
 }
 html {

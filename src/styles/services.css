@@ -24,10 +24,6 @@
   font-size: clamp(38px, 3.8vw, 56px);
   letter-spacing: -0.025em;
 }
-.services-wrap {
-  width: min(1200px, calc(100% - 96px));
-  margin-inline: auto;
-}
 .services-page .services-eyebrow {
   font-size: 12px;
   font-weight: 700;
@@ -283,9 +279,6 @@
   font-size: 16px;
 }
 @media (max-width: 960px) {
-  .services-wrap {
-    width: calc(100% - 64px);
-  }
   .services-intro__grid {
     gap: 32px;
   }
@@ -313,9 +306,6 @@
   }
 }
 @media (max-width: 640px) {
-  .services-wrap {
-    width: calc(100% - 40px);
-  }
   .services-intro {
     padding-top: 40px;
   }
