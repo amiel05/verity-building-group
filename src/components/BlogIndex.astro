@@ -1,58 +1,203 @@
 ---
-import { posts, topics, locations, filterPosts } from '../lib/blog';
-import '../styles/blog.css';
+import { posts, topics, locations, filterPosts } from "../lib/blog";
+import "../styles/blog.css";
+interface Props {
+  initialTopic?: string;
+  initialLocation?: string;
+  heading?: string;
+}
+const {
+  initialTopic = "",
+  initialLocation = "",
+  heading = "Practical perspective.\nThoughtful building.",
+} = Astro.props;
 const params = Astro.url.searchParams;
-const results = filterPosts(params);
+const filters = new URLSearchParams(params);
+if (initialTopic) filters.set("topic", initialTopic);
+if (initialLocation) filters.set("location", initialLocation);
+const results = filterPosts(filters);
 const [featured, ...remaining] = results;
-const filtered = ['q', 'topic', 'location'].some(key => params.get(key));
-const date = (value: string) => new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }).format(new Date(value));
+const hasQueryFilters = ["q", "topic", "location"].some((key) =>
+  params.get(key),
+);
+const filtered = Boolean(initialTopic || initialLocation || hasQueryFilters);
+const date = (value: string) =>
+  new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "America/New_York",
+  }).format(new Date(value));
 ---
+
 <main id="primary" class="blog-page">
   <header class="blog-heading blog-wrap">
     <p class="blog-kicker">The Verity Field Guide</p>
-    <h1>Practical perspective.<br />Thoughtful building.</h1>
-    <p>Ideas and guidance for planning a custom home, evaluating land, and making confident building decisions in the Charlotte region.</p>
+    <h1>
+      {heading.split("\n").map((line, index) => (
+        <>
+          {index > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </h1>
+    <p>
+      Ideas and guidance for planning a custom home, evaluating land, and making
+      confident building decisions in the Charlotte region.
+    </p>
   </header>
   <div class="blog-layout blog-wrap">
     <aside class="blog-sidebar" aria-labelledby="blog-filters-title">
       <h2 id="blog-filters-title">Find your perspective</h2>
-      <form method="get" action={Astro.url.pathname + '#articles'} role="search">
+      <form
+        method="get"
+        action={Astro.url.pathname + "#articles"}
+        role="search"
+      >
         <label for="blog-query">Search articles</label>
-        <input id="blog-query" type="search" name="q" value={params.get('q') || ''} placeholder="Budget, homesite, planning…" />
+        <input
+          id="blog-query"
+          type="search"
+          name="q"
+          value={params.get("q") || ""}
+          placeholder="Budget, homesite, planning…"
+        />
         <label for="blog-topic">Topic</label>
         <select id="blog-topic" name="topic">
           <option value="">All topics</option>
-          {topics.map(topic => <option value={topic} selected={params.get('topic') === topic}>{topic} ({posts.filter(p => p.topic === topic).length})</option>)}
+          {topics.map((topic) => (
+            <option value={topic} selected={filters.get("topic") === topic}>
+              {topic} ({posts.filter((p) => p.topic === topic).length})
+            </option>
+          ))}
         </select>
         <label for="blog-location">Location</label>
         <select id="blog-location" name="location">
           <option value="">All locations</option>
-          {locations.map(location => <option value={location} selected={params.get('location') === location}>{location}</option>)}
+          {locations.map((location) => (
+            <option
+              value={location}
+              selected={filters.get("location") === location}
+            >
+              {location}
+            </option>
+          ))}
         </select>
-        <button type="submit">Explore articles <span aria-hidden="true">→</span></button>
-        {filtered && <a class="blog-reset" href={Astro.url.pathname + '#articles'}>Clear all filters</a>}
+        <button type="submit">
+          Explore articles <span aria-hidden="true">→</span>
+        </button>
+        {hasQueryFilters && (
+          <a class="blog-reset" href={Astro.url.pathname + "#articles"}>
+            Clear all filters
+          </a>
+        )}
       </form>
-      <div class="blog-sidebar-note"><p class="blog-kicker">From idea to possibility</p><p>Have a property or a project in mind?</p><a href="/contact/">Start a conversation <span aria-hidden="true">→</span></a></div>
+      <div class="blog-sidebar-note">
+        <p class="blog-kicker">From idea to possibility</p>
+        <p>Have a property or a project in mind?</p>
+        <a href="/contact/">
+          Start a conversation <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </aside>
-    <section id="articles" class="blog-results" aria-label="Field Guide articles">
-      <div class="blog-results-heading"><p>{filtered ? `${results.length} ${results.length === 1 ? 'article' : 'articles'} found` : 'Latest from the Field Guide'}</p><span>Newest first</span></div>
-      {featured ? <>
-        <article class="blog-featured">
-          <a href={featured.path} aria-label={`Read ${featured.title}`} tabindex="-1"><img src={featured.image} alt={featured.alt} width="1536" height="1024" fetchpriority="high" /></a>
-          <div class="blog-featured-copy">
-            <p class="blog-kicker">{filtered ? 'Latest match' : 'Newest article'} · {featured.topic}</p>
-            <h2><a href={featured.path}>{featured.title}</a></h2>
-            <p class="blog-date"><time datetime={featured.date}>{date(featured.date)}</time> · {featured.location}</p>
-            <p>{featured.excerpt}</p>
-            <a class="blog-read" href={featured.path}>Read the article <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-        {remaining.length > 0 && <div class="blog-older"><h2>More perspectives</h2>{remaining.map(post => <article class="blog-row">
-          <a href={post.path} aria-label={`Read ${post.title}`} tabindex="-1"><img src={post.image} alt={post.alt} width="600" height="400" loading="lazy" /></a>
-          <div><p class="blog-kicker">{post.topic} · {post.location}</p><h3><a href={post.path}>{post.title}</a></h3><p class="blog-date"><time datetime={post.date}>{date(post.date)}</time></p><p>{post.excerpt}</p><a class="blog-read" href={post.path}>Read the article <span aria-hidden="true">→</span></a></div>
-        </article>)}</div>}
-        <p class="blog-image-note">Images are AI-generated editorial concepts, not completed Verity projects.</p>
-      </> : <div class="blog-empty"><h2>No articles match those filters.</h2><p>Try a different topic, location, or search term.</p><a class="blog-read" href={Astro.url.pathname + '#articles'}>View all articles <span aria-hidden="true">→</span></a></div>}
+    <section
+      id="articles"
+      class="blog-results"
+      aria-label="Field Guide articles"
+    >
+      <div class="blog-results-heading">
+        <p>
+          {filtered
+            ? `${results.length} ${results.length === 1 ? "article" : "articles"} found`
+            : "Latest from the Field Guide"}
+        </p>
+        <span>Newest first</span>
+      </div>
+      {featured ? (
+        <>
+          <article class="blog-featured">
+            <a
+              href={featured.path}
+              aria-label={`Read ${featured.title}`}
+              tabindex="-1"
+            >
+              <img
+                src={featured.image}
+                alt={featured.alt}
+                width="1536"
+                height="1024"
+                fetchpriority="high"
+              />
+            </a>
+            <div class="blog-featured-copy">
+              <p class="blog-kicker">
+                {filtered ? "Latest match" : "Newest article"} ·{" "}
+                {featured.topic}
+              </p>
+              <h2>
+                <a href={featured.path}>{featured.title}</a>
+              </h2>
+              <p class="blog-date">
+                <time datetime={featured.date}>{date(featured.date)}</time> ·{" "}
+                {featured.location}
+              </p>
+              <p>{featured.excerpt}</p>
+              <a class="blog-read" href={featured.path}>
+                Read the article <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+          {remaining.length > 0 && (
+            <div class="blog-older">
+              <h2>More perspectives</h2>
+              {remaining.map((post) => (
+                <article class="blog-row">
+                  <a
+                    href={post.path}
+                    aria-label={`Read ${post.title}`}
+                    tabindex="-1"
+                  >
+                    <img
+                      src={post.image}
+                      alt={post.alt}
+                      width="600"
+                      height="400"
+                      loading="lazy"
+                    />
+                  </a>
+                  <div>
+                    <p class="blog-kicker">
+                      {post.topic} · {post.location}
+                    </p>
+                    <h3>
+                      <a href={post.path}>{post.title}</a>
+                    </h3>
+                    <p class="blog-date">
+                      <time datetime={post.date}>{date(post.date)}</time>
+                    </p>
+                    <p>{post.excerpt}</p>
+                    <a class="blog-read" href={post.path}>
+                      Read the article <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+          <p class="blog-image-note">
+            Images are AI-generated editorial concepts, not completed Verity
+            projects.
+          </p>
+        </>
+      ) : (
+        <div class="blog-empty">
+          <h2>No articles match those filters.</h2>
+          <p>Try a different topic, location, or search term.</p>
+          <a class="blog-read" href={Astro.url.pathname + "#articles"}>
+            View all articles <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
     </section>
   </div>
 </main>

@@ -13,10 +13,10 @@ if (!reduced) {
             ? (Number(element.dataset.id) - 1) * 400
             : 0;
           const extraDelay = element.classList.contains("delay-250")
-              ? 250
-              : element.classList.contains("delay-500")
-                ? 500
-                : 0;
+            ? 250
+            : element.classList.contains("delay-500")
+              ? 500
+              : 0;
           element.style.transitionDelay = `${sequenceDelay + extraDelay}ms`;
           element.classList.add("is-visible");
           observer.unobserve(element);
@@ -35,9 +35,52 @@ const toggle = navigationElement?.querySelector("button");
 toggle?.addEventListener("click", () => {
   const open = navigationElement!.classList.toggle("is-open");
   toggle.setAttribute("aria-expanded", String(open));
+  if (!open) {
+    navigationElement!
+      .querySelectorAll(".menu-item-has-children")
+      .forEach((item) => item.classList.remove("is-submenu-open"));
+    navigationElement!
+      .querySelectorAll<HTMLButtonElement>(".submenu-toggle")
+      .forEach((submenuToggle) => {
+        submenuToggle.setAttribute("aria-expanded", "false");
+        const icon = submenuToggle.querySelector(".submenu-toggle__icon");
+        if (icon) icon.textContent = "+";
+      });
+  }
+});
+const submenuToggles = Array.from(
+  navigationElement?.querySelectorAll<HTMLButtonElement>(".submenu-toggle") ??
+    [],
+);
+submenuToggles.forEach((submenuToggle) => {
+  submenuToggle.addEventListener("click", () => {
+    const parent = submenuToggle.closest(".menu-item-has-children");
+    const willOpen = !parent?.classList.contains("is-submenu-open");
+    submenuToggles.forEach((otherToggle) => {
+      if (otherToggle === submenuToggle) return;
+      otherToggle
+        .closest(".menu-item-has-children")
+        ?.classList.remove("is-submenu-open");
+      otherToggle.setAttribute("aria-expanded", "false");
+      const icon = otherToggle.querySelector(".submenu-toggle__icon");
+      if (icon) icon.textContent = "+";
+    });
+    parent?.classList.toggle("is-submenu-open", willOpen);
+    submenuToggle.setAttribute("aria-expanded", String(willOpen));
+    const icon = submenuToggle.querySelector(".submenu-toggle__icon");
+    if (icon) icon.textContent = willOpen ? "−" : "+";
+  });
 });
 doc.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && navigationElement?.classList.contains("is-open")) {
+    submenuToggles.forEach((submenuToggle) => {
+      submenuToggle
+        .closest(".menu-item-has-children")
+        ?.classList.remove("is-submenu-open");
+      submenuToggle.setAttribute("aria-expanded", "false");
+      const icon = submenuToggle.querySelector(".submenu-toggle__icon");
+      if (icon) icon.textContent = "+";
+    });
     navigationElement.classList.remove("is-open");
     toggle?.setAttribute("aria-expanded", "false");
     toggle?.focus();
@@ -172,7 +215,8 @@ doc.querySelectorAll<HTMLElement>(".work-gallery").forEach((gallery) => {
       const advance = () => {
         if (!track) return;
         const slide = track.querySelector<HTMLElement>(".swiper-slide");
-        const distance = (slide?.getBoundingClientRect().width || 0) +
+        const distance =
+          (slide?.getBoundingClientRect().width || 0) +
           (Number.parseFloat(getComputedStyle(track).columnGap) || 0);
         track.scrollBy({
           left:
@@ -247,7 +291,8 @@ doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
         const template = form.parentElement?.querySelector<HTMLTemplateElement>(
           "[data-inquiry-confirmation]",
         );
-        const confirmation = template?.content.firstElementChild?.cloneNode(true);
+        const confirmation =
+          template?.content.firstElementChild?.cloneNode(true);
         if (confirmation instanceof HTMLElement) {
           form.replaceWith(confirmation);
           confirmation.focus();

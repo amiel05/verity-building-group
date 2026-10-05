@@ -1,9 +1,21 @@
 ---
 import chrome from "../content/chrome.json";
-const header = chrome.header.replaceAll(
-  `href="${Astro.url.pathname}"`,
-  `aria-current="page" href="${Astro.url.pathname}"`,
-);
+
+let submenuIndex = 0;
+const header = chrome.header
+  .replaceAll(
+    `href="${Astro.url.pathname}"`,
+    `aria-current="page" href="${Astro.url.pathname}"`,
+  )
+  .replace(
+    /(<li\b[^>]*menu-item-has-children[^>]*>[\s\S]*?<a\b[^>]*>([\s\S]*?)<\/a>)(\s*<ul class="sub-menu")/g,
+    (_match, parentLink: string, label: string, submenu: string) => {
+      submenuIndex += 1;
+      const id = `primary-submenu-${submenuIndex}`;
+      const text = label.replace(/<[^>]+>/g, "").trim();
+      return `${parentLink}<button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="${id}"><span class="screen-reader-text">Toggle ${text} submenu</span><span class="submenu-toggle__icon" aria-hidden="true">+</span></button>${submenu} id="${id}"`;
+    },
+  );
 ---
 
 <Fragment set:html={header} />

@@ -19,7 +19,64 @@ const pages = import.meta.glob("../content/pages/*.json", {
   }
 >;
 const path = Astro.url.pathname;
-const isBlog = ["/insights/", "/category/field-guide/"].includes(path);
+const blogRoutes: Record<
+  string,
+  { initialTopic?: string; initialLocation?: string; heading?: string }
+> = {
+  "/insights/": {},
+  "/category/field-guide/": {},
+  "/category/custom-home-construction/": {
+    initialTopic: "Custom Home Construction",
+    heading: "Custom Home Construction\nInsights",
+  },
+  "/category/land-development/": {
+    initialTopic: "Land Development",
+    heading: "Land Development\nInsights",
+  },
+  "/category/legacy-projects/": {
+    initialTopic: "Legacy Projects",
+    heading: "Legacy Projects\nInsights",
+  },
+  "/category/uncategorized/": {
+    initialTopic: "Uncategorized",
+    heading: "Uncategorized\nInsights",
+  },
+  "/tag/charlotte/": {
+    initialLocation: "Charlotte",
+    heading: "Charlotte\nInsights",
+  },
+  "/tag/cornelius/": {
+    initialLocation: "Cornelius",
+    heading: "Cornelius\nInsights",
+  },
+  "/tag/davidson/": {
+    initialLocation: "Davidson",
+    heading: "Davidson\nInsights",
+  },
+  "/tag/huntersville/": {
+    initialLocation: "Huntersville",
+    heading: "Huntersville\nInsights",
+  },
+  "/tag/lake-norman/": {
+    initialLocation: "Lake Norman",
+    heading: "Lake Norman\nInsights",
+  },
+  "/tag/mooresville/": {
+    initialLocation: "Mooresville",
+    heading: "Mooresville\nInsights",
+  },
+};
+const blogProps = blogRoutes[path];
+const singleHeadingPaths = new Set([
+  "/contact/",
+  "/custom-home-budget-planning-where-to-start-in-cornelius/",
+  "/what-thoughtful-homebuilding-means-for-charlotte-families/",
+  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
+]);
+const normalizePageHtml = (html: string) =>
+  singleHeadingPaths.has(path)
+    ? html.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "")
+    : html;
 const page = Object.values(pages).find((p) => p.path === path);
 if (!page) Astro.response.status = 404;
 ---
@@ -31,10 +88,14 @@ if (!page) Astro.response.status = 404;
   meta={page?.meta}
   schema={page?.schema}
 >
-  {page && path === "/portfolio/" ? <Portfolio /> : page && isBlog ? <BlogIndex /> : page ? (
+  {page && path === "/portfolio/" ? (
+    <Portfolio />
+  ) : page && blogProps ? (
+    <BlogIndex {...blogProps} />
+  ) : page ? (
     page.sections.map((html, index) => (
       <>
-        <Fragment set:html={html} />
+        <Fragment set:html={normalizePageHtml(html)} />
         {index < page.sections.length - 1 && (
           <ContactForm id={`page-inquiry-${index}`} />
         )}
