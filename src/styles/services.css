@@ -52,7 +52,7 @@
 }
 .services-intro {
   padding-top: 72px;
-  background: var(--color-cream);
+  background: var(--color-surface-alt);
 }
 .services-intro__grid {
   display: grid;
@@ -90,6 +90,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--services-line);
+}
+.services-intro .services-jump {
+  border-bottom: 1px solid var(--services-line);
 }
 .services-jump a {
   display: flex;
