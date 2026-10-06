@@ -98,6 +98,10 @@
 .portfolio-photo:focus-visible .portfolio-photo-caption {
   opacity: 1;
 }
+.portfolio-photo:hover,
+.portfolio-photo:focus-visible {
+  color: #fff;
+}
 .portfolio-page :is(a, button):focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 4px;

@@ -1185,7 +1185,7 @@ a:hover {
         .case-study-cta-button
       ):not(.contact-action):not(.cta-btn):not(.case-study-card):not(
         .about-area-card
-      )
+      ):not(.portfolio-photo)
   ):hover {
   color: var(--color-gold);
 }
