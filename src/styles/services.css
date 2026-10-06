@@ -116,8 +116,8 @@
   margin-left: auto;
 }
 .services-jump a:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
+  color: var(--color-gold);
+  text-decoration: none;
 }
 .services-offerings {
   padding-block: var(--services-space);
@@ -182,8 +182,8 @@
   text-decoration: none;
 }
 .services-page .services-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
+  color: var(--color-gold);
+  text-decoration: none;
 }
 .services-planning {
   background: var(--color-ink);

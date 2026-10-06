@@ -289,12 +289,18 @@ select:focus-visible {
   flex: 0 0 auto;
   fill: none;
   height: 21.6px;
+  left: 0;
   overflow: visible;
   position: relative;
   stroke: currentColor;
   stroke-linecap: butt;
   stroke-linejoin: miter;
   stroke-width: 1.5;
+  top: 0;
+  transition:
+    color 0.45s ease,
+    left 0.3s ease,
+    top 0.3s ease;
   vertical-align: middle;
   width: 21.6px;
 }
@@ -929,8 +935,8 @@ body.page:not(.case-studies-page):not(.contact-page)
   border-color: var(--color-gold);
 }
 .case-study-card:hover .case-study-card-link {
-  text-decoration: underline;
-  text-underline-offset: 5px;
+  color: var(--color-gold);
+  text-decoration: none;
 }
 .case-study-card:focus-visible,
 .case-study-cta-button:focus-visible {
@@ -1018,22 +1024,20 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: #fff;
 }
 .main-navigation :is(a:hover, a:focus, .current-menu-item > a) {
-  color: var(--color-ink);
+  color: var(--color-gold);
+  text-decoration: none;
 }
 .main-navigation .primary-menu li:hover > a,
 .main-navigation .primary-menu li:focus-within > a {
-  color: var(--color-ink);
+  color: var(--color-gold);
 }
 .main-navigation .primary-menu > li:hover::after,
 .main-navigation .primary-menu > li.current-menu-item::after {
-  background-color: var(--color-gold);
+  display: none;
 }
 .site-footer__links ul li:hover a {
-  color: var(--color-ink);
-  text-decoration: underline;
-  text-decoration-color: var(--color-gold);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  color: var(--color-gold);
+  text-decoration: none;
 }
 .site-header .primary-menu > li > .sub-menu {
   background: var(--color-ink) !important;
@@ -1042,8 +1046,9 @@ body.page:not(.case-studies-page):not(.contact-page)
 .site-header .primary-menu > li > .sub-menu > li > a:hover,
 .site-header .primary-menu > li > .sub-menu > li > a:focus,
 .site-header .primary-menu > li > .sub-menu > li.current-menu-item > a {
-  background: var(--color-gold) !important;
-  color: var(--color-ink) !important;
+  background: var(--color-ink) !important;
+  color: var(--color-gold) !important;
+  text-decoration: none;
 }
 :is(
     .services-planning,
@@ -1153,14 +1158,50 @@ body.page:not(.case-studies-page):not(.contact-page)
 .contact-card input[type="submit"]:hover {
   color: #fff;
 }
-.cta-link:hover,
 .work-gallery
   .swiper
   :is(.swiper-button-prev, .swiper-button-next):hover::before {
   color: var(--color-ink);
 }
 .cta-link:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--color-gold);
-  text-underline-offset: 4px;
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+/* Canonical text-link interaction: a measured gold transition with directional
+   arrow motion. Filled calls to action retain their white-label treatment. */
+a {
+  transition: color 0.45s ease;
+}
+:is(.cta-link, .case-study-card-link, .about-area-card__action),
+.site-footer__links ul li a {
+  transition: color 0.45s ease;
+}
+a:hover {
+  text-decoration: none;
+}
+:is(
+    a:not(.vbg-btn):not(.site-header__cta):not(.services-button):not(
+        .case-study-cta-button
+      ):not(.contact-action):not(.cta-btn):not(.case-study-card):not(
+        .about-area-card
+      )
+  ):hover {
+  color: var(--color-gold);
+}
+:is(a:hover, a:focus-visible) .action-arrow--right {
+  left: 5px;
+}
+:is(a:hover, a:focus-visible) .action-arrow--left {
+  left: -5px;
+}
+:is(a:hover, a:focus-visible) .action-arrow--down {
+  top: 5px;
+}
+:is(.cta-link, .vbg-btn):is(:hover, :focus-visible) > span {
+  left: 0;
+}
+.about-area-card:hover .about-area-card__action {
+  color: var(--color-gold);
+  text-decoration: none;
 }

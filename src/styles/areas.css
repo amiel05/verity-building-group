@@ -53,6 +53,12 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.area-services-grid a:hover,
+.area-prose a:hover,
+.area-resources a:hover {
+  color: var(--color-gold);
+  text-decoration: none;
+}
 .area-page .legacy-approach__heading h2 {
   max-width: 880px;
 }

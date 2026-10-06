@@ -239,6 +239,10 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.custom-homes-page .custom-areas a:hover {
+  color: var(--color-gold);
+  text-decoration: none;
+}
 .custom-homes-page .custom-questions {
   padding-top: 0;
 }
