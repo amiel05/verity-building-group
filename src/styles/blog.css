@@ -134,19 +134,21 @@
 }
 .blog-featured {
   margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
   background: #fff;
+  overflow: hidden;
 }
 .blog-featured img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
+  border-radius: 6px;
   object-fit: cover;
 }
 .blog-featured-copy {
   padding: 32px;
-  border: 1px solid var(--color-border);
-  border-top: 0;
 }
 .blog-featured h2 {
   font-size: clamp(32px, 3.4vw, 44px);
@@ -181,6 +183,7 @@
   width: 100%;
   height: auto;
   aspect-ratio: 3/2;
+  border-radius: 6px;
   object-fit: cover;
 }
 .blog-row h3 {
