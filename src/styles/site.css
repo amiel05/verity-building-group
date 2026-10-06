@@ -580,6 +580,16 @@ select:focus-visible {
 }
 .contact-action {
   min-height: 60px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+.js-motion .contact-action.animated {
+  transition:
+    opacity 1s ease,
+    transform 1s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 .contact-action .interface-icon {
   flex: 0 0 auto;
@@ -1023,6 +1033,10 @@ body.page:not(.case-studies-page):not(.contact-page)
 /* Canonical filled-button states mirror the homepage hero: the gold surface
    changes on hover while the label remains white. */
 :is(.vbg-btn, .site-header__cta, .contact-action):hover {
+  background-color: var(--color-gold);
+  color: #fff;
+}
+.contact-action:focus-visible {
   background-color: var(--color-gold);
   color: #fff;
 }
