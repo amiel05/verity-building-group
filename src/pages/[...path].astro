@@ -106,6 +106,12 @@ const normalizePageHtml = (html: string) => {
       'class="vbg-btn vbg-btn--arrow"',
     );
   }
+  if (path === "/land-development-charlotte-nc/") {
+    normalized = normalized.replace(
+      'class="services-wrap legacy-focus land-settings"',
+      'class="services-wrap legacy-focus legacy-focus--aligned land-settings"',
+    );
+  }
   if (!singleHeadingPaths.has(path)) return normalized;
   normalized = normalized.replace(
     /<h1 class="[^"]*entry-title[^"]*">[\s\S]*?<\/h1>/,
