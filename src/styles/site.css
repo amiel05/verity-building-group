@@ -1024,16 +1024,16 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: #fff;
 }
 .main-navigation :is(a:hover, a:focus, .current-menu-item > a) {
-  color: var(--color-gold);
+  color: var(--color-ink);
   text-decoration: none;
 }
 .main-navigation .primary-menu li:hover > a,
 .main-navigation .primary-menu li:focus-within > a {
-  color: var(--color-gold);
+  color: var(--color-ink);
 }
 .main-navigation .primary-menu > li:hover::after,
 .main-navigation .primary-menu > li.current-menu-item::after {
-  display: none;
+  background-color: var(--color-gold);
 }
 .site-footer__links ul li:hover a {
   color: var(--color-gold);
@@ -1178,16 +1178,8 @@ a {
   transition: color 0.45s ease;
 }
 a:hover {
-  text-decoration: none;
-}
-:is(
-    a:not(.vbg-btn):not(.site-header__cta):not(.services-button):not(
-        .case-study-cta-button
-      ):not(.contact-action):not(.cta-btn):not(.case-study-card):not(
-        .about-area-card
-      ):not(.portfolio-photo)
-  ):hover {
   color: var(--color-gold);
+  text-decoration: none;
 }
 :is(a:hover, a:focus-visible) .action-arrow--right {
   left: 5px;
