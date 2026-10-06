@@ -79,11 +79,12 @@
 }
 .services-page .services-button:hover {
   background: var(--color-gold);
-  border-color: var(--color-gold);
+  border-color: transparent;
   color: #fff;
 }
 .services-page .services-button:active {
   background: var(--color-ink);
+  border-color: transparent;
 }
 .services-jump {
   display: grid;

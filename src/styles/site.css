@@ -657,9 +657,12 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):hover {
   background: var(--color-gold);
-  border-color: var(--color-gold);
+  border-color: transparent;
   color: #fff;
   transform: none;
+}
+:is(.services-button, .vbg-cta > a, .blog-sidebar button):active {
+  border-color: transparent;
 }
 :is(.services-button, .vbg-cta > a, .case-study-cta-button) .action-arrow {
   left: 0;
@@ -979,8 +982,11 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .case-study-cta .case-study-cta-button:hover {
   background: var(--color-gold);
-  border-color: var(--color-gold);
+  border-color: transparent;
   color: #fff;
+}
+.case-study-cta .case-study-cta-button:active {
+  border-color: transparent;
 }
 @media (max-width: 800px) {
   .case-study-cards {
@@ -1078,8 +1084,12 @@ body.page:not(.case-studies-page):not(.contact-page)
 .content-block-search__button:hover,
 .inquiry-form .vbg-btn:hover {
   background: var(--color-gold);
-  border-color: var(--color-gold);
+  border-color: transparent;
   color: #fff;
+}
+.content-block-search__button:active,
+.inquiry-form .vbg-btn:active {
+  border-color: transparent;
 }
 .verity-project-modal__dialog {
   background: var(--color-surface);
@@ -1115,10 +1125,16 @@ body.page:not(.case-studies-page):not(.contact-page)
 .vbg-faq summary::after {
   color: var(--color-ink);
 }
+.vbg-gallery-filters button:hover,
+.vbg-gallery-filters button:active,
+.vbg-gallery-filters button.is-active {
+  border-color: transparent;
+}
 .vbg-gallery-subfilters button:hover,
+.vbg-gallery-subfilters button:active,
 .vbg-gallery-subfilters button.is-active {
   background: var(--color-gold);
-  border-color: var(--color-gold);
+  border-color: transparent;
   color: var(--color-ink);
 }
 .vbg-final-cta .vbg-cta > a {
