@@ -68,7 +68,7 @@
 }
 .about-area-card h3 {
   font-size: 32px;
-  margin-block: 24px 20px;
+  margin-block: 0 20px;
 }
 .about-area-card p {
   font-size: 16px;
@@ -89,11 +89,19 @@
 }
 .about-page .about-area-card:hover {
   background: #fff;
-  border-color: var(--color-ink);
+  border-color: var(--color-gold);
 }
-.about-area-card:hover .about-area-card__action {
+.about-area-card:is(:hover, :focus-visible) .about-area-card__action {
   color: var(--color-gold);
   text-decoration: none;
+}
+.about-area-card__action > span {
+  position: relative;
+  left: 0;
+  transition: left 0.3s ease;
+}
+.about-area-card:is(:hover, :focus-visible) .about-area-card__action > span {
+  left: 5px;
 }
 .about-page .about-area-card:focus-visible {
   outline: 3px solid var(--color-ink);
