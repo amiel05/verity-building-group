@@ -615,6 +615,11 @@ body.page:is(.case-studies-page, .contact-page)
   }
 }
 
+/* The full-bleed Case Studies CTA is the final content section. */
+body.page.case-studies-page .entry-content {
+  padding-bottom: 0;
+}
+
 /* Preserve the reading measure without compounding the outer container gutter. */
 body.page:not(.case-studies-page):not(.contact-page)
   .basic-content-row
