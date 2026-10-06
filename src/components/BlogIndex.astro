@@ -31,10 +31,10 @@ const date = (value: string) =>
   }).format(new Date(value));
 ---
 
-<main id="primary" class="blog-page">
+<main id="primary" class="blog-page body-regular">
   <header class="blog-heading blog-wrap">
-    <p class="blog-kicker">The Verity Field Guide</p>
-    <h1>
+    <p class="blog-kicker eyebrow">The Verity Field Guide</p>
+    <h1 class="page-title">
       {heading.split("\n").map((line, index) => (
         <>
           {index > 0 && <br />}
@@ -42,7 +42,7 @@ const date = (value: string) =>
         </>
       ))}
     </h1>
-    <p>
+    <p class="body-lead">
       Ideas and guidance for planning a custom home, evaluating land, and making
       confident building decisions in the Charlotte region.
     </p>

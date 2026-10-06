@@ -42,7 +42,8 @@
   max-width: none;
   margin: 0;
   color: var(--services-muted);
-  font-size: 17px;
+  font-size: var(--font-size-body-regular);
+  line-height: var(--line-height-body);
 }
 .about-areas__heading {
   margin-bottom: 40px;
@@ -56,7 +57,7 @@
   display: flex;
   flex-direction: column;
   padding: 32px;
-  background: #faf8f4;
+  background: var(--color-surface-alt);
   border: 1px solid var(--services-line);
   border-radius: 8px;
   color: var(--color-ink);

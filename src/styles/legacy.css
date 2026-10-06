@@ -18,7 +18,8 @@
   margin-block: 24px;
 }
 .legacy-hero__copy > p:not(.services-eyebrow) {
-  font-size: 17px;
+  font-size: var(--font-size-page-lead);
+  line-height: var(--line-height-lead);
   color: var(--services-muted);
 }
 .legacy-hero__copy .services-link {
@@ -71,7 +72,8 @@
   max-width: 300px;
 }
 .legacy-focus__list p {
-  font-size: 17px;
+  font-size: var(--font-size-body-regular);
+  line-height: var(--line-height-body);
   color: var(--services-muted);
 }
 .legacy-page .legacy-note {
@@ -95,7 +97,7 @@
   display: grid;
   grid-template-columns: 40px 1fr;
   gap: 24px;
-  border-top: 1px solid #5d6871;
+  border-top: 1px solid var(--color-border-dark);
   padding-block: 32px;
 }
 .legacy-steps .services-number {
@@ -106,8 +108,8 @@
   margin-bottom: 16px;
 }
 .legacy-steps p {
-  font-size: 17px;
-  color: #dce0e2;
+  font-size: var(--font-size-body-regular);
+  color: var(--color-text-on-dark);
   max-width: 440px;
 }
 @media (max-width: 960px) {
@@ -164,14 +166,14 @@
   }
   .legacy-focus__list article p {
     grid-column: 2;
-    font-size: 16px;
+    font-size: var(--font-size-body-regular);
   }
   .legacy-page .legacy-steps {
     grid-template-columns: 1fr;
     margin-top: 32px;
   }
   .legacy-steps p {
-    font-size: 16px;
+    font-size: var(--font-size-body-regular);
   }
   .legacy-steps li:last-child {
     padding-bottom: 0;
@@ -185,7 +187,8 @@
   margin: 0;
   padding-left: 20px;
   color: var(--services-muted);
-  font-size: 17px;
+  font-size: var(--font-size-body-regular);
+  line-height: var(--line-height-body);
 }
 .land-page .legacy-focus__list li + li {
   margin-top: 8px;
@@ -199,7 +202,7 @@
   }
   .land-page .legacy-focus__list ul {
     grid-column: 2;
-    font-size: 16px;
+    font-size: var(--font-size-body-regular);
   }
 }
 /* Custom Homes shares the service detail layout and responsive behavior. */
@@ -212,8 +215,8 @@
 .custom-homes-page .custom-process-intro {
   max-width: 900px;
   margin-top: 28px;
-  font-size: 17px;
-  color: #dce0e2;
+  font-size: var(--font-size-body-regular);
+  color: var(--color-text-on-dark);
 }
 .custom-homes-page .custom-areas h2 {
   margin-top: 20px;

@@ -1,18 +1,29 @@
 :root {
   --color-ink: #1f2e3d;
-  --color-gold: #b89b5e;
+  /* The single approved brand gold. Use it for accents, borders, and dark surfaces. */
+  --color-gold: #c49b55;
   --color-cream: #f3efe5;
   --color-page: #f4efe6;
   --color-surface: #fbfaf7;
   --color-surface-alt: #faf8f4;
   --color-border: #d9d0c3;
   --color-muted: #59636a;
-  --color-focus: var(--color-gold);
+  /* Dark-context roles are neutral variants, not alternate brand golds. */
+  --color-text-on-dark: #f2ece4;
+  --color-border-dark: #5d6871;
+  --color-error: #a3291e;
+  /* Gold is not dark enough for a focus ring on the site's light surfaces. */
+  --color-focus: var(--color-ink);
   --font-size-page-title: 72px;
   --font-size-page-lead: 18px;
+  --font-size-body-regular: 16px;
   --font-size-eyebrow: 12px;
   --font-weight-heading: 700;
   --font-weight-eyebrow: 400;
+  --line-height-body: 1.7;
+  --line-height-lead: 1.7;
+  --letter-spacing-page-title: -0.025em;
+  --letter-spacing-eyebrow: 0.15em;
   --site-container-max: 1280px;
   --site-container-gutter: 80px;
   --verity-ink: var(--color-ink);
@@ -45,6 +56,7 @@ body:not(.home) :is(h1, .entry-content .vbg-display-title) {
   font-size: var(--font-size-page-title);
   font-weight: var(--font-weight-heading);
   line-height: 1.05;
+  letter-spacing: var(--letter-spacing-page-title);
 }
 :is(
   .entry-content .eyebrow,
@@ -57,9 +69,10 @@ body:not(.home) :is(h1, .entry-content .vbg-display-title) {
 ) {
   font-size: var(--font-size-eyebrow);
   font-weight: var(--font-weight-eyebrow);
-  letter-spacing: 0.15em;
+  letter-spacing: var(--letter-spacing-eyebrow);
   line-height: 1.6;
   text-transform: uppercase;
+  color: var(--color-gold);
 }
 body:not(.home)
   :is(
@@ -69,7 +82,72 @@ body:not(.home)
     .legacy-hero__copy > p:not(.services-eyebrow)
   ) {
   font-size: var(--font-size-page-lead);
-  line-height: 1.7;
+  line-height: var(--line-height-lead);
+}
+
+/* Explicit semantic typography and form roles. Existing migrated selectors are
+   grouped here until all archived markup can use the role classes directly. */
+.body-regular,
+.services-page,
+.blog-page,
+body.single-post
+  .entry-content
+  > :is(p, ul, ol):not(.lead):not(.eyebrow):not(
+    .field-guide-callout__eyebrow
+  ):not(.case-study-cta-eyebrow) {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-regular);
+  font-weight: 400;
+  line-height: var(--line-height-body);
+}
+.body-lead,
+.lead {
+  font-family: var(--font-body);
+  font-size: var(--font-size-page-lead);
+  font-weight: 400;
+  line-height: var(--line-height-lead);
+}
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-eyebrow);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-page-title);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-page-title);
+  line-height: 1.05;
+}
+.form-label,
+:is(.inquiry-form, .content-block-search) label,
+:is(.inquiry-form, .content-block-search) legend {
+  color: var(--color-ink);
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-regular);
+  font-weight: 700;
+  line-height: 1.55;
+}
+.form-control,
+:is(.inquiry-form, .content-block-search)
+  :is(input, select, textarea):not([type="hidden"]):not([type="radio"]):not(
+    [type="file"]
+  ) {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--color-ink);
+  font: 400 var(--font-size-body-regular) / 1.55 var(--font-body);
+  min-height: 48px;
+  padding: 12px;
+  width: 100%;
 }
 @media (max-width: 960px) {
   body:not(.home) :is(h1, .entry-content .vbg-display-title) {
@@ -154,7 +232,7 @@ select:focus-visible {
     z-index: 2;
   }
   .site-header .primary-menu > li > .sub-menu {
-    background: #17241f !important;
+    background: var(--color-ink) !important;
     box-shadow: none !important;
     display: none !important;
     float: none !important;
@@ -284,18 +362,18 @@ select:focus-visible {
   width: 100%;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #1f2e3d;
+  border-bottom: 1px solid var(--color-ink);
   border-radius: 0;
   padding: 12px;
   font:
     400 16px "Lato",
     sans-serif;
-  color: #1f2e3d;
+  color: var(--color-ink);
   box-shadow: none;
 }
 .inquiry-form input::placeholder,
 .inquiry-form textarea::placeholder {
-  color: #1f2e3d;
+  color: var(--color-ink);
   opacity: 1;
 }
 .inquiry-form select {
@@ -321,7 +399,7 @@ select:focus-visible {
 .inquiry-form input[type="radio"] {
   width: 16px;
   height: 16px;
-  accent-color: #1f2e3d;
+  accent-color: var(--color-ink);
 }
 .inquiry-form .honey {
   position: absolute;
@@ -357,18 +435,18 @@ select:focus-visible {
   cursor: pointer;
 }
 .file-drop:focus-within {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-focus);
 }
 .inquiry-form .form-status:not(:empty) {
   margin-top: 20px;
   padding: 16px;
-  border: 1px solid #b89b5e;
+  border: 1px solid var(--color-gold);
 }
 .inquiry-form [aria-invalid="true"] {
-  border-color: #a3291e !important;
+  border-color: var(--color-error) !important;
 }
 .field-error {
-  color: #a3291e;
+  color: var(--color-error);
   font-size: 14px;
 }
 .work-gallery .swiper-wrapper {
@@ -458,7 +536,11 @@ select:focus-visible {
   display: block;
 }
 .main-navigation a[aria-current="page"] {
-  color: #b89b5e;
+  color: var(--color-ink);
+  text-decoration-color: var(--color-gold);
+  text-decoration-line: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 7px;
 }
 
 /* Keep dropdown hover effects aligned with the link's clickable box. */
@@ -569,7 +651,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):hover {
   background: var(--color-gold);
   border-color: var(--color-gold);
-  color: #fff;
+  color: var(--color-ink);
   transform: none;
 }
 
@@ -615,7 +697,9 @@ body.page:not(.case-studies-page):not(.contact-page)
   padding-top: 20px;
   min-height: 48px;
   width: 100%;
-  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 /* About services: reuse the homepage cards without descriptive copy. */
@@ -654,7 +738,9 @@ body.page:not(.case-studies-page):not(.contact-page)
   padding-top: 20px;
   min-height: 48px;
   width: 100%;
-  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 @media (min-width: 601px) and (max-width: 960px) {
   .home .home-services .service-grid {
@@ -725,16 +811,16 @@ body.page:not(.case-studies-page):not(.contact-page)
 .entry-content .field-guide-callout {
   margin: 48px 0 0;
   padding: clamp(28px, 5vw, 64px);
-  background: #203140;
+  background: var(--color-ink);
   color: #fff;
-  border-top: 4px solid #bd9854;
+  border-top: 4px solid var(--color-gold);
 }
 .entry-content .field-guide-callout__eyebrow {
   margin: 0 0 18px;
-  color: #dec38f;
+  color: var(--color-gold);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-weight: var(--font-weight-eyebrow);
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
 }
 .entry-content .field-guide-callout h2 {
@@ -747,7 +833,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 .entry-content .field-guide-callout > p:not(.field-guide-callout__eyebrow) {
   max-width: 680px;
   margin: 0 0 28px;
-  color: #f2ece4;
+  color: var(--color-text-on-dark);
 }
 .entry-content .field-guide-callout__link {
   display: inline-flex;
@@ -755,7 +841,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   gap: 24px;
   min-height: 52px;
   padding: 12px 0;
-  border-bottom: 1px solid #bd9854;
+  border-bottom: 1px solid var(--color-gold);
   color: #fff;
   font-weight: 700;
   text-decoration: none;
@@ -765,10 +851,10 @@ body.page:not(.case-studies-page):not(.contact-page)
   font-size: 28px;
 }
 .entry-content .field-guide-callout__link:hover {
-  color: #dec38f;
+  color: var(--color-gold);
 }
 .entry-content .field-guide-callout__link:focus-visible {
-  outline: 3px solid #dec38f;
+  outline: 3px solid var(--color-gold);
   outline-offset: 6px;
 }
 
@@ -783,10 +869,10 @@ body.page:not(.case-studies-page):not(.contact-page)
   display: flex;
   flex-direction: column;
   padding: 0 28px 28px;
-  border: 1px solid #d9d0c3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   background: #fff;
-  color: #203140;
+  color: var(--color-ink);
   overflow: hidden;
   text-decoration: none;
 }
@@ -809,11 +895,11 @@ body.page:not(.case-studies-page):not(.contact-page)
 .case-study-card-link {
   display: inline-block;
   padding: 10px 0;
-  border-bottom: 1px solid #ad8b4c;
+  border-bottom: 1px solid var(--color-gold);
   font-weight: 700;
 }
 .entry-content .case-study-card:hover {
-  border-color: #94753c;
+  border-color: var(--color-gold);
 }
 .case-study-card:hover .case-study-card-link {
   text-decoration: underline;
@@ -821,12 +907,12 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .case-study-card:focus-visible,
 .case-study-cta-button:focus-visible {
-  outline: 3px solid #bd9854;
+  outline: 3px solid var(--color-focus);
   outline-offset: 5px;
 }
 .entry-content .case-study-pending {
   font-size: 14px;
-  color: #59636a;
+  color: var(--color-muted);
 }
 .case-study-cta {
   display: grid;
@@ -835,7 +921,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   align-items: center;
   margin-top: 64px;
   padding: clamp(28px, 5vw, 64px);
-  background: #203140;
+  background: var(--color-ink);
   color: #fff;
 }
 .entry-content .case-study-cta h2 {
@@ -845,14 +931,14 @@ body.page:not(.case-studies-page):not(.contact-page)
   line-height: 1.1;
 }
 .entry-content .case-study-cta p {
-  color: #f2ece4;
+  color: var(--color-text-on-dark);
   margin: 0;
 }
 .entry-content .case-study-cta .case-study-cta-eyebrow {
-  color: #dec38f;
+  color: var(--color-gold);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: var(--font-weight-eyebrow);
+  letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
   margin-bottom: 18px;
 }
@@ -861,7 +947,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  background: #f2ece4;
+  background: var(--color-text-on-dark);
   color: var(--color-ink);
   padding: 18px 29px;
   min-height: 54px;
@@ -870,7 +956,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   text-decoration: none;
 }
 .entry-content .case-study-cta-button:hover {
-  background: #dec38f;
+  background: var(--color-gold);
 }
 @media (max-width: 800px) {
   .case-study-cards {
@@ -888,4 +974,148 @@ body.page:not(.case-studies-page):not(.contact-page)
 /* Match the contact process cards to the site's rounded card treatment. */
 .contact-page .vbg-process article {
   border-radius: 8px;
+}
+
+/* Canonical interactive states. Gold remains the visual accent, while ink is
+   retained wherever small text needs accessible contrast on a light surface. */
+:is(.vbg-btn, .site-header__cta, .contact-action):hover {
+  background-color: var(--color-gold);
+  color: var(--color-ink);
+}
+.main-navigation :is(a:hover, a:focus, .current-menu-item > a) {
+  color: var(--color-ink);
+}
+.main-navigation .primary-menu li:hover > a,
+.main-navigation .primary-menu li:focus-within > a {
+  color: var(--color-ink);
+}
+.main-navigation .primary-menu > li:hover::after,
+.main-navigation .primary-menu > li.current-menu-item::after {
+  background-color: var(--color-gold);
+}
+.site-footer__links ul li:hover a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.site-header .primary-menu > li > .sub-menu {
+  background: var(--color-ink) !important;
+  border-top-color: var(--color-gold) !important;
+}
+.site-header .primary-menu > li > .sub-menu > li > a:hover,
+.site-header .primary-menu > li > .sub-menu > li > a:focus,
+.site-header .primary-menu > li > .sub-menu > li.current-menu-item > a {
+  background: var(--color-gold) !important;
+  color: var(--color-ink) !important;
+}
+:is(
+    .services-planning,
+    .field-guide-callout,
+    .case-study-cta,
+    .portfolio-viewer,
+    .site-header .sub-menu
+  )
+  :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* The migrated article search and the inquiry modal now consume the same form
+   roles as ContactForm rather than inheriting WordPress defaults. */
+.content-block-search {
+  font-family: var(--font-body);
+}
+.content-block-search__label {
+  margin-bottom: 8px;
+}
+.content-block-search__inside-wrapper {
+  align-items: end;
+  gap: 12px;
+}
+.content-block-search__button,
+.inquiry-form .vbg-btn {
+  align-items: center;
+  background: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-regular);
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  min-height: 54px;
+  padding: 18px 29px;
+  text-transform: uppercase;
+}
+.content-block-search__button:hover,
+.inquiry-form .vbg-btn:hover {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+}
+.verity-project-modal__dialog {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+.verity-project-modal__close {
+  color: var(--color-ink);
+}
+.verity-project-modal__eyebrow {
+  color: var(--color-gold);
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-eyebrow);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  line-height: 1.6;
+}
+.verity-project-modal__intro {
+  font-size: var(--font-size-body-regular);
+  line-height: var(--line-height-body);
+}
+.verity-form-confirmation {
+  background: var(--color-surface);
+  border-top-color: var(--color-gold);
+}
+
+/* Gold-on-light is reserved for non-text decoration. */
+:is(
+  .vbg-coming-soon,
+  .vbg-process article > span,
+  .vbg-gallery-subfilters > span
+) {
+  color: var(--color-ink);
+}
+.vbg-faq summary::after {
+  color: var(--color-ink);
+}
+.vbg-gallery-subfilters button:hover,
+.vbg-gallery-subfilters button.is-active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
+}
+.vbg-final-cta .vbg-cta > a {
+  background: var(--color-ink);
+  color: #fff !important;
+}
+.vbg-final-cta .vbg-cta > a:hover {
+  background: var(--color-gold);
+  color: var(--color-ink) !important;
+}
+.contact-card input[type="submit"]:hover {
+  color: var(--color-ink);
+}
+.cta-link:hover,
+.work-gallery
+  .swiper
+  :is(.swiper-button-prev, .swiper-button-next):hover::before {
+  color: var(--color-ink);
+}
+.cta-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold);
+  text-underline-offset: 4px;
 }

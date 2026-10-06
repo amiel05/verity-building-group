@@ -77,8 +77,29 @@ const singleHeadingPaths = new Set([
 ]);
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);
+  if (path !== "/" && path !== "/home-2/") {
+    normalized = normalized
+      .replace(/<h1 class="([^"]*)"/g, '<h1 class="$1 page-title"')
+      .replace(/<h1(?![^>]*class=)/g, '<h1 class="page-title"');
+  }
+  normalized = normalized
+    .replace(
+      /class="content-block-search__label"/g,
+      'class="content-block-search__label form-label"',
+    )
+    .replace(
+      /class="content-block-search__input"/g,
+      'class="content-block-search__input form-control"',
+    )
+    .replace(
+      /class="content-block-search__button content-element-button"/g,
+      'class="content-block-search__button content-element-button vbg-btn"',
+    );
   if (!singleHeadingPaths.has(path)) return normalized;
-  normalized = normalized.replace(/<h1 class="entry-title">[\s\S]*?<\/h1>/, "");
+  normalized = normalized.replace(
+    /<h1 class="[^"]*entry-title[^"]*">[\s\S]*?<\/h1>/,
+    "",
+  );
   return path === "/case-studies/"
     ? normalized.replace(
         /<h2 class="vbg-display-title">([\s\S]*?)<\/h2>/,
@@ -86,7 +107,18 @@ const normalizePageHtml = (html: string) => {
       )
     : normalized;
 };
-const page = Object.values(pages).find((p) => p.path === path);
+const requestedPage = Object.values(pages).find((p) => p.path === path);
+const homepage = Object.values(pages).find((p) => p.path === "/");
+/* `/home-2/` is retained for compatibility, but it no longer maintains a
+   second visual implementation of the homepage. */
+const page =
+  path === "/home-2/" && requestedPage && homepage
+    ? {
+        ...requestedPage,
+        bodyClass: homepage.bodyClass,
+        sections: homepage.sections,
+      }
+    : requestedPage;
 if (!page) Astro.response.status = 404;
 ---
 
