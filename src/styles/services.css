@@ -24,6 +24,24 @@
   font-size: clamp(38px, 3.8vw, 56px);
   letter-spacing: -0.025em;
 }
+/* Reuse the homepage section-heading accent for section introductions that pair
+   a heading with explanatory copy. Card, list, form, and article headings are
+   intentionally excluded so the rule remains a section-level device. */
+:is(
+    .services-offering__copy > h2:has(+ p),
+    .services-section-heading:has(> div + p) > div > h2,
+    .services-questions > div:first-child > h2:has(+ p),
+    .services-closing__grid > div:first-child > h2:has(+ p),
+    .legacy-approach__heading > h2:has(+ p),
+    .legacy-focus__intro:has(> div + p) > div > h2
+  )::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+}
 .services-page .services-eyebrow {
   font-size: var(--font-size-eyebrow);
   font-weight: var(--font-weight-eyebrow);
