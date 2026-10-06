@@ -2,15 +2,14 @@
   width: calc(100% - 160px);
   max-width: 1280px;
   margin: auto;
-  padding: 64px 0 88px;
+  padding: 72px 0 88px;
   color: var(--color-ink);
   font-family: var(--font-body);
 }
 .portfolio-heading {
   max-width: 760px;
-  margin-top: -64px;
-  padding-top: 64px;
-  padding-bottom: 40px;
+  margin-top: -72px;
+  padding-block: 72px;
   background: var(--color-cream);
   box-shadow: 0 0 0 100vmax var(--color-cream);
   clip-path: inset(0 -100vmax);
@@ -21,16 +20,18 @@
   font-size: var(--font-size-eyebrow);
   font-weight: var(--font-weight-eyebrow);
   color: var(--color-gold);
+  margin: 0 0 16px;
 }
 .portfolio-heading h1 {
   font:
     700 clamp(44px, 5vw, 68px)/1.06 "Cormorant Garamond",
     serif;
-  margin: 16px 0 24px;
+  margin: 0 0 24px;
 }
 .portfolio-heading > p:last-child {
   font-size: 18px;
   line-height: 1.7;
+  margin: 0;
 }
 .portfolio-toolbar {
   display: flex;
@@ -192,11 +193,11 @@ body.portfolio-viewer-open {
     columns: 2;
   }
   .portfolio-page {
-    padding: 40px 0 64px;
+    padding: 72px 0 64px;
   }
   .portfolio-heading {
-    margin-top: -40px;
-    padding-top: 40px;
+    margin-top: -72px;
+    padding-block: 72px;
   }
 }
 @media (max-width: 767px) {

@@ -1,7 +1,7 @@
 .blog-page {
   background: var(--color-surface-alt);
   color: var(--color-ink);
-  padding: 64px 0 96px;
+  padding: 72px 0 96px;
   font-family: var(--font-body);
   font-size: var(--font-size-body-regular);
   line-height: var(--line-height-body);
@@ -13,9 +13,8 @@
   color: inherit;
 }
 .blog-heading {
-  margin-top: -64px;
-  padding-top: 64px;
-  padding-bottom: 48px;
+  margin-top: -72px;
+  padding-block: 72px;
   border-bottom: 0;
   background: var(--color-cream);
   box-shadow: 0 0 0 100vmax var(--color-cream);
@@ -27,7 +26,7 @@
   letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
   color: var(--color-gold);
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 .blog-heading h1 {
   font-size: clamp(44px, 5.5vw, 72px);
@@ -229,12 +228,11 @@
 }
 @media (max-width: 700px) {
   .blog-page {
-    padding: 36px 0 64px;
+    padding: 72px 0 64px;
   }
   .blog-heading {
-    margin-top: -36px;
-    padding-top: 36px;
-    padding-bottom: 32px;
+    margin-top: -72px;
+    padding-block: 72px;
   }
   .blog-layout {
     display: flex;
