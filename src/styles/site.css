@@ -924,46 +924,51 @@ body.page:not(.case-studies-page):not(.contact-page)
 .case-study-cta {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 40px;
+  gap: 64px;
   align-items: center;
+  width: 100vw;
   margin-top: 64px;
-  padding: clamp(28px, 5vw, 64px);
-  background: var(--color-ink);
-  color: #fff;
+  margin-left: calc(50% - 50vw);
+  padding-inline: max(
+    var(--site-container-gutter),
+    calc((100vw - var(--site-container-max)) / 2)
+  );
 }
-.entry-content .case-study-cta h2 {
+.case-study-cta h2 {
   color: #fff;
-  margin: 0 0 20px;
-  font-size: clamp(34px, 4vw, 48px);
+  font-size: clamp(38px, 3.8vw, 56px);
   line-height: 1.1;
+  margin: 16px 0 24px;
 }
-.entry-content .case-study-cta p {
+.case-study-cta p {
   color: var(--color-text-on-dark);
   margin: 0;
 }
-.entry-content .case-study-cta .case-study-cta-eyebrow {
+.case-study-cta .case-study-cta-eyebrow {
   color: var(--color-gold);
   font-size: 12px;
   font-weight: var(--font-weight-eyebrow);
   letter-spacing: var(--letter-spacing-eyebrow);
   text-transform: uppercase;
-  margin-bottom: 18px;
 }
-.entry-content .case-study-cta-button {
+.case-study-cta .case-study-cta-button {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  background: var(--color-text-on-dark);
-  color: var(--color-ink);
+  gap: 32px;
+  background: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  color: #fff;
   padding: 18px 29px;
   min-height: 54px;
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;
 }
-.entry-content .case-study-cta-button:hover {
+.case-study-cta .case-study-cta-button:hover {
   background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-ink);
 }
 @media (max-width: 800px) {
   .case-study-cards {

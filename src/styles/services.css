@@ -32,6 +32,7 @@
     .services-section-heading:has(> div + p) > div > h2,
     .services-questions > div:first-child > h2:has(+ p),
     .services-closing__grid > div:first-child > h2:has(+ p),
+    .case-study-cta > div:first-child > h2:has(+ p),
     .legacy-approach__heading > h2:has(+ p),
     .legacy-focus__intro:has(> div + p) > div > h2
   )::after {
@@ -278,9 +279,20 @@
   color: var(--services-muted);
   font-size: 16px;
 }
-.services-closing {
-  background: var(--color-cream);
-  padding-block: 64px;
+:is(.services-closing, .case-study-cta) {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(23, 21, 19, 0.9) 0%,
+      rgba(23, 21, 19, 0.76) 45%,
+      rgba(23, 21, 19, 0.65) 100%
+    ),
+    url("/assets/3b5da70afa-conatct_image.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  padding-block: clamp(72px, 7vw, 112px);
 }
 .services-closing__grid {
   display: grid;
@@ -289,9 +301,11 @@
   align-items: center;
 }
 .services-closing h2 {
+  color: #fff;
   margin-block: 16px 24px;
 }
 .services-closing p:last-child {
+  color: var(--color-text-on-dark);
   max-width: 620px;
   font-size: 16px;
 }
