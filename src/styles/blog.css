@@ -16,7 +16,7 @@
   margin-top: -64px;
   padding-top: 64px;
   padding-bottom: 48px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 0;
   background: var(--color-cream);
   box-shadow: 0 0 0 100vmax var(--color-cream);
   clip-path: inset(0 -100vmax);
@@ -44,7 +44,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 60px;
-  padding-top: 48px;
+  padding-top: 112px;
   align-items: start;
 }
 .blog-sidebar {
@@ -239,7 +239,6 @@
   .blog-layout {
     display: flex;
     flex-direction: column;
-    padding-top: 28px;
     gap: 32px;
   }
   .blog-sidebar,
