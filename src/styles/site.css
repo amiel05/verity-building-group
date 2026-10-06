@@ -658,8 +658,20 @@ body.page:not(.case-studies-page):not(.contact-page)
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):hover {
   background: var(--color-gold);
   border-color: var(--color-gold);
-  color: var(--color-ink);
+  color: #fff;
   transform: none;
+}
+:is(.services-button, .vbg-cta > a, .case-study-cta-button) .action-arrow {
+  left: 0;
+  position: relative;
+  transition: left 0.3s ease;
+}
+:is(.services-button, .vbg-cta > a, .case-study-cta-button):is(
+    :hover,
+    :focus-visible
+  )
+  .action-arrow {
+  left: 5px;
 }
 
 /* Homepage services: three balanced offerings with an in-flow action row. */
@@ -968,7 +980,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 .case-study-cta .case-study-cta-button:hover {
   background: var(--color-gold);
   border-color: var(--color-gold);
-  color: var(--color-ink);
+  color: #fff;
 }
 @media (max-width: 800px) {
   .case-study-cards {
@@ -988,11 +1000,11 @@ body.page:not(.case-studies-page):not(.contact-page)
   border-radius: 8px;
 }
 
-/* Canonical interactive states. Gold remains the visual accent, while ink is
-   retained wherever small text needs accessible contrast on a light surface. */
+/* Canonical filled-button states mirror the homepage hero: the gold surface
+   changes on hover while the label remains white. */
 :is(.vbg-btn, .site-header__cta, .contact-action):hover {
   background-color: var(--color-gold);
-  color: var(--color-ink);
+  color: #fff;
 }
 .main-navigation :is(a:hover, a:focus, .current-menu-item > a) {
   color: var(--color-ink);
@@ -1067,7 +1079,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 .inquiry-form .vbg-btn:hover {
   background: var(--color-gold);
   border-color: var(--color-gold);
-  color: var(--color-ink);
+  color: #fff;
 }
 .verity-project-modal__dialog {
   background: var(--color-surface);
@@ -1115,10 +1127,10 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .vbg-final-cta .vbg-cta > a:hover {
   background: var(--color-gold);
-  color: var(--color-ink) !important;
+  color: #fff !important;
 }
 .contact-card input[type="submit"]:hover {
-  color: var(--color-ink);
+  color: #fff;
 }
 .cta-link:hover,
 .work-gallery

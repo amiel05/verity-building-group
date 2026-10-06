@@ -17,13 +17,22 @@
   font-size: clamp(46px, 4.4vw, 64px);
   margin-block: 24px;
 }
+.legacy-hero__copy h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+}
 .legacy-hero__copy > p:not(.services-eyebrow) {
   font-size: var(--font-size-page-lead);
   line-height: var(--line-height-lead);
   color: var(--services-muted);
 }
-.legacy-hero__copy .services-link {
+.legacy-hero__copy .vbg-btn {
   max-width: 300px;
+  margin-top: 28px;
 }
 .legacy-hero__image {
   margin: 0;

@@ -75,6 +75,11 @@ const singleHeadingPaths = new Set([
   "/what-thoughtful-homebuilding-means-for-charlotte-families/",
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
 ]);
+const primaryServiceDetailPaths = new Set([
+  "/legacy-projects/",
+  "/land-development-charlotte-nc/",
+  "/custom-home-builder-charlotte-nc/",
+]);
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);
   if (path !== "/" && path !== "/home-2/") {
@@ -95,6 +100,12 @@ const normalizePageHtml = (html: string) => {
       /class="content-block-search__button content-element-button"/g,
       'class="content-block-search__button content-element-button vbg-btn"',
     );
+  if (primaryServiceDetailPaths.has(path)) {
+    normalized = normalized.replace(
+      /class="services-link"/,
+      'class="vbg-btn vbg-btn--arrow"',
+    );
+  }
   if (!singleHeadingPaths.has(path)) return normalized;
   normalized = normalized.replace(
     /<h1 class="[^"]*entry-title[^"]*">[\s\S]*?<\/h1>/,

@@ -80,7 +80,7 @@
 .services-page .services-button:hover {
   background: var(--color-gold);
   border-color: var(--color-gold);
-  color: var(--color-ink);
+  color: #fff;
 }
 .services-page .services-button:active {
   background: var(--color-ink);
