@@ -17,7 +17,12 @@ if (!reduced) {
             : element.classList.contains("delay-500")
               ? 500
               : 0;
-          element.style.transitionDelay = `${sequenceDelay + extraDelay}ms`;
+          const revealDelay = sequenceDelay + extraDelay;
+          element.style.transitionDelay = element.classList.contains(
+            "contact-action",
+          )
+            ? `${revealDelay}ms, ${revealDelay}ms, 0ms, 0ms`
+            : `${revealDelay}ms`;
           element.classList.add("is-visible");
           observer.unobserve(element);
         }
