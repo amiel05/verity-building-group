@@ -52,7 +52,7 @@
 }
 .services-intro {
   padding-top: 72px;
-  background: var(--color-surface-alt);
+  background: var(--color-cream);
 }
 .services-intro__grid {
   display: grid;

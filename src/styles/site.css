@@ -34,7 +34,7 @@
   --font-heading: "Cormorant Garamond", serif;
 }
 .site-header {
-  background: var(--color-page) !important;
+  background: var(--color-surface-alt) !important;
 }
 .container,
 .services-wrap,
