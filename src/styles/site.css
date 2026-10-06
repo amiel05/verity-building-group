@@ -617,6 +617,9 @@ body.page:is(.case-studies-page, .contact-page) .entry-content {
 body.page:is(.case-studies-page, .contact-page) .basic-content-row {
   padding-block: 0;
 }
+body.page.contact-page .basic-content-row {
+  background: var(--color-cream);
+}
 body.page:is(.case-studies-page, .contact-page) .entry-content {
   margin-top: 0;
   padding-block: 64px 96px;
@@ -636,6 +639,33 @@ body.page:is(.case-studies-page, .contact-page)
 body.page.case-studies-page .entry-content {
   padding-top: 0;
   padding-bottom: 0;
+}
+body.page.contact-page .entry-content {
+  padding-bottom: 0;
+}
+body.page.contact-page .entry-content > section:has(> .vbg-process) {
+  width: 100vw;
+  margin-top: 96px;
+  margin-left: calc(50% - 50vw);
+  padding: 80px
+    max(
+      var(--site-container-gutter),
+      calc((100vw - var(--site-container-max)) / 2)
+    )
+    96px;
+  background: var(--color-surface-alt);
+}
+body.page.contact-page
+  .entry-content
+  > section:has(> .vbg-process)
+  > h2:first-child {
+  margin-top: 0;
+}
+body.page.contact-page
+  .entry-content
+  > section:has(> .vbg-process)
+  .vbg-process {
+  margin-bottom: 0;
 }
 .case-studies-hero {
   width: 100vw;
