@@ -107,11 +107,6 @@
 .services-jump a + a {
   border-left: 1px solid var(--services-line);
 }
-.services-jump a > span:first-child {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--services-muted);
-}
 .services-jump a > span:last-child {
   margin-left: auto;
 }
