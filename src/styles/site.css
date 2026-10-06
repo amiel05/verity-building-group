@@ -550,10 +550,7 @@ select:focus-visible {
 }
 .main-navigation a[aria-current="page"] {
   color: var(--color-ink);
-  text-decoration-color: var(--color-gold);
-  text-decoration-line: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: 7px;
+  text-decoration: none;
 }
 
 /* Keep dropdown hover effects aligned with the link's clickable box. */
@@ -561,6 +558,7 @@ select:focus-visible {
   padding: 0 !important;
 }
 .site-header .primary-menu > li > .sub-menu > li::after {
+  display: none !important;
   pointer-events: none;
 }
 
@@ -1032,8 +1030,19 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: var(--color-ink);
 }
 .main-navigation .primary-menu > li:hover::after,
-.main-navigation .primary-menu > li.current-menu-item::after {
+.main-navigation .primary-menu > li.current-menu-item::after,
+.main-navigation
+  .primary-menu
+  > li:has(> a[aria-current="page"])::after {
   background-color: var(--color-gold);
+}
+.main-navigation .primary-menu > li.current-menu-item::after,
+.main-navigation
+  .primary-menu
+  > li:has(> a[aria-current="page"])::after {
+  opacity: 1;
+  transition: none;
+  width: 100%;
 }
 .site-footer__links ul li:hover a {
   color: var(--color-gold);
@@ -1045,10 +1054,24 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .site-header .primary-menu > li > .sub-menu > li > a:hover,
 .site-header .primary-menu > li > .sub-menu > li > a:focus,
-.site-header .primary-menu > li > .sub-menu > li.current-menu-item > a {
+.site-header .primary-menu > li > .sub-menu > li.current-menu-item > a,
+.site-header
+  .primary-menu
+  > li
+  > .sub-menu
+  > li
+  > a[aria-current="page"] {
   background: var(--color-ink) !important;
   color: var(--color-gold) !important;
   text-decoration: none;
+}
+.site-header
+  .primary-menu
+  > li
+  > .sub-menu
+  > li
+  > a[aria-current="page"] {
+  transition: none;
 }
 :is(
     .services-planning,
