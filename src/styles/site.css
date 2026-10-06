@@ -2,6 +2,7 @@
   --color-ink: #1f2e3d;
   /* The single approved brand gold. Use it for accents, borders, and dark surfaces. */
   --color-gold: #c49b55;
+  --color-section-tan: #e8dcc9;
   --color-cream: #f3efe5;
   --color-page: #f4efe6;
   --color-surface: #fbfaf7;
@@ -51,6 +52,12 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+}
+
+/* Warm background fill used by the homepage team/about band. This is a
+   surface color, not an alternate brand-gold accent. */
+.team-section {
+  background: var(--color-section-tan);
 }
 body:not(.home) :is(h1, .entry-content .vbg-display-title) {
   font-size: var(--font-size-page-title);
