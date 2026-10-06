@@ -1,6 +1,9 @@
 .about-page :is(#our-approach, #our-team, #areas-we-serve) {
   scroll-margin-top: 150px;
 }
+.about-page .services-intro .services-jump {
+  border-bottom: 0;
+}
 .about-copy p + p {
   margin-top: 20px;
 }

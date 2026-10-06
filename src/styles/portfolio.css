@@ -8,7 +8,12 @@
 }
 .portfolio-heading {
   max-width: 760px;
-  margin-bottom: 40px;
+  margin-top: -64px;
+  padding-top: 64px;
+  padding-bottom: 40px;
+  background: var(--color-cream);
+  box-shadow: 0 0 0 100vmax var(--color-cream);
+  clip-path: inset(0 -100vmax);
 }
 .portfolio-eyebrow {
   text-transform: uppercase;
@@ -188,6 +193,10 @@ body.portfolio-viewer-open {
   }
   .portfolio-page {
     padding: 40px 0 64px;
+  }
+  .portfolio-heading {
+    margin-top: -40px;
+    padding-top: 40px;
   }
 }
 @media (max-width: 767px) {
