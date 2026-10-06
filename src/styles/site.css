@@ -33,6 +33,9 @@
   --font-body: "Lato", sans-serif;
   --font-heading: "Cormorant Garamond", serif;
 }
+.site-header {
+  background: var(--color-page) !important;
+}
 .container,
 .services-wrap,
 .blog-wrap,
