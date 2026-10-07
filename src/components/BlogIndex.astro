@@ -1,6 +1,7 @@
 ---
 import { posts, topics, locations, filterPosts } from "../lib/blog";
 import ActionArrow from "./ActionArrow.astro";
+import ProjectCta from "./ProjectCta.astro";
 import "../styles/blog.css";
 interface Props {
   initialTopic?: string;
@@ -197,4 +198,5 @@ const date = (value: string) =>
       )}
     </section>
   </div>
+  <ProjectCta id="field-guide-cta-title" />
 </main>

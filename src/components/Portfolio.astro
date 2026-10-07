@@ -1,6 +1,7 @@
 ---
 import photos from '../content/portfolio.json';
 import ActionArrow from './ActionArrow.astro';
+import ProjectCta from './ProjectCta.astro';
 import '../styles/portfolio.css';
 ---
 <main id="primary" class="portfolio-page">
@@ -37,5 +38,6 @@ import '../styles/portfolio.css';
     </div>
     <p class="portfolio-viewer-caption" data-photo-caption aria-live="polite"></p>
   </dialog>
+  <ProjectCta id="portfolio-cta-title" />
 </main>
 <script>import '../scripts/portfolio';</script>

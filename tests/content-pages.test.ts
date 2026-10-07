@@ -117,6 +117,25 @@ test("field-guide listing preserves source order, images, and alternative text",
   }
 });
 
+test("Portfolio and Field Guide listings end with the shared project CTA", async () => {
+  const [portfolio, fieldGuide, cta, blogStyles] = await Promise.all([
+    readFile("src/components/Portfolio.astro", "utf8"),
+    readFile("src/components/BlogIndex.astro", "utf8"),
+    readFile("src/components/ProjectCta.astro", "utf8"),
+    readFile("src/styles/blog.css", "utf8"),
+  ]);
+
+  assert.match(portfolio, /<ProjectCta id="portfolio-cta-title" \/>/);
+  assert.match(fieldGuide, /<ProjectCta id="field-guide-cta-title" \/>/);
+  assert.match(cta, /class="case-study-cta"/);
+  assert.match(cta, /Let’s talk about what you have in mind\./);
+  assert.match(cta, /class="case-study-cta-button" href="\/contact\/"/);
+  assert.match(
+    blogStyles,
+    /\.blog-page \.case-study-cta h2\s*\{[^}]*color:\s*var\(--text-on-dark\);/s,
+  );
+});
+
 test("Zwilling gallery uses ten distinct local originals", async () => {
   const page = await readFile(
     "src/content/pages/case-studies__zwilling-custom-home.json",

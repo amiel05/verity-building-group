@@ -1,0 +1,23 @@
+---
+import ActionArrow from "./ActionArrow.astro";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section class="case-study-cta" aria-labelledby={id}>
+  <div>
+    <p class="case-study-cta-eyebrow">Your project, next</p>
+    <h2 id={id}>Let’s talk about what you have in mind.</h2>
+    <p>
+      Share your property, your priorities, and where you are in the process.
+      We’ll help you identify the next step.
+    </p>
+  </div>
+  <a class="case-study-cta-button" href="/contact/">
+    Discuss your project <ActionArrow />
+  </a>
+</section>
