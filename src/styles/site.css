@@ -787,6 +787,37 @@ body.page.contact-page
   }
 }
 
+/* Case-study detail pages use the same eyebrow-to-title rhythm as the shared
+   page heroes, followed by the site's short gold heading rule. */
+body.page .case-study-detail-hero {
+  padding-block: 72px 48px;
+}
+body.page .case-study-detail-hero > .eyebrow {
+  margin: 0 0 16px;
+}
+body.page .case-study-detail-hero > .entry-title {
+  margin: 0;
+}
+body.page .case-study-detail-hero::after {
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+  content: "";
+}
+body.page .entry-content:has(> .vbg-case-study) {
+  padding-top: 0;
+}
+.entry-content > .vbg-case-study > h2:first-child {
+  margin-top: 0;
+}
+@media (max-width: 700px) {
+  body.page .case-study-detail-hero {
+    padding-block: 72px 40px;
+  }
+}
+
 /* Preserve the reading measure without compounding the outer container gutter. */
 body.page:not(.case-studies-page):not(.contact-page)
   .basic-content-row

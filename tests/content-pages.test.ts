@@ -65,6 +65,14 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
     assert.match(override, /class="services-button" href="\/contact\/"/);
     assert.match(
       override,
+      /<header class="entry-header case-study-detail-hero">\s*<p class="eyebrow">[^<]+<\/p>\s*<h1 class="entry-title">[^<]+<\/h1>\s*<\/header>/,
+    );
+    assert.doesNotMatch(
+      override,
+      /<section class="vbg-case-study">\s*<p class="eyebrow">/,
+    );
+    assert.match(
+      override,
       /class="case-study-back__link" href="\/case-studies\/">\s*<span class="interface-icon" aria-hidden="true">←<\/span>\s*Back to all case studies<\/a>/,
     );
     assert.match(override, /<\/section>\s*<\/main>\s*$/);
