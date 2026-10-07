@@ -1370,6 +1370,27 @@ body.home-portfolio-viewer-open {
   font-size: 14px;
   color: var(--color-muted);
 }
+.entry-content .case-study-back {
+  margin: 32px 0 0;
+}
+.entry-content .case-study-back__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 0 8px;
+  border-bottom: 1px solid var(--color-gold);
+  color: var(--color-dark-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+.entry-content .case-study-back__link:hover,
+.entry-content .case-study-back__link:focus-visible {
+  color: var(--color-gold);
+}
+.entry-content .case-study-back__link:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 6px;
+}
 .case-study-cta {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
