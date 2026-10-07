@@ -806,9 +806,9 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: var(--text-on-dark);
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):hover {
-  background: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue);
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
   transform: none;
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):active {
@@ -1028,7 +1028,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 :is(.home .home-services, .about-services)
   .service-card:is(:hover, :focus-within)
   .cta-link {
-  color: var(--color-dark-blue);
+  color: var(--color-gold);
 }
 :is(.home .home-services, .about-services)
   .service-card__description:is(:hover, :focus-visible) {
@@ -1267,9 +1267,9 @@ body.page:not(.case-studies-page):not(.contact-page)
   text-decoration: none;
 }
 .case-study-cta .case-study-cta-button:hover {
-  background: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue);
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
 }
 .case-study-cta .case-study-cta-button:active {
   border-color: transparent;
@@ -1292,12 +1292,11 @@ body.page:not(.case-studies-page):not(.contact-page)
   border-radius: 8px;
 }
 
-/* Canonical filled-button states use an accessible cream surface and gold
-   border on hover; gold cannot carry normal-size text at AA contrast. */
+/* Canonical filled buttons return to the site's original gold hover surface. */
 :is(.vbg-btn, .site-header__cta, .contact-action):hover {
-  background-color: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue);
+  background-color: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
 }
 .contact-action:focus-visible {
   background-color: var(--background-cream);
@@ -1385,9 +1384,9 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .content-block-search__button:hover,
 .inquiry-form .vbg-btn:hover {
-  background: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue);
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
 }
 .content-block-search__button:active,
 .inquiry-form .vbg-btn:active {
@@ -1432,11 +1431,19 @@ body.page:not(.case-studies-page):not(.contact-page)
 .vbg-gallery-filters button.is-active {
   border-color: transparent;
 }
-.vbg-gallery-subfilters button:hover,
+.vbg-gallery-filters button:hover {
+  background: var(--color-gold);
+  color: var(--text-on-dark);
+}
 .vbg-gallery-subfilters button:active,
 .vbg-gallery-subfilters button.is-active {
   background: var(--color-ink);
   border-color: var(--color-gold);
+  color: var(--text-on-dark);
+}
+.vbg-gallery-subfilters button:hover {
+  background: var(--color-gold);
+  border-color: transparent;
   color: var(--text-on-dark);
 }
 .vbg-final-cta .vbg-cta > a {
@@ -1444,22 +1451,22 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: var(--text-on-dark) !important;
 }
 .vbg-final-cta .vbg-cta > a:hover {
-  background: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue) !important;
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark) !important;
 }
 .contact-card input[type="submit"]:hover {
-  background: var(--background-cream);
-  border: 1px solid var(--color-gold);
-  color: var(--color-dark-blue);
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
 }
 .work-gallery
   .swiper
   :is(.swiper-button-prev, .swiper-button-next):hover::before {
-  color: var(--color-ink);
+  color: var(--color-gold);
 }
 .cta-link:hover {
-  color: var(--color-dark-blue);
+  color: var(--color-gold);
   text-decoration: none;
 }
 
@@ -1473,7 +1480,7 @@ a {
   transition: color 0.45s ease;
 }
 a:hover {
-  color: var(--color-dark-blue);
+  color: var(--color-gold);
   text-decoration: none;
 }
 :is(a:hover, a:focus-visible) .action-arrow--right {
@@ -1489,11 +1496,12 @@ a:hover {
   left: 0;
 }
 .about-area-card:hover .about-area-card__action {
-  color: var(--color-dark-blue);
+  color: var(--color-gold);
   text-decoration: none;
 }
 
-/* Dark-context links retain the approved cream foreground in every state. */
+/* Dark-context focus and active states retain their readable cream foreground;
+   hover is intentionally gold like links elsewhere on the site. */
 :is(
     .services-planning,
     .services-closing,
@@ -1506,6 +1514,6 @@ a:hover {
     .site-header .sub-menu,
     .vbg-final-cta
   )
-  a:is(:hover, :focus-visible, :active) {
+  a:is(:focus-visible, :active) {
   color: var(--text-on-dark);
 }

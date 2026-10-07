@@ -93,7 +93,7 @@
   border-color: var(--color-gold);
 }
 .about-area-card:is(:hover, :focus-visible) .about-area-card__action {
-  color: var(--color-dark-blue);
+  color: var(--color-gold);
   text-decoration: none;
 }
 .about-area-card__action > span {

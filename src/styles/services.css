@@ -78,9 +78,9 @@
   margin-top: 28px;
 }
 .services-page .services-button:hover {
-  background: var(--background-cream);
-  border-color: var(--color-gold);
-  color: var(--color-dark-blue);
+  background: var(--color-gold);
+  border-color: transparent;
+  color: var(--text-on-dark);
 }
 .services-page .services-button:active {
   background: var(--color-ink);

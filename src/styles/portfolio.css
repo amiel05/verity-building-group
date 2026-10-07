@@ -60,9 +60,13 @@
   font: 700 16px var(--font-body);
   cursor: pointer;
 }
-.portfolio-filters button[aria-pressed="true"],
-.portfolio-filters button:hover {
+.portfolio-filters button[aria-pressed="true"] {
   background: var(--color-ink);
+  color: var(--text-on-dark);
+}
+.portfolio-filters button:hover {
+  background: var(--color-gold);
+  border-color: transparent;
   color: var(--text-on-dark);
 }
 .portfolio-grid {
@@ -156,7 +160,8 @@
     sans-serif;
 }
 .portfolio-viewer button:hover {
-  background: var(--color-muted);
+  background: var(--color-gold);
+  border-color: transparent;
 }
 .portfolio-stage {
   display: flex;
