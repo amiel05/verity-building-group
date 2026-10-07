@@ -1428,6 +1428,14 @@ body.home-portfolio-viewer-open {
 .case-study-card h2 {
   margin: 0 0 18px;
 }
+.case-study-card h2::after {
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+  content: "";
+}
 .case-study-card > p:last-child {
   margin-top: auto;
   margin-bottom: 0;

@@ -60,6 +60,11 @@ test("case-study listing and routes represent all three source entries", async (
     listing,
     /class="services-button" href="\/contact\/">Contact Verity Building Group/,
   );
+  const styles = await readFile("src/styles/site.css", "utf8");
+  assert.match(
+    styles,
+    /\.case-study-card h2::after\s*\{[^}]*width:\s*80px;[^}]*height:\s*3px;[^}]*margin-top:\s*18px;[^}]*background:\s*var\(--color-gold\);/s,
+  );
 });
 
 test("case-study detail CTAs reuse the footer-attached image treatment", async () => {
