@@ -79,6 +79,27 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
   }
 });
 
+test("About team and service-area introductions use vertical gold dividers", async () => {
+  const [about, styles] = await Promise.all([
+    readFile("src/content/overrides/about.html", "utf8"),
+    readFile("src/styles/about.css", "utf8"),
+  ]);
+
+  assert.match(
+    about,
+    /class="legacy-focus__intro about-inline-intro"[^]*?class="about-team-description"/,
+  );
+  assert.match(
+    about,
+    /class="services-section-heading about-areas__heading about-inline-intro"[^]*?class="about-areas__intro"/,
+  );
+  assert.match(
+    styles,
+    /\.about-inline-intro > p:last-child::before\s*\{[^}]*width:\s*3px;[^}]*height:\s*46px;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+  assert.match(styles, /\.about-areas__heading\.about-inline-intro[^}]*> div > h2/s);
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),

@@ -18,7 +18,29 @@
   margin-top: 20px;
 }
 .about-team-description {
-  text-align: center;
+  text-align: left;
+}
+.about-inline-intro > p:last-child {
+  position: relative;
+  padding-left: 32px;
+}
+.about-inline-intro > p:last-child::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 46px;
+  background: var(--color-gold);
+  content: "";
+  transform: translateY(-50%);
+}
+.about-page
+  :is(
+    #our-team .about-inline-intro > div > h2,
+    .about-areas__heading.about-inline-intro > div > h2
+  )::after {
+  display: none;
+  content: none;
 }
 @media (min-width: 641px) {
   .about-page #our-team .legacy-focus__intro {
