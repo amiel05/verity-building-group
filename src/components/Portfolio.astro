@@ -19,7 +19,7 @@ import '../styles/portfolio.css';
     <p id="portfolio-count" role="status">{photos.length} photos · Interior &amp; Exterior</p>
   </div>
   <div class="portfolio-grid">
-    {photos.map(photo => <a class="portfolio-photo" href={photo.src} data-space={photo.category} aria-label={`Enlarge: ${photo.alt}`}>
+    {photos.map(photo => <a class="portfolio-photo clickable-image clickable-image__media" href={photo.src} data-space={photo.category} aria-label={`Enlarge: ${photo.alt}`}>
       <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
       <span class="portfolio-photo-caption">{photo.alt}<ActionArrow /></span>
     </a>)}

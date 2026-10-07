@@ -414,6 +414,67 @@ test("shared CTA headlines balance their lines to prevent orphan words", async (
   );
 });
 
+test("clickable images share one accessible five-percent zoom treatment", async () => {
+  const [siteStyles, legacyStyles, portfolio, blog, pageTemplate] =
+    await Promise.all([
+    readFile("src/styles/site.css", "utf8"),
+    readFile("src/styles/source.css", "utf8"),
+    readFile("src/components/Portfolio.astro", "utf8"),
+    readFile("src/components/BlogIndex.astro", "utf8"),
+    readFile("src/pages/[...path].astro", "utf8"),
+    ]);
+
+  assert.match(
+    siteStyles,
+    /\.clickable-image__media\s*\{[^}]*overflow:\s*hidden;/s,
+  );
+  assert.match(
+    siteStyles,
+    /\.clickable-image\s*>\s*img,[\s\S]*?transition:\s*transform 500ms ease;/,
+  );
+  assert.match(
+    siteStyles,
+    /@media \(hover: hover\) and \(pointer: fine\)[\s\S]*?transform:\s*scale\(1\.05\);/,
+  );
+  assert.match(
+    siteStyles,
+    /\.clickable-image:focus-visible[\s\S]*?transform:\s*scale\(1\.05\);/,
+  );
+  assert.match(
+    siteStyles,
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*?transform:\s*scale\(1\);[\s\S]*?transition:\s*none;/,
+  );
+  assert.doesNotMatch(legacyStyles, /\.vbg-editorial-image:hover img/);
+  assert.doesNotMatch(legacyStyles, /\.vbg-gallery-item:hover img/);
+  assert.doesNotMatch(
+    legacyStyles,
+    /\.vbg-service-index article:hover \.vbg-service-index__image img/,
+  );
+  assert.match(
+    portfolio,
+    /class="portfolio-photo clickable-image clickable-image__media"/,
+  );
+  assert.equal(
+    [...blog.matchAll(/class="clickable-image clickable-image__media"/g)]
+      .length,
+    2,
+  );
+  assert.doesNotMatch(blog, /tabindex="-1"/);
+  assert.match(
+    pageTemplate,
+    /home-portfolio-photo clickable-image clickable-image__media/,
+  );
+  assert.match(
+    pageTemplate,
+    /service-card__image-link clickable-image clickable-image__media/,
+  );
+  assert.match(
+    pageTemplate,
+    /<span class="clickable-image__media">\$2<\/span>/,
+  );
+  assert.match(pageTemplate, /case-study-card clickable-image/);
+});
+
 test("Zwilling gallery uses ten distinct local originals", async () => {
   const page = await readFile(
     "src/content/pages/case-studies__zwilling-custom-home.json",

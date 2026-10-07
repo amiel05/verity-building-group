@@ -99,7 +99,7 @@ const homePortfolioSlides = homePortfolioPhotos
   .map(
     (photo) => `
             <div class="swiper-slide">
-              <a class="home-portfolio-photo" href="${escapeAttribute(photo.src)}" aria-label="Enlarge: ${escapeAttribute(photo.alt)}">
+              <a class="home-portfolio-photo clickable-image clickable-image__media" href="${escapeAttribute(photo.src)}" aria-label="Enlarge: ${escapeAttribute(photo.alt)}">
                 <img alt="${escapeAttribute(photo.alt)}" decoding="async" height="${photo.height}" loading="lazy" src="${escapeAttribute(photo.src)}" width="${photo.width}" />
               </a>
             </div>`,
@@ -142,6 +142,19 @@ const homePortfolioCarousel = `
 </section>`;
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);
+  normalized = normalized
+    .replace(
+      /class="service-card__image-link"/g,
+      'class="service-card__image-link clickable-image clickable-image__media"',
+    )
+    .replace(
+      /(<a\b[^>]*class="case-study-card"[^>]*>)(<img\b[^>]*>)/g,
+      '$1<span class="clickable-image__media">$2</span>',
+    )
+    .replace(
+      /class="case-study-card"/g,
+      'class="case-study-card clickable-image"',
+    );
   if (path === "/" || path === "/home-2/") {
     normalized = normalized.replace(
       /(<\/section>\s*)(<section class="contact-section")/,

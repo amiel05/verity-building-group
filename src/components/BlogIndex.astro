@@ -119,9 +119,9 @@ const date = (value: string) =>
         <>
           <article class="blog-featured">
             <a
+              class="clickable-image clickable-image__media"
               href={featured.path}
               aria-label={`Read ${featured.title}`}
-              tabindex="-1"
             >
               <img
                 src={featured.image}
@@ -155,9 +155,9 @@ const date = (value: string) =>
               {remaining.map((post) => (
                 <article class="blog-row">
                   <a
+                    class="clickable-image clickable-image__media"
                     href={post.path}
                     aria-label={`Read ${post.title}`}
-                    tabindex="-1"
                   >
                     <img
                       src={post.image}

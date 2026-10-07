@@ -90,6 +90,41 @@ textarea {
   outline: 3px solid var(--color-dark-blue);
   outline-offset: 4px;
 }
+
+/* Shared interactive-image motion. The clickable target owns focus while the
+   media wrapper clips the image, keeping labels and surrounding card content
+   stationary. Hover is limited to devices that genuinely support it so touch
+   interactions cannot leave a zoomed image behind. */
+.clickable-image__media {
+  display: block;
+  overflow: hidden;
+}
+.clickable-image > img,
+.clickable-image > .clickable-image__media > img {
+  transform: scale(1);
+  transition: transform 500ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .clickable-image.clickable-image:hover > img,
+  .clickable-image.clickable-image:hover > .clickable-image__media > img {
+    transform: scale(1.05);
+  }
+}
+.clickable-image:focus-visible > img,
+.clickable-image:focus-visible > .clickable-image__media > img {
+  transform: scale(1.05);
+}
+@media (prefers-reduced-motion: reduce) {
+  .clickable-image > img,
+  .clickable-image > .clickable-image__media > img,
+  .clickable-image.clickable-image:is(:hover, :focus-visible) > img,
+  .clickable-image.clickable-image:is(:hover, :focus-visible)
+    > .clickable-image__media
+    > img {
+    transform: scale(1);
+    transition: none;
+  }
+}
 :is(button, input, select, textarea):disabled,
 [aria-disabled="true"] {
   background: var(--border-on-light);
@@ -1440,12 +1475,15 @@ body.home-portfolio-viewer-open {
   overflow: hidden;
   text-decoration: none;
 }
-.case-study-card > img {
-  display: block;
+.case-study-card__media {
   width: calc(100% + 56px);
-  max-width: none;
   margin: 0 -28px 28px;
   aspect-ratio: 4/3;
+}
+.case-study-card__media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 .case-study-card h2 {

@@ -85,7 +85,10 @@ test("homepage portfolio uses the latest ten shared photos and opens them in a v
   const styles = await readFile("src/styles/site.css", "utf8");
 
   assert.match(page, /portfolioPhotos\.slice\(0, 10\)/);
-  assert.match(page, /class="home-portfolio-photo"/);
+  assert.match(
+    page,
+    /class="home-portfolio-photo clickable-image clickable-image__media"/,
+  );
   assert.match(page, /aria-label="Previous portfolio image"/);
   assert.match(page, /aria-label="Next portfolio image"/);
   assert.match(page, /class="home-portfolio-viewer"/);
