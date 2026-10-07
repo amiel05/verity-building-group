@@ -441,6 +441,7 @@
 .services-closing h2 {
   color: var(--text-on-dark);
   margin-block: 16px 24px;
+  text-wrap: balance;
 }
 .services-closing p:last-child {
   color: var(--color-text-on-dark);

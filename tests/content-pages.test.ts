@@ -254,6 +254,22 @@ test("Portfolio and Field Guide listings end with the shared project CTA", async
   );
 });
 
+test("shared CTA headlines balance their lines to prevent orphan words", async () => {
+  const [siteStyles, servicesStyles] = await Promise.all([
+    readFile("src/styles/site.css", "utf8"),
+    readFile("src/styles/services.css", "utf8"),
+  ]);
+
+  assert.match(
+    siteStyles,
+    /\.case-study-cta h2\s*\{[^}]*text-wrap:\s*balance;/s,
+  );
+  assert.match(
+    servicesStyles,
+    /\.services-closing h2\s*\{[^}]*text-wrap:\s*balance;/s,
+  );
+});
+
 test("Zwilling gallery uses ten distinct local originals", async () => {
   const page = await readFile(
     "src/content/pages/case-studies__zwilling-custom-home.json",

@@ -1687,6 +1687,7 @@ body.home-portfolio-viewer-open {
   font-size: clamp(38px, 3.8vw, 56px);
   line-height: 1.1;
   margin: 16px 0 24px;
+  text-wrap: balance;
 }
 .case-study-cta p {
   color: var(--color-text-on-dark);
