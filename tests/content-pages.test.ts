@@ -270,6 +270,42 @@ test("Custom Homes location and FAQ sections use their page-specific treatment",
   );
 });
 
+test("location pages share the aligned editorial layout and footer-attached CTA order", async () => {
+  const [charlotte, lakeNorman, northMecklenburg, styles] = await Promise.all([
+    readFile("src/content/overrides/custom-home-builder-in-charlotte-nc.html", "utf8"),
+    readFile("src/content/overrides/lake-norman-custom-home-builder.html", "utf8"),
+    readFile("src/content/overrides/north-mecklenburg-iredell-builder.html", "utf8"),
+    readFile("src/styles/areas.css", "utf8"),
+  ]);
+
+  for (const page of [charlotte, lakeNorman, northMecklenburg]) {
+    assert.match(
+      page,
+      /legacy-focus--aligned area-content area-content--cream/,
+    );
+    assert.ok(page.indexOf("area-related") < page.indexOf("services-closing"));
+  }
+  assert.match(charlotte, /services-questions area-faq--cream/);
+  assert.match(northMecklenburg, /services-questions area-faq--cream/);
+  assert.doesNotMatch(lakeNorman, /services-questions area-faq--cream/);
+  assert.match(
+    styles,
+    /\.area-page > section\s*\{[^}]*padding-block:\s*112px;/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.services-intro \.area-jump\s*\{[^}]*border-bottom:\s*0;/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.area-content > \.legacy-focus__intro h2::after\s*\{[^}]*width:\s*80px;[^}]*height:\s*3px;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.area-related \.services-jump\s*\{[^}]*border-bottom:\s*1px solid var\(--services-line\);/s,
+  );
+});
+
 test("Services planning introduction uses a body-copy gold divider", async () => {
   const styles = await readFile("src/styles/services.css", "utf8");
 
