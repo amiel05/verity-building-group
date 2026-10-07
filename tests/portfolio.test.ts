@@ -82,9 +82,12 @@ test("portfolio filters default to All and return to All when toggled off", asyn
 test("homepage portfolio uses the latest ten shared photos and opens them in a viewer", async () => {
   const page = await readFile("src/pages/[...path].astro", "utf8");
   const script = await readFile("src/scripts/site.ts", "utf8");
+  const styles = await readFile("src/styles/site.css", "utf8");
 
   assert.match(page, /portfolioPhotos\.slice\(0, 10\)/);
   assert.match(page, /class="home-portfolio-photo"/);
+  assert.match(page, /aria-label="Previous portfolio image"/);
+  assert.match(page, /aria-label="Next portfolio image"/);
   assert.match(page, /class="home-portfolio-viewer"/);
   assert.doesNotMatch(page, /018219e5b4-gallery-1\.webp/);
   assert.match(
@@ -94,4 +97,20 @@ test("homepage portfolio uses the latest ten shared photos and opens them in a v
   assert.match(script, /viewer\.showModal\(\)/);
   assert.match(script, /data-home-previous/);
   assert.match(script, /data-home-next/);
+  assert.match(
+    styles,
+    /\.home-portfolio-section \.swiper :is\(\.swiper-button-prev, \.swiper-button-next\) \{[^}]*display:\s*flex;[^}]*transition:\s*background-color 0\.3s ease;/s,
+  );
+  assert.match(
+    styles,
+    /\.home-portfolio-section \.swiper-button-prev \{[^}]*left:\s*0;[^}]*transform:\s*translate\(-50%, -50%\);/s,
+  );
+  assert.match(
+    styles,
+    /\.home-portfolio-section \.swiper-button-next \{[^}]*right:\s*0;[^}]*transform:\s*translate\(50%, -50%\);/s,
+  );
+  assert.match(
+    styles,
+    /:is\(\.swiper-button-prev, \.swiper-button-next\):is\(:hover, :focus-visible\) \{[^}]*background:\s*var\(--color-gold\);[^}]*color:\s*var\(--text-on-dark\);/s,
+  );
 });

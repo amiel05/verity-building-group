@@ -980,6 +980,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 .home-portfolio-section .work-gallery {
   margin: 0;
   padding: 0;
+  overflow: visible;
 }
 .home-portfolio-section .swiper {
   position: relative;
@@ -1010,22 +1011,36 @@ body.page:not(.case-studies-page):not(.contact-page)
   background: var(--color-ink);
   border-radius: 50%;
   color: var(--text-on-dark);
-  display: none;
-  height: 44px;
+  display: flex;
+  height: 56px;
   justify-content: center;
-  min-width: 44px;
+  min-width: 56px;
   padding: 0;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
+  transition: background-color 0.3s ease;
+  width: 56px;
   z-index: 2;
 }
 .home-portfolio-section .swiper-button-prev {
-  left: 12px;
+  left: 0;
+  transform: translate(-50%, -50%);
 }
 .home-portfolio-section .swiper-button-next {
-  right: 12px;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+.home-portfolio-section
+  .swiper
+  :is(.swiper-button-prev, .swiper-button-next):is(:hover, :focus-visible) {
+  background: var(--color-gold);
+  color: var(--text-on-dark);
+}
+.home-portfolio-section
+  .swiper
+  :is(.swiper-button-prev, .swiper-button-next):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 .home-portfolio-section
   .swiper
@@ -1113,14 +1128,6 @@ body.home-portfolio-viewer-open {
   overflow: hidden;
 }
 
-@media (max-width: 1199px) {
-  .home-portfolio-section
-    .swiper
-    :is(.swiper-button-prev, .swiper-button-next) {
-    display: flex;
-  }
-}
-
 @media (max-width: 767px) {
   .home-portfolio-section {
     padding: 56px 0;
@@ -1133,6 +1140,9 @@ body.home-portfolio-viewer-open {
     .swiper
     :is(.swiper-button-prev, .swiper-button-next) {
     display: flex;
+    height: 48px;
+    min-width: 48px;
+    width: 48px;
   }
   .home-portfolio-viewer {
     padding: 12px;
