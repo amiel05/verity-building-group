@@ -48,6 +48,25 @@ test("case-study listing and routes represent all three source entries", async (
   assert.deepEqual(listedCaseStudies, caseStudyRoutes);
 });
 
+test("case-study detail CTAs reuse the footer-attached image treatment", async () => {
+  for (const path of caseStudyRoutes) {
+    const slug = path.split("/").filter(Boolean).at(-1);
+    const override = await readFile(
+      `src/content/overrides/case-studies__${slug}.html`,
+      "utf8",
+    );
+
+    assert.doesNotMatch(override, /vbg-final-cta/);
+    assert.match(
+      override,
+      /<\/div>\s*<\/article>\s*<\/div>\s*<\/div>\s*<section class="services-closing case-study-detail-closing"/,
+    );
+    assert.match(override, /class="services-wrap services-closing__grid"/);
+    assert.match(override, /class="services-button" href="\/contact\/"/);
+    assert.match(override, /<\/section>\s*<\/main>\s*$/);
+  }
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),
