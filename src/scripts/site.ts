@@ -408,16 +408,6 @@ doc.querySelectorAll<HTMLElement>("[data-home-portfolio]").forEach((root) => {
   });
 });
 doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
-  const starter = Array.from(
-    form.querySelectorAll<HTMLInputElement>(".starter input"),
-  );
-  const update = () =>
-    form.classList.toggle(
-      "is-expanded",
-      starter.some((i) => i.value.trim()),
-    );
-  starter.forEach((i) => i.addEventListener("input", update));
-  update();
   form
     .querySelector<HTMLInputElement>("[type=file]")
     ?.addEventListener("change", (event) => {
@@ -471,7 +461,6 @@ doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
           confirmation.focus();
           return;
         }
-        update();
       }
       status.focus();
     } catch {

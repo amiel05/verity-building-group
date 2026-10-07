@@ -492,9 +492,6 @@ select:focus-visible {
   overflow: hidden;
   clip-path: inset(50%);
 }
-.js-enabled .inquiry-form:not(.is-expanded) .more {
-  display: none;
-}
 .inquiry-form .vbg-btn {
   margin-top: 9px;
 }
@@ -633,10 +630,6 @@ select:focus-visible {
   pointer-events: none;
 }
 
-/* Match the compact source form grid, including its final empty row gap. */
-.js-enabled .inquiry-form:not(.is-expanded) .inquiry-fields {
-  padding-bottom: 16px;
-}
 @media (max-width: 640px) {
   .inquiry-name {
     gap: 8px;

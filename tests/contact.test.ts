@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import {
   ContactRateLimiter,
   createFormToken,
@@ -18,6 +19,32 @@ const config = {
   webhookUrl: "https://delivery.example.test/contact",
   webhookToken: "test-only-token",
 };
+
+test("all contact form fields remain visible without progressive disclosure", async () => {
+  const [component, styles, script] = await Promise.all([
+    readFile("src/components/ContactForm.astro", "utf8"),
+    readFile("src/styles/site.css", "utf8"),
+    readFile("src/scripts/site.ts", "utf8"),
+  ]);
+
+  for (const name of [
+    "location",
+    "projectType",
+    "propertyStatus",
+    "budget",
+    "intendedUse",
+    "stage",
+    "timing",
+    "decisionMakers",
+    "files",
+    "preferredContact",
+    "bestTime",
+  ]) {
+    assert.match(component, new RegExp(`name=["'{]${name}`));
+  }
+  assert.doesNotMatch(styles, /inquiry-form:not\(\.is-expanded\)/);
+  assert.doesNotMatch(script, /is-expanded/);
+});
 function request(
   values: Record<string, string> = {},
   origin = config.siteUrl,
