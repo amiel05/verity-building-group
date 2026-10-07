@@ -46,6 +46,20 @@ test("case-study listing and routes represent all three source entries", async (
     ...listing.matchAll(/href="(\/case-studies\/[^"#?]+\/)"/g),
   ].map(([, path]) => path);
   assert.deepEqual(listedCaseStudies, caseStudyRoutes);
+  assert.match(
+    listing,
+    /<section class="services-closing case-study-detail-closing" aria-labelledby="case-study-cta-title">/,
+  );
+  assert.match(listing, /class="services-wrap services-closing__grid"/);
+  assert.match(listing, /<p class="services-eyebrow">Begin with Verity<\/p>/);
+  assert.match(
+    listing,
+    /Have a project you would<br \/>like to discuss\?/,
+  );
+  assert.match(
+    listing,
+    /class="services-button" href="\/contact\/">Contact Verity Building Group/,
+  );
 });
 
 test("case-study detail CTAs reuse the footer-attached image treatment", async () => {
