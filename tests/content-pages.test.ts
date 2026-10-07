@@ -157,6 +157,27 @@ test("service detail pages feature the matching case study after Our Approach", 
   );
 });
 
+test("Custom Homes location and FAQ sections use their page-specific treatment", async () => {
+  const styles = await readFile("src/styles/legacy.css", "utf8");
+
+  assert.match(
+    styles,
+    /\.custom-homes-page \.custom-areas\s*\{[^}]*background:\s*var\(--background-cream\);[^}]*box-shadow:\s*0 0 0 100vmax var\(--background-cream\);/s,
+  );
+  assert.match(
+    styles,
+    /\.custom-homes-page[\s\S]*?\.custom-areas[\s\S]*?> div[\s\S]*?> h2::after\s*\{[^}]*content:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.custom-homes-page \.custom-areas \.legacy-focus__intro > p:last-child::before\s*\{[^}]*inset-block:\s*0;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
+    /\.custom-homes-page \.custom-questions\s*\{[^}]*padding-top:\s*112px;/s,
+  );
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),

@@ -235,9 +235,33 @@
 .custom-homes-page .custom-areas h2 {
   margin-top: 20px;
 }
+.custom-homes-page .custom-areas {
+  background: var(--background-cream);
+  box-shadow: 0 0 0 100vmax var(--background-cream);
+  clip-path: inset(0 -100vmax);
+}
 .custom-homes-page .custom-areas .legacy-focus__intro {
   margin-bottom: 0;
   align-items: center;
+}
+.custom-homes-page
+  .custom-areas
+  .legacy-focus__intro
+  > div
+  > h2::after {
+  content: none;
+}
+.custom-homes-page .custom-areas .legacy-focus__intro > p:last-child {
+  position: relative;
+  padding-left: 32px;
+}
+.custom-homes-page .custom-areas .legacy-focus__intro > p:last-child::before {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 3px;
+  background: var(--color-gold);
+  content: "";
 }
 .custom-homes-page .custom-areas a {
   color: inherit;
@@ -249,7 +273,7 @@
   text-decoration: none;
 }
 .custom-homes-page .custom-questions {
-  padding-top: 0;
+  padding-top: 112px;
 }
 @media (max-width: 640px) {
   .custom-homes-page :is(#planning, #process) {
