@@ -61,7 +61,7 @@ for path in (ROOT / 'src/content/pages').glob('*.json'):
         if record["path"] == "/services/":
             for meta in record["meta"]:
                 if meta.get("name") == "description" or meta.get("property") == "og:description":
-                    meta["content"] = "Explore land development, custom home construction, and community-focused Legacy Projects with Verity Building Group in Charlotte and Lake Norman."
+                    meta["content"] = "Explore land development, custom home construction, and community-focused Legacy Projects with Verity Building Group across Charlotte and the Lake Norman area."
     seo_override = ROOT / "src/content/overrides" / (path.stem + ".seo.json")
     if seo_override.exists():
         record.update(json.loads(seo_override.read_text()))

@@ -98,7 +98,7 @@ for entry in inventory['routes']:
   p=main.select_one('.home-hero__desc p')
   if p:p.string='Custom homes, thoughtful land development, and residential renovation throughout Charlotte, Lake Norman, and surrounding communities.'
   p=main.select_one('.team-section__content .delay-250 p')
-  if p:p.string='At Verity Building Group, leadership means guiding every phase of the project with clarity, integrity, and experienced construction oversight. From land acquisition and planning to custom residential construction and renovation, we bring the right people, process, and vision together to build with purpose.'
+  if p:p.string='At Verity Building Group, leadership means guiding every phase of the project with clarity, integrity, and experienced construction oversight. From land acquisition and planning to custom residential construction and renovation, VBG brings the right people, process, and vision together to build with purpose.'
  content=clean(main)
  # Keep archive sidebars when present.
  sidebar=soup.select_one('#secondary');content+=clean(sidebar)

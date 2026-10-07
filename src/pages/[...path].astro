@@ -218,7 +218,12 @@ const page =
     ? {
         ...requestedPage,
         bodyClass: homepage.bodyClass,
-        sections: homepage.sections,
+        sections: homepage.sections.map((section) =>
+          section.replace(
+            "From land acquisition and planning to custom residential construction and renovation, VBG brings",
+            "From land acquisition and planning to custom residential construction, VBG brings",
+          ),
+        ),
       }
     : requestedPage;
 const isFieldGuideDetail = fieldGuideDetailPaths.has(path);

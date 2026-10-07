@@ -21,7 +21,8 @@ const header = chrome.header
       /(<a\b[^>]*>)([\s\S]*?)(<\/a>)/g,
       '$1<span class="submenu-link__label">$2</span>$3',
     ),
-  );
+  )
+  .replaceAll(">AREAS WE SERVE<", ">VBG SERVICE AREAS<");
 ---
 
 <Fragment set:html={header} />
