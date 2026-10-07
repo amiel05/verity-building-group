@@ -506,9 +506,17 @@ test("clickable images share one accessible five-percent zoom treatment", async 
   );
   assert.match(
     pageTemplate,
-    /<span class="clickable-image__media">\$2<\/span>/,
+    /<span class="case-study-card__media clickable-image__media">\$2<\/span>/,
   );
   assert.match(pageTemplate, /case-study-card clickable-image/);
+  assert.match(
+    siteStyles,
+    /\.case-study-card__media\s*\{[^}]*width:\s*calc\(100% \+ 56px\);[^}]*margin:\s*0 -28px 28px;[^}]*aspect-ratio:\s*4\/3;/s,
+  );
+  assert.match(
+    siteStyles,
+    /\.case-study-card__media > img\s*\{[^}]*width:\s*100%;[^}]*height:\s*100%;[^}]*object-fit:\s*cover;/s,
+  );
 });
 
 test("sitewide entry motion reuses the homepage animation contract", async () => {

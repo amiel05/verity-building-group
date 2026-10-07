@@ -149,7 +149,7 @@ const normalizePageHtml = (html: string) => {
     )
     .replace(
       /(<a\b[^>]*class="case-study-card"[^>]*>)(<img\b[^>]*>)/g,
-      '$1<span class="clickable-image__media">$2</span>',
+      '$1<span class="case-study-card__media clickable-image__media">$2</span>',
     )
     .replace(
       /class="case-study-card"/g,
