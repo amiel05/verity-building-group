@@ -828,6 +828,19 @@ body.page.contact-page
 .case-studies-hero > .vbg-display-title {
   margin: 0 0 24px;
 }
+:is(
+    .case-studies-hero > .vbg-display-title,
+    .portfolio-heading > h1,
+    .blog-heading > h1,
+    body.contact-page .entry-content > .vbg-display-title
+  )::after {
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+  content: "";
+}
 .case-studies-hero > :last-child {
   margin-bottom: 0;
 }

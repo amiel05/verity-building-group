@@ -124,6 +124,15 @@ test("detail galleries, team portraits, and Field Guide lead images are rounded"
   );
 });
 
+test("main-page heroes share the short gold heading rule", async () => {
+  const styles = await readFile("src/styles/site.css", "utf8");
+
+  assert.match(
+    styles,
+    /:is\(\s*\.case-studies-hero > \.vbg-display-title,\s*\.portfolio-heading > h1,\s*\.blog-heading > h1,\s*body\.contact-page \.entry-content > \.vbg-display-title\s*\)::after\s*\{[^}]*width:\s*80px;[^}]*height:\s*3px;[^}]*margin-top:\s*18px;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+});
+
 test("About team and service-area introductions use vertical gold dividers", async () => {
   const [about, styles] = await Promise.all([
     readFile("src/content/overrides/about.html", "utf8"),
