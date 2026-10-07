@@ -334,6 +334,70 @@
   min-height: 0;
   overflow: hidden;
 }
+.featured-case-study {
+  background: var(--background-light);
+  padding-block: var(--services-space);
+}
+.featured-case-study__intro {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 64px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+.featured-case-study__intro .services-eyebrow {
+  margin-bottom: 16px;
+}
+.featured-case-study__intro > p:last-child {
+  position: relative;
+  padding-left: 32px;
+  color: var(--services-muted);
+}
+.featured-case-study__intro > p:last-child::before {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 3px;
+  background: var(--color-gold);
+  content: "";
+}
+.featured-case-study__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--background-light);
+  border: 1px solid var(--services-line);
+  border-radius: 8px;
+}
+.featured-case-study__media {
+  min-height: 100%;
+  margin: 0;
+}
+.featured-case-study__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.featured-case-study__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 64px);
+}
+.featured-case-study__copy h3 {
+  margin-block: 12px 16px;
+  font-size: clamp(34px, 3.2vw, 48px);
+}
+.featured-case-study__copy > p:not(.services-eyebrow) {
+  color: var(--services-muted);
+}
+.featured-case-study__copy .services-button {
+  min-width: 240px;
+  margin-top: 28px;
+}
 :is(.services-closing, .case-study-cta) {
   background-image:
     var(--gradient-overlay-warm), url("/assets/3b5da70afa-conatct_image.webp");
@@ -382,6 +446,9 @@
   .services-section-heading,
   .services-questions {
     gap: 40px;
+  }
+  .featured-case-study__intro {
+    gap: 32px;
   }
   .services-closing__grid {
     grid-template-columns: 1fr;
@@ -438,9 +505,20 @@
     margin-top: 16px;
   }
   .services-section-heading,
-  .services-questions {
+  .services-questions,
+  .featured-case-study__intro,
+  .featured-case-study__card {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  .featured-case-study__intro {
+    margin-bottom: 32px;
+  }
+  .featured-case-study__media img {
+    aspect-ratio: 4 / 3;
+  }
+  .featured-case-study__copy {
+    padding: 28px;
   }
   .services-process {
     grid-template-columns: 1fr;

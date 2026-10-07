@@ -111,6 +111,48 @@ test("About team and service-area introductions use vertical gold dividers", asy
   assert.match(styles, /\.about-areas__heading\.about-inline-intro[^}]*> div > h2/s);
 });
 
+test("service detail pages feature the matching case study after Our Approach", async () => {
+  const [customHomes, landDevelopment, styles] = await Promise.all([
+    readFile(
+      "src/content/overrides/custom-home-builder-charlotte-nc.html",
+      "utf8",
+    ),
+    readFile(
+      "src/content/overrides/land-development-charlotte-nc.html",
+      "utf8",
+    ),
+    readFile("src/styles/services.css", "utf8"),
+  ]);
+
+  assert.match(
+    customHomes,
+    /id="process"[^]*?<\/section>\s*<section\s+class="featured-case-study"/,
+  );
+  assert.match(customHomes, /A custom home where warm materials elevate daily life\./);
+  assert.match(customHomes, /src="\/assets\/407f035ca1-Brancer10\.webp"/);
+  assert.match(customHomes, /href="\/case-studies\/brancer-custom-home\/"/);
+
+  assert.match(
+    landDevelopment,
+    /id="development"[^]*?<\/section>\s*<section\s+class="featured-case-study"/,
+  );
+  assert.match(
+    landDevelopment,
+    /Where the home, the land, and the lake became one plan\./,
+  );
+  assert.match(landDevelopment, /src="\/assets\/zwilling-rear-exterior\.jpeg"/);
+  assert.match(landDevelopment, /href="\/case-studies\/zwilling-custom-home\/"/);
+
+  assert.match(
+    styles,
+    /\.featured-case-study\s*\{[^}]*background:\s*var\(--background-light\);/s,
+  );
+  assert.match(
+    styles,
+    /\.featured-case-study__intro > p:last-child::before\s*\{[^}]*inset-block:\s*0;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),
