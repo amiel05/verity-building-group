@@ -94,6 +94,9 @@
 .services-intro .services-jump {
   border-bottom: 1px solid var(--services-line);
 }
+.services-page:not(.legacy-page) .services-intro .services-jump {
+  border-bottom: 0;
+}
 .services-jump a {
   display: flex;
   align-items: center;
