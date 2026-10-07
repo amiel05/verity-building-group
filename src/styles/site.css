@@ -1539,7 +1539,7 @@ body.home-portfolio-viewer-open {
   gap: 16px;
   width: 100%;
   padding: 12px 0 16px;
-  border-bottom: 1px solid var(--color-gold);
+  border-bottom: 0;
   color: var(--color-dark-blue);
   text-decoration: none;
 }
@@ -1549,16 +1549,21 @@ body.home-portfolio-viewer-open {
 .field-guide-detail .post-navigation .nav-subtitle {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--color-gold);
-  font-size: var(--font-size-eyebrow);
+  gap: 24px;
+  width: fit-content;
+  padding: 12px 0 8px;
+  border-bottom: 1px solid var(--color-gold);
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: var(--letter-spacing-eyebrow);
-  line-height: 1.6;
-  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+  text-transform: none;
 }
 .field-guide-detail .post-navigation .nav-next .nav-subtitle {
   justify-content: flex-end;
+  margin-left: auto;
 }
 .field-guide-detail .post-navigation .nav-title {
   font-family: var(--font-heading);
@@ -1573,13 +1578,12 @@ body.home-portfolio-viewer-open {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(48px, 8vw, 112px);
-  width: 100%;
-  margin: 0;
-  padding: 72px
-    max(
-      var(--site-container-gutter),
-      calc((100vw - var(--site-container-max)) / 2)
-    );
+  width: min(
+    var(--site-container-max),
+    calc(100% - (var(--site-container-gutter) * 2))
+  );
+  margin: 0 auto clamp(64px, 8vw, 112px);
+  padding: 72px clamp(28px, 5vw, 72px);
   border-top: 0;
   background: var(--background-dark);
   color: var(--text-on-dark);
@@ -1616,9 +1620,9 @@ body.home-portfolio-viewer-open {
 }
 .field-guide-detail .widget-area .content-block-search__button.vbg-btn {
   min-width: 154px;
-  border: 1px solid var(--background-cream);
-  background: var(--background-cream);
-  color: var(--color-dark-blue);
+  border: 1px solid var(--color-gold);
+  background: var(--color-gold);
+  color: var(--text-on-dark);
 }
 .field-guide-detail
   .widget-area
@@ -1626,6 +1630,20 @@ body.home-portfolio-viewer-open {
   border-color: var(--color-gold);
   background: var(--color-gold);
   color: var(--text-on-dark);
+}
+.field-guide-detail
+  .widget-area
+  .content-block-search__button.vbg-btn
+  .action-arrow {
+  left: 0;
+  position: relative;
+  transition: left 0.3s ease;
+}
+.field-guide-detail
+  .widget-area
+  .content-block-search__button.vbg-btn:is(:hover, :focus-visible)
+  .action-arrow {
+  left: 5px;
 }
 .field-guide-detail .widget-area .content-block-heading {
   margin: 0 0 24px;

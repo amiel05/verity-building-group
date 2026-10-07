@@ -285,11 +285,23 @@ test("Field Guide details share the article utility footer and project CTA", asy
   assert.match(route, /arrowIconMarkup\("right"\)/);
   assert.match(
     styles,
-    /\.field-guide-detail \.widget-area\s*\{[^}]*border-top:\s*0;[^}]*background:\s*var\(--background-dark\);/s,
+    /\.field-guide-detail \.widget-area\s*\{[^}]*width:\s*min\([^}]*margin:\s*0 auto clamp\(64px, 8vw, 112px\);[^}]*background:\s*var\(--background-dark\);/s,
   );
   assert.match(
     styles,
-    /\.field-guide-detail \.post-navigation a\s*\{[^}]*border-bottom:\s*1px solid var\(--color-gold\);/s,
+    /\.field-guide-detail \.post-navigation a\s*\{[^}]*border-bottom:\s*0;/s,
+  );
+  assert.match(
+    styles,
+    /\.field-guide-detail \.post-navigation \.nav-subtitle\s*\{[^}]*border-bottom:\s*1px solid var\(--color-gold\);[^}]*color:\s*inherit;[^}]*font-size:\s*16px;[^}]*text-transform:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.field-guide-detail \.widget-area \.content-block-search__button\.vbg-btn\s*\{[^}]*background:\s*var\(--color-gold\);[^}]*color:\s*var\(--text-on-dark\);/s,
+  );
+  assert.match(
+    styles,
+    /\.content-block-search__button\.vbg-btn:is\(:hover, :focus-visible\)[\s\S]*?\.action-arrow\s*\{\s*left:\s*5px;/s,
   );
   assert.match(
     styles,
