@@ -449,10 +449,10 @@
   font-size: 16px;
 }
 .case-study-detail-closing .services-button {
-  width: 460px;
+  width: fit-content;
   max-width: 100%;
-  justify-content: space-between;
-  gap: 48px;
+  justify-content: flex-start;
+  gap: 40px;
 }
 @media (max-width: 960px) {
   .services-intro__grid {
@@ -484,8 +484,8 @@
     justify-self: start;
   }
   .case-study-detail-closing .services-button {
-    width: 100%;
-    max-width: 460px;
+    width: fit-content;
+    max-width: 100%;
   }
 }
 @media (max-width: 640px) {
