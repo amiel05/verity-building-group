@@ -4,7 +4,7 @@
   --services-muted: var(--color-muted);
   --services-space: clamp(64px, 7vw, 112px);
   background: var(--color-surface-alt);
-  color: var(--color-ink);
+  color: var(--body-on-light);
   font-family: var(--font-body);
   font-size: var(--font-size-body-regular);
   line-height: var(--line-height-body);
@@ -13,7 +13,7 @@
   margin: 0;
 }
 .services-page :is(h1, h2, h3, h4) {
-  color: inherit;
+  color: var(--heading-on-light);
   line-height: 1.08;
 }
 .services-page h1 {
@@ -28,14 +28,14 @@
    a heading with explanatory copy. Card, list, form, and article headings are
    intentionally excluded so the rule remains a section-level device. */
 :is(
-    .services-offering__copy > h2:has(+ p),
-    .services-section-heading:has(> div + p) > div > h2,
-    .services-questions > div:first-child > h2:has(+ p),
-    .services-closing__grid > div:first-child > h2:has(+ p),
-    .case-study-cta > div:first-child > h2:has(+ p),
-    .legacy-approach__heading > h2:has(+ p),
-    .legacy-focus__intro:has(> div + p) > div > h2
-  )::after {
+  .services-offering__copy > h2:has(+ p),
+  .services-section-heading:has(> div + p) > div > h2,
+  .services-questions > div:first-child > h2:has(+ p),
+  .services-closing__grid > div:first-child > h2:has(+ p),
+  .case-study-cta > div:first-child > h2:has(+ p),
+  .legacy-approach__heading > h2:has(+ p),
+  .legacy-focus__intro:has(> div + p) > div > h2
+)::after {
   content: "";
   display: block;
   width: 80px;
@@ -70,7 +70,7 @@
   justify-content: space-between;
   gap: 32px;
   background: var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
   text-decoration: none;
   border: 1px solid var(--color-ink);
 }
@@ -78,9 +78,9 @@
   margin-top: 28px;
 }
 .services-page .services-button:hover {
-  background: var(--color-gold);
-  border-color: transparent;
-  color: #fff;
+  background: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .services-page .services-button:active {
   background: var(--color-ink);
@@ -191,6 +191,9 @@
   color: var(--color-cream);
   padding-block: var(--services-space);
 }
+.services-planning :is(h1, h2, h3, h4, h5, h6, p, li) {
+  color: var(--text-on-dark);
+}
 .services-section-heading {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -285,15 +288,15 @@
   background-image:
     linear-gradient(
       90deg,
-      rgba(23, 21, 19, 0.9) 0%,
-      rgba(23, 21, 19, 0.76) 45%,
-      rgba(23, 21, 19, 0.65) 100%
+      color-mix(in srgb, var(--background-dark) 90%, transparent) 0%,
+      color-mix(in srgb, var(--background-dark) 76%, transparent) 45%,
+      color-mix(in srgb, var(--background-dark) 65%, transparent) 100%
     ),
     url("/assets/3b5da70afa-conatct_image.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: #fff;
+  color: var(--text-on-dark);
   padding-block: clamp(72px, 7vw, 112px);
 }
 .services-closing__grid {
@@ -303,7 +306,7 @@
   align-items: center;
 }
 .services-closing h2 {
-  color: #fff;
+  color: var(--text-on-dark);
   margin-block: 16px 24px;
 }
 .services-closing p:last-child {

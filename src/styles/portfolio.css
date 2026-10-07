@@ -3,7 +3,7 @@
   max-width: 1280px;
   margin: auto;
   padding: 72px 0 88px;
-  color: var(--color-ink);
+  color: var(--body-on-light);
   font-family: var(--font-body);
 }
 .portfolio-heading {
@@ -63,7 +63,7 @@
 .portfolio-filters button[aria-pressed="true"],
 .portfolio-filters button:hover {
   background: var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .portfolio-grid {
   columns: 3;
@@ -75,7 +75,7 @@
   margin: 0 0 18px;
   break-inside: avoid;
   border-radius: 8px;
-  color: white;
+  color: var(--text-on-dark);
   overflow: hidden;
 }
 .portfolio-photo[hidden] {
@@ -92,7 +92,10 @@
   left: 0;
   right: 0;
   padding: 32px 18px 16px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--background-dark) 85%, transparent)
+  );
   font-size: 14px;
   line-height: 1.5;
   display: flex;
@@ -106,7 +109,7 @@
 }
 .portfolio-photo:hover,
 .portfolio-photo:focus-visible {
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .portfolio-page :is(a, button):focus-visible {
   outline: 2px solid var(--color-focus);
@@ -123,7 +126,7 @@
   padding: 20px 24px;
   border: 0;
   background: var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 .portfolio-viewer[open] {
   display: flex;
@@ -148,7 +151,7 @@
   border: 1px solid var(--color-border-dark);
   border-radius: 0;
   background: var(--color-ink);
-  color: white;
+  color: var(--text-on-dark);
   padding: 10px 16px;
   cursor: pointer;
   font:

@@ -34,6 +34,7 @@
 }
 .about-team svg {
   display: block;
+  fill: var(--color-dark-blue);
   width: 100%;
   height: auto;
 }
@@ -88,11 +89,11 @@
   line-height: 1.5;
 }
 .about-page .about-area-card:hover {
-  background: #fff;
+  background: var(--background-light);
   border-color: var(--color-gold);
 }
 .about-area-card:is(:hover, :focus-visible) .about-area-card__action {
-  color: var(--color-gold);
+  color: var(--color-dark-blue);
   text-decoration: none;
 }
 .about-area-card__action > span {

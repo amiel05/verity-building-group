@@ -1,20 +1,30 @@
 :root {
-  --color-ink: #1f2e3d;
-  /* The single approved brand gold. Use it for accents, borders, and dark surfaces. */
-  --color-gold: #c49b55;
-  --color-section-tan: #e8dcc9;
-  --color-cream: #f3efe5;
-  --color-page: #f4efe6;
-  --color-surface: #fbfaf7;
-  --color-surface-alt: #faf8f4;
-  --color-border: #d9d0c3;
-  --color-muted: #59636a;
-  /* Dark-context roles are neutral variants, not alternate brand golds. */
-  --color-text-on-dark: #f2ece4;
-  --color-border-dark: #5d6871;
-  --color-error: #a3291e;
-  /* Gold is not dark enough for a focus ring on the site's light surfaces. */
-  --color-focus: var(--color-ink);
+  --color-gold: #b08a44;
+  --color-dark-blue: #1f2e3d;
+  --background-light: #faf8f4;
+  --background-cream: #f3efe5;
+  --background-dark: #1f2e3d;
+  --text-eyebrow: #b08a44;
+  --text-on-dark: #f3efe5;
+  --heading-on-light: #1f2e3d;
+  --body-on-light: #59636a;
+  --border-on-light: #d9d0c3;
+  --border-on-dark: #59636a;
+  --border-top-accent: #b08a4473;
+
+  /* Backward-compatible semantic aliases for migrated components. */
+  --color-ink: var(--color-dark-blue);
+  --color-section-tan: var(--background-cream);
+  --color-cream: var(--background-cream);
+  --color-page: var(--background-light);
+  --color-surface: var(--background-light);
+  --color-surface-alt: var(--background-light);
+  --color-border: var(--border-on-light);
+  --color-muted: var(--body-on-light);
+  --color-text-on-dark: var(--text-on-dark);
+  --color-border-dark: var(--border-on-dark);
+  --color-error: var(--color-gold);
+  --color-focus: var(--color-dark-blue);
   --font-size-page-title: 72px;
   --font-size-page-lead: 18px;
   --font-size-body-regular: 16px;
@@ -32,6 +42,45 @@
   --verity-cream: var(--color-cream);
   --font-body: "Lato", sans-serif;
   --font-heading: "Cormorant Garamond", serif;
+}
+body {
+  background: var(--background-light);
+  color: var(--body-on-light);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-on-light);
+}
+input,
+select,
+textarea,
+label,
+::placeholder {
+  color: var(--body-on-light);
+}
+input,
+select,
+textarea {
+  border-color: var(--border-on-light);
+}
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-dark-blue);
+  outline-offset: 4px;
+}
+:is(button, input, select, textarea):disabled,
+[aria-disabled="true"] {
+  background: var(--border-on-light);
+  border-color: var(--border-on-light);
+  color: var(--body-on-light);
+  cursor: not-allowed;
+}
+::selection {
+  background: var(--color-dark-blue);
+  color: var(--text-on-dark);
 }
 .site-header {
   background: var(--color-surface-alt) !important;
@@ -432,14 +481,14 @@ select:focus-visible {
 }
 .inquiry-form .file-drop {
   position: relative;
-  border: 1px dashed #aaa;
+  border: 1px dashed var(--border-on-light);
   padding: 30px 12px;
   text-align: center;
 }
 .inquiry-form .file-button {
   display: inline-block;
-  background: #eee;
-  border: 1px solid #aaa;
+  background: var(--background-cream);
+  border: 1px solid var(--border-on-light);
   padding: 8px 14px;
   cursor: pointer;
 }
@@ -735,12 +784,12 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button) {
   background: var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):hover {
-  background: var(--color-gold);
-  border-color: transparent;
-  color: #fff;
+  background: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
   transform: none;
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button):active {
@@ -808,13 +857,11 @@ body.page:not(.case-studies-page):not(.contact-page)
   aspect-ratio: 4 / 3;
   border-radius: 6px;
 }
-.home-portfolio-section
-  .swiper
-  :is(.swiper-button-prev, .swiper-button-next) {
+.home-portfolio-section .swiper :is(.swiper-button-prev, .swiper-button-next) {
   align-items: center;
   background: var(--color-ink);
   border-radius: 50%;
-  color: #fff;
+  color: var(--text-on-dark);
   display: none;
   height: 44px;
   justify-content: center;
@@ -962,7 +1009,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 :is(.home .home-services, .about-services)
   .service-card:is(:hover, :focus-within)
   .cta-link {
-  color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 :is(.home .home-services, .about-services)
   .service-card__description:is(:hover, :focus-visible) {
@@ -1048,8 +1095,8 @@ body.page:not(.case-studies-page):not(.contact-page)
   margin: 48px 0 0;
   padding: clamp(28px, 5vw, 64px);
   background: var(--color-ink);
-  color: #fff;
-  border-top: 4px solid var(--color-gold);
+  color: var(--text-on-dark);
+  border-top: 4px solid var(--border-top-accent);
 }
 .entry-content .field-guide-callout__eyebrow {
   margin: 0 0 18px;
@@ -1062,7 +1109,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 .entry-content .field-guide-callout h2 {
   max-width: 760px;
   margin: 0 0 20px;
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.12;
 }
@@ -1078,7 +1125,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   min-height: 52px;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-gold);
-  color: #fff;
+  color: var(--text-on-dark);
   font-weight: 700;
   text-decoration: none;
   line-height: 1.5;
@@ -1107,7 +1154,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   padding: 0 28px 28px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--background-light);
   color: var(--color-ink);
   overflow: hidden;
   text-decoration: none;
@@ -1127,7 +1174,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   margin-top: auto;
   margin-bottom: 0;
   padding-top: 24px;
-  border-top: 1px solid var(--color-gold);
+  border-top: 1px solid var(--border-top-accent);
 }
 .case-study-card-link {
   display: flex;
@@ -1170,7 +1217,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   );
 }
 .case-study-cta h2 {
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: clamp(38px, 3.8vw, 56px);
   line-height: 1.1;
   margin: 16px 0 24px;
@@ -1193,7 +1240,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   gap: 32px;
   background: var(--color-ink);
   border: 1px solid var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
   padding: 18px 29px;
   min-height: 54px;
   font-size: 16px;
@@ -1201,9 +1248,9 @@ body.page:not(.case-studies-page):not(.contact-page)
   text-decoration: none;
 }
 .case-study-cta .case-study-cta-button:hover {
-  background: var(--color-gold);
-  border-color: transparent;
-  color: #fff;
+  background: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .case-study-cta .case-study-cta-button:active {
   border-color: transparent;
@@ -1226,15 +1273,17 @@ body.page:not(.case-studies-page):not(.contact-page)
   border-radius: 8px;
 }
 
-/* Canonical filled-button states mirror the homepage hero: the gold surface
-   changes on hover while the label remains white. */
+/* Canonical filled-button states use an accessible cream surface and gold
+   border on hover; gold cannot carry normal-size text at AA contrast. */
 :is(.vbg-btn, .site-header__cta, .contact-action):hover {
-  background-color: var(--color-gold);
-  color: #fff;
+  background-color: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .contact-action:focus-visible {
-  background-color: var(--color-gold);
-  color: #fff;
+  background-color: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .main-navigation :is(a:hover, a:focus, .current-menu-item > a) {
   color: var(--color-ink);
@@ -1246,15 +1295,11 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .main-navigation .primary-menu > li:hover::after,
 .main-navigation .primary-menu > li.current-menu-item::after,
-.main-navigation
-  .primary-menu
-  > li:has(> a[aria-current="page"])::after {
+.main-navigation .primary-menu > li:has(> a[aria-current="page"])::after {
   background-color: var(--color-gold);
 }
 .main-navigation .primary-menu > li.current-menu-item::after,
-.main-navigation
-  .primary-menu
-  > li:has(> a[aria-current="page"])::after {
+.main-navigation .primary-menu > li:has(> a[aria-current="page"])::after {
   opacity: 1;
   transition: none;
   width: 100%;
@@ -1265,27 +1310,17 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .site-header .primary-menu > li > .sub-menu {
   background: var(--color-ink) !important;
-  border-top-color: var(--color-gold) !important;
+  border-top-color: var(--border-top-accent) !important;
 }
 .site-header .primary-menu > li > .sub-menu > li > a:hover,
 .site-header .primary-menu > li > .sub-menu > li > a:focus,
 .site-header .primary-menu > li > .sub-menu > li.current-menu-item > a,
-.site-header
-  .primary-menu
-  > li
-  > .sub-menu
-  > li
-  > a[aria-current="page"] {
+.site-header .primary-menu > li > .sub-menu > li > a[aria-current="page"] {
   background: var(--color-ink) !important;
   color: var(--color-gold) !important;
   text-decoration: none;
 }
-.site-header
-  .primary-menu
-  > li
-  > .sub-menu
-  > li
-  > a[aria-current="page"] {
+.site-header .primary-menu > li > .sub-menu > li > a[aria-current="page"] {
   transition: none;
 }
 :is(
@@ -1316,7 +1351,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   align-items: center;
   background: var(--color-ink);
   border: 1px solid var(--color-ink);
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   display: inline-flex;
   font-family: var(--font-body);
@@ -1331,9 +1366,9 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .content-block-search__button:hover,
 .inquiry-form .vbg-btn:hover {
-  background: var(--color-gold);
-  border-color: transparent;
-  color: #fff;
+  background: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .content-block-search__button:active,
 .inquiry-form .vbg-btn:active {
@@ -1359,7 +1394,7 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .verity-form-confirmation {
   background: var(--color-surface);
-  border-top-color: var(--color-gold);
+  border-top-color: var(--border-top-accent);
 }
 
 /* Gold-on-light is reserved for non-text decoration. */
@@ -1381,20 +1416,23 @@ body.page:not(.case-studies-page):not(.contact-page)
 .vbg-gallery-subfilters button:hover,
 .vbg-gallery-subfilters button:active,
 .vbg-gallery-subfilters button.is-active {
-  background: var(--color-gold);
-  border-color: transparent;
-  color: var(--color-ink);
+  background: var(--color-ink);
+  border-color: var(--color-gold);
+  color: var(--text-on-dark);
 }
 .vbg-final-cta .vbg-cta > a {
   background: var(--color-ink);
-  color: #fff !important;
+  color: var(--text-on-dark) !important;
 }
 .vbg-final-cta .vbg-cta > a:hover {
-  background: var(--color-gold);
-  color: #fff !important;
+  background: var(--background-cream);
+  border-color: var(--color-gold);
+  color: var(--color-dark-blue) !important;
 }
 .contact-card input[type="submit"]:hover {
-  color: #fff;
+  background: var(--background-cream);
+  border: 1px solid var(--color-gold);
+  color: var(--color-dark-blue);
 }
 .work-gallery
   .swiper
@@ -1402,7 +1440,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   color: var(--color-ink);
 }
 .cta-link:hover {
-  color: var(--color-gold);
+  color: var(--color-dark-blue);
   text-decoration: none;
 }
 
@@ -1416,7 +1454,7 @@ a {
   transition: color 0.45s ease;
 }
 a:hover {
-  color: var(--color-gold);
+  color: var(--color-dark-blue);
   text-decoration: none;
 }
 :is(a:hover, a:focus-visible) .action-arrow--right {
@@ -1432,6 +1470,23 @@ a:hover {
   left: 0;
 }
 .about-area-card:hover .about-area-card__action {
-  color: var(--color-gold);
+  color: var(--color-dark-blue);
   text-decoration: none;
+}
+
+/* Dark-context links retain the approved cream foreground in every state. */
+:is(
+    .services-planning,
+    .services-closing,
+    .home-hero,
+    .contact-section,
+    .field-guide-callout,
+    .case-study-cta,
+    .portfolio-viewer,
+    .home .team-section,
+    .site-header .sub-menu,
+    .vbg-final-cta
+  )
+  a:is(:hover, :focus-visible, :active) {
+  color: var(--text-on-dark);
 }
