@@ -1498,6 +1498,18 @@ body.home-portfolio-viewer-open {
   border-radius: 8px;
   overflow: hidden;
 }
+body.single.field-guide-detail .entry-content {
+  margin-top: 0;
+  padding-top: 12px;
+}
+.field-guide-detail .entry-content > h1.page-title::after {
+  display: block;
+  width: 80px;
+  height: 3px;
+  margin-top: 18px;
+  background: var(--color-gold);
+  content: "";
+}
 .field-guide-detail .entry-footer {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

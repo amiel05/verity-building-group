@@ -293,6 +293,14 @@ test("Field Guide details share the article utility footer and project CTA", asy
   );
   assert.match(
     styles,
+    /body\.single\.field-guide-detail \.entry-content\s*\{[^}]*margin-top:\s*0;[^}]*padding-top:\s*12px;/s,
+  );
+  assert.match(
+    styles,
+    /\.field-guide-detail \.entry-content > h1\.page-title::after\s*\{[^}]*width:\s*80px;[^}]*height:\s*3px;[^}]*margin-top:\s*18px;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
     /\.field-guide-detail \.post-navigation \.nav-subtitle\s*\{[^}]*border-bottom:\s*1px solid var\(--color-gold\);[^}]*color:\s*inherit;[^}]*font-size:\s*16px;[^}]*text-transform:\s*none;/s,
   );
   assert.match(
