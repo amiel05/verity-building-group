@@ -79,11 +79,9 @@ const field = (name: string) => `${id}-${name}`;
         <input id={field("location")} name="location" maxlength="500" />
       </div>
       <div class="more half">
-        <label class="screen-reader-text" for={field("projectType")}>
-          Project Type
-        </label>
+        <label for={field("projectType")}>Project Type</label>
         <select id={field("projectType")} name="projectType">
-          <option value="">Project Type</option>
+          <option value="">Select project type</option>
           <option>Land Development</option>
           <option>New Home Construction</option>
           <option>Renovation</option>

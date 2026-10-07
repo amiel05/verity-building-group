@@ -413,7 +413,8 @@ select:focus-visible {
 .inquiry-fields {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 16px 2%;
+  column-gap: 2%;
+  row-gap: 32px;
 }
 .inquiry-fields > div,
 .inquiry-fields > fieldset {

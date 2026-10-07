@@ -44,6 +44,11 @@ test("all contact form fields remain visible without progressive disclosure", as
   }
   assert.doesNotMatch(styles, /inquiry-form:not\(\.is-expanded\)/);
   assert.doesNotMatch(script, /is-expanded/);
+  assert.match(
+    component,
+    /<label for=\{field\("projectType"\)\}>Project Type<\/label>\s*<select[^>]+name="projectType">\s*<option value="">Select project type<\/option>/,
+  );
+  assert.match(styles, /\.inquiry-fields\s*\{[^}]*row-gap:\s*32px;/s);
 });
 function request(
   values: Record<string, string> = {},
