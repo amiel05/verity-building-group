@@ -246,43 +246,93 @@
   max-width: 350px;
   font-size: 16px;
 }
-.services-faq details {
+.services-faq :is(details, .accordion-item) {
   border-bottom: 1px solid var(--services-line);
 }
-.services-faq details:first-child {
+.services-faq :is(details, .accordion-item):first-child {
   border-top: 1px solid var(--services-line);
 }
-.services-faq summary {
+.services-faq :is(summary, .accordion-trigger) {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--color-ink);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
   padding-block: 24px;
+  padding-inline: 0;
+  width: 100%;
   cursor: pointer;
   list-style: none;
+  font-family: inherit;
   font-size: 18px;
   font-weight: 700;
+  letter-spacing: inherit;
   line-height: 1.5;
+  text-align: left;
+  text-transform: none;
+  transition: color 0.3s ease;
 }
 .services-faq summary::-webkit-details-marker {
   display: none;
 }
-.services-faq summary::after {
+.services-faq :is(summary, .accordion-trigger)::after {
   content: "+";
+  color: var(--color-ink);
+  flex: 0 0 auto;
   font-size: 24px;
   font-weight: 400;
+  transition: color 0.3s ease;
 }
-.services-faq details[open] summary::after {
+.services-faq details[open] summary,
+.services-faq .accordion-item.is-open .accordion-trigger {
+  color: var(--color-gold);
+}
+.services-faq details[open] summary::after,
+.services-faq .accordion-item.is-open .accordion-trigger::after {
   content: "−";
+  color: var(--color-ink);
 }
-.services-faq summary:focus-visible {
-  outline: 2px solid var(--color-ink);
+.services-faq :is(summary, .accordion-trigger):is(:hover, :focus-visible),
+.services-faq
+  .accordion-item.is-open
+  .accordion-trigger:is(:hover, :focus-visible) {
+  color: var(--color-gold);
+}
+.services-faq
+  :is(summary, .accordion-trigger):is(:hover, :focus-visible)::after,
+.services-faq
+  .accordion-item.is-open
+  .accordion-trigger:is(:hover, :focus-visible)::after {
+  color: var(--color-gold);
+}
+.services-faq :is(summary, .accordion-trigger):focus-visible {
+  outline: 2px solid var(--color-gold);
   outline-offset: 5px;
 }
-.services-faq details p {
+.services-faq :is(details, .accordion-panel) p {
   padding-bottom: 24px;
   color: var(--services-muted);
   font-size: 16px;
+}
+.services-faq .accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.3s ease,
+    opacity 0.3s ease;
+}
+.services-faq .accordion-item.is-open .accordion-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.services-faq .accordion-panel__inner {
+  min-height: 0;
+  overflow: hidden;
 }
 :is(.services-closing, .case-study-cta) {
   background-image:
@@ -402,7 +452,7 @@
   .services-page .services-process {
     margin-top: 40px;
   }
-  .services-faq summary {
+  .services-faq :is(summary, .accordion-trigger) {
     font-size: 16px;
   }
 }

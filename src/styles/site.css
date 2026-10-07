@@ -1423,8 +1423,95 @@ body.page:not(.case-studies-page):not(.contact-page)
 ) {
   color: var(--color-ink);
 }
-.vbg-faq summary::after {
+.vbg-faq :is(details, .accordion-item) {
+  border-top: 1px solid var(--color-border);
+  padding: 0;
+}
+.vbg-faq :is(details, .accordion-item):last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+.vbg-faq :is(summary, .accordion-trigger) {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
   color: var(--color-ink);
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-weight: 800;
+  letter-spacing: inherit;
+  list-style: none;
+  padding: 20px 46px 20px 0;
+  position: relative;
+  text-align: left;
+  text-transform: none;
+  transition: color 0.3s ease;
+  width: 100%;
+}
+.vbg-faq summary::-webkit-details-marker {
+  display: none;
+}
+.vbg-faq :is(summary, .accordion-trigger)::after {
+  color: var(--color-ink);
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  right: 8px;
+  top: 13px;
+  transition: color 0.3s ease;
+}
+.vbg-faq details[open] summary,
+.vbg-faq .accordion-item.is-open .accordion-trigger {
+  color: var(--color-gold);
+}
+.vbg-faq details[open] summary::after,
+.vbg-faq .accordion-item.is-open .accordion-trigger::after {
+  color: var(--color-ink);
+  content: "−";
+}
+.vbg-faq :is(summary, .accordion-trigger):is(:hover, :focus-visible),
+.vbg-faq .accordion-item.is-open .accordion-trigger:is(:hover, :focus-visible) {
+  color: var(--color-gold);
+}
+.vbg-faq :is(summary, .accordion-trigger):is(:hover, :focus-visible)::after,
+.vbg-faq
+  .accordion-item.is-open
+  .accordion-trigger:is(:hover, :focus-visible)::after {
+  color: var(--color-gold);
+}
+.vbg-faq :is(summary, .accordion-trigger):focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 5px;
+}
+.vbg-faq :is(details, .accordion-panel) p {
+  margin: 0;
+  max-width: 850px;
+  padding: 0 0 24px;
+}
+.vbg-faq .accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.3s ease,
+    opacity 0.3s ease;
+}
+.vbg-faq .accordion-item.is-open .accordion-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.vbg-faq .accordion-panel__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.services-faq, .vbg-faq) .accordion-trigger,
+  :is(.services-faq, .vbg-faq) .accordion-trigger::after,
+  :is(.services-faq, .vbg-faq) .accordion-panel {
+    transition: none;
+  }
 }
 .vbg-gallery-filters button:hover,
 .vbg-gallery-filters button:active,

@@ -91,6 +91,79 @@ doc.addEventListener("keydown", (e) => {
     toggle?.focus();
   }
 });
+
+doc
+  .querySelectorAll<HTMLElement>(".services-faq, .vbg-faq")
+  .forEach((accordion, accordionIndex) => {
+    let openItem: HTMLElement | null = null;
+    const detailsItems = Array.from(
+      accordion.querySelectorAll<HTMLDetailsElement>(":scope > details"),
+    );
+
+    detailsItems.forEach((details, itemIndex) => {
+      const summary = details.querySelector<HTMLElement>(":scope > summary");
+      if (!summary) return;
+
+      const item = doc.createElement("div");
+      item.className = `accordion-item ${details.className}`.trim();
+
+      const trigger = doc.createElement("button");
+      const panel = doc.createElement("div");
+      const panelInner = doc.createElement("div");
+      const idBase = `accordion-${accordionIndex + 1}-${itemIndex + 1}`;
+
+      trigger.type = "button";
+      trigger.className = "accordion-trigger";
+      trigger.id = `${idBase}-trigger`;
+      trigger.innerHTML = summary.innerHTML;
+      trigger.setAttribute("aria-controls", `${idBase}-panel`);
+
+      panel.className = "accordion-panel";
+      panel.id = `${idBase}-panel`;
+      panel.setAttribute("role", "region");
+      panel.setAttribute("aria-labelledby", trigger.id);
+      panelInner.className = "accordion-panel__inner";
+
+      Array.from(details.childNodes).forEach((child) => {
+        if (child !== summary) panelInner.append(child);
+      });
+      panel.append(panelInner);
+      item.append(trigger, panel);
+
+      const initiallyOpen = details.open && openItem === null;
+      item.classList.toggle("is-open", initiallyOpen);
+      trigger.setAttribute("aria-expanded", String(initiallyOpen));
+      panel.setAttribute("aria-hidden", String(!initiallyOpen));
+      panel.inert = !initiallyOpen;
+      if (initiallyOpen) openItem = item;
+
+      const setOpen = (shouldOpen: boolean) => {
+        item.classList.toggle("is-open", shouldOpen);
+        trigger.setAttribute("aria-expanded", String(shouldOpen));
+        panel.setAttribute("aria-hidden", String(!shouldOpen));
+        panel.inert = !shouldOpen;
+      };
+
+      trigger.addEventListener("click", () => {
+        const shouldOpen = !item.classList.contains("is-open");
+        if (shouldOpen && openItem && openItem !== item) {
+          const openTrigger =
+            openItem.querySelector<HTMLButtonElement>(".accordion-trigger");
+          const openPanel =
+            openItem.querySelector<HTMLElement>(".accordion-panel");
+          openItem.classList.remove("is-open");
+          openTrigger?.setAttribute("aria-expanded", "false");
+          openPanel?.setAttribute("aria-hidden", "true");
+          if (openPanel) openPanel.inert = true;
+        }
+        setOpen(shouldOpen);
+        openItem = shouldOpen ? item : null;
+      });
+
+      details.replaceWith(item);
+    });
+  });
+
 const modal = doc.querySelector<HTMLElement>("#verity-project-modal")!;
 const dialog = modal.querySelector<HTMLElement>("[role=dialog]")!;
 let lastFocus: HTMLElement | null = null;
