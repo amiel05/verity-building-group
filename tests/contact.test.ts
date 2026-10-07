@@ -50,6 +50,40 @@ test("all contact form fields remain visible without progressive disclosure", as
   );
   assert.match(styles, /\.inquiry-fields\s*\{[^}]*row-gap:\s*32px;/s);
 });
+
+test("homepage and modal use the four-field Contact handoff", async () => {
+  const [handoff, modal, page, script] = await Promise.all([
+    readFile("src/components/ContactHandoffForm.astro", "utf8"),
+    readFile("src/components/ProjectModal.astro", "utf8"),
+    readFile("src/pages/[...path].astro", "utf8"),
+    readFile("src/scripts/site.ts", "utf8"),
+  ]);
+
+  for (const name of ["firstName", "lastName", "email", "phone"]) {
+    assert.match(handoff, new RegExp(`name=["'{]${name}`));
+  }
+  for (const name of [
+    "location",
+    "projectType",
+    "propertyStatus",
+    "budget",
+    "message",
+    "files",
+  ]) {
+    assert.doesNotMatch(handoff, new RegExp(`name=["'{]${name}`));
+  }
+  assert.match(handoff, /data-contact-handoff/);
+  assert.match(handoff, />\s*Next\s*<ActionArrow \/>/);
+  assert.match(modal, /<ContactHandoffForm id="modal-inquiry" \/>/);
+  assert.match(
+    page,
+    /path === "\/" \|\| path === "\/home-2\/"[^]*?<ContactHandoffForm/,
+  );
+  assert.match(script, /sessionStorage\.setItem\(\s*contactHandoffStorageKey/);
+  assert.match(script, /window\.location\.assign\("\/contact\/"\)/);
+  assert.match(script, /main \[data-inquiry-form\]/);
+  assert.match(script, /input\.value = value/);
+});
 function request(
   values: Record<string, string> = {},
   origin = config.siteUrl,

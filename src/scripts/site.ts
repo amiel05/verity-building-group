@@ -407,6 +407,70 @@ doc.querySelectorAll<HTMLElement>("[data-home-portfolio]").forEach((root) => {
     timer = setInterval(() => show(current + 1), 5000);
   });
 });
+const contactHandoffStorageKey = "verity-contact-handoff";
+const contactHandoffFieldNames = [
+  "firstName",
+  "lastName",
+  "email",
+  "phone",
+] as const;
+
+doc
+  .querySelectorAll<HTMLFormElement>("[data-contact-handoff]")
+  .forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const values = Object.fromEntries(
+        contactHandoffFieldNames.map((name) => {
+          const field = form.elements.namedItem(name);
+          return [name, field instanceof HTMLInputElement ? field.value : ""];
+        }),
+      );
+      try {
+        sessionStorage.setItem(
+          contactHandoffStorageKey,
+          JSON.stringify({ savedAt: Date.now(), values }),
+        );
+      } catch {
+        // Continue to Contact even when private browsing blocks storage.
+      }
+      window.location.assign("/contact/");
+    });
+  });
+
+if (window.location.pathname === "/contact/") {
+  try {
+    const saved = sessionStorage.getItem(contactHandoffStorageKey);
+    if (saved) {
+      const handoff = JSON.parse(saved) as {
+        savedAt?: number;
+        values?: Partial<
+          Record<(typeof contactHandoffFieldNames)[number], string>
+        >;
+      };
+      const isFresh =
+        typeof handoff.savedAt === "number" &&
+        Date.now() - handoff.savedAt < 30 * 60 * 1000;
+      const contactForm = doc.querySelector<HTMLFormElement>(
+        "main [data-inquiry-form]",
+      );
+      if (isFresh && contactForm && handoff.values) {
+        contactHandoffFieldNames.forEach((name) => {
+          const input = contactForm.elements.namedItem(name);
+          const value = handoff.values?.[name];
+          if (input instanceof HTMLInputElement && typeof value === "string") {
+            input.value = value;
+          }
+        });
+      } else if (!isFresh) {
+        sessionStorage.removeItem(contactHandoffStorageKey);
+      }
+    }
+  } catch {
+    // Ignore unavailable or malformed same-origin session data.
+  }
+}
+
 doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
   form
     .querySelector<HTMLInputElement>("[type=file]")
@@ -450,6 +514,11 @@ doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
         }
       }
       if (response.ok && result.ok) {
+        try {
+          sessionStorage.removeItem(contactHandoffStorageKey);
+        } catch {
+          // Storage cleanup must not interrupt a successful form submission.
+        }
         form.reset();
         const template = form.parentElement?.querySelector<HTMLTemplateElement>(
           "[data-inquiry-confirmation]",

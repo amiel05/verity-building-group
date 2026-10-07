@@ -1,0 +1,68 @@
+---
+import ActionArrow from "./ActionArrow.astro";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const field = (name: string) => `${id}-${name}`;
+---
+
+<form class="contact-handoff-form body-regular" data-contact-handoff>
+  <div class="contact-handoff-fields">
+    <div class="contact-handoff-name">
+      <label class="screen-reader-text" for={field("firstName")}>
+        First Name
+      </label>
+      <input
+        id={field("firstName")}
+        name="firstName"
+        placeholder="First Name"
+        autocomplete="given-name"
+        maxlength="100"
+      />
+      <label class="screen-reader-text" for={field("lastName")}>
+        Last Name
+      </label>
+      <input
+        id={field("lastName")}
+        name="lastName"
+        placeholder="Last Name"
+        autocomplete="family-name"
+        maxlength="100"
+      />
+    </div>
+    <div>
+      <label class="screen-reader-text" for={field("email")}>
+        Email Address
+      </label>
+      <input
+        id={field("email")}
+        name="email"
+        type="email"
+        placeholder="Email Address"
+        autocomplete="email"
+        maxlength="254"
+      />
+    </div>
+    <div>
+      <label class="screen-reader-text" for={field("phone")}>
+        Phone Number
+      </label>
+      <input
+        id={field("phone")}
+        name="phone"
+        type="tel"
+        placeholder="Phone Number"
+        autocomplete="tel"
+        maxlength="40"
+      />
+    </div>
+    <div>
+      <button type="submit" class="vbg-btn contact-handoff-next">
+        Next <ActionArrow />
+      </button>
+    </div>
+  </div>
+</form>

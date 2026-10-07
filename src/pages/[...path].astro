@@ -3,6 +3,7 @@ import Site from "../layouts/Site.astro";
 import Portfolio from "../components/Portfolio.astro";
 import BlogIndex from "../components/BlogIndex.astro";
 import ContactForm from "../components/ContactForm.astro";
+import ContactHandoffForm from "../components/ContactHandoffForm.astro";
 import { replaceArrowGlyphs } from "../lib/icons";
 import portfolioPhotos from "../content/portfolio.json";
 const pages = import.meta.glob("../content/pages/*.json", {
@@ -213,9 +214,12 @@ if (!page) Astro.response.status = 404;
     page.sections.map((html, index) => (
       <>
         <Fragment set:html={normalizePageHtml(html)} />
-        {index < page.sections.length - 1 && (
-          <ContactForm id={`page-inquiry-${index}`} />
-        )}
+        {index < page.sections.length - 1 &&
+          (path === "/" || path === "/home-2/" ? (
+            <ContactHandoffForm id={`page-inquiry-${index}`} />
+          ) : (
+            <ContactForm id={`page-inquiry-${index}`} />
+          ))}
       </>
     ))
   ) : (

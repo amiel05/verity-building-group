@@ -531,6 +531,48 @@ select:focus-visible {
   color: var(--color-error);
   font-size: 14px;
 }
+.contact-handoff-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+.contact-handoff-fields > div {
+  min-width: 0;
+}
+.contact-handoff-name {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.contact-handoff-form input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--color-ink);
+  font: 400 var(--font-size-body-regular) / 1.55 var(--font-body);
+}
+.contact-handoff-form input::placeholder {
+  color: var(--color-ink);
+  opacity: 1;
+}
+.contact-handoff-next {
+  gap: 32px;
+  justify-content: space-between;
+  min-width: 180px;
+}
+.contact-handoff-next .action-arrow {
+  color: currentColor;
+}
+.contact-handoff-next:hover .action-arrow,
+.contact-handoff-next:focus-visible .action-arrow {
+  left: 5px;
+}
 .work-gallery .swiper-wrapper {
   display: flex;
   overflow-x: auto;
@@ -588,6 +630,13 @@ select:focus-visible {
   }
   .inquiry-fields > .half {
     grid-column: 1/-1;
+  }
+  .contact-handoff-fields,
+  .contact-handoff-name {
+    grid-template-columns: 1fr;
+  }
+  .contact-handoff-name {
+    grid-column: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {
