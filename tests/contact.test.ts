@@ -83,6 +83,11 @@ test("homepage and modal use the four-field Contact handoff", async () => {
   assert.match(script, /window\.location\.assign\("\/contact\/"\)/);
   assert.match(script, /main \[data-inquiry-form\]/);
   assert.match(script, /input\.value = value/);
+  const styles = await readFile("src/styles/site.css", "utf8");
+  assert.match(
+    styles,
+    /\.contact-handoff-next\s*\{[^}]*gap:\s*24px;[^}]*justify-content:\s*center;/s,
+  );
 });
 function request(
   values: Record<string, string> = {},

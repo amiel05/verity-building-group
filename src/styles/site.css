@@ -593,8 +593,8 @@ select:focus-visible {
   opacity: 1;
 }
 .contact-handoff-next {
-  gap: 32px;
-  justify-content: space-between;
+  gap: 24px;
+  justify-content: center;
   min-width: 180px;
 }
 .contact-handoff-next .action-arrow {
