@@ -138,6 +138,15 @@ test("main-page heroes share the short gold heading rule", async () => {
   );
 });
 
+test("contact form heading uses half the inherited editorial top margin", async () => {
+  const styles = await readFile("src/styles/site.css", "utf8");
+
+  assert.match(
+    styles,
+    /body\.page\.contact-page \.vbg-contact-form > h2:first-child\s*\{[^}]*margin-top:\s*0\.825em;/s,
+  );
+});
+
 test("About team and service-area introductions use vertical gold dividers", async () => {
   const [about, styles] = await Promise.all([
     readFile("src/content/overrides/about.html", "utf8"),

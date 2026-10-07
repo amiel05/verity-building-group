@@ -758,6 +758,9 @@ body.page.contact-page .vbg-contact-form {
   border-top: 0;
   border-radius: 8px;
 }
+body.page.contact-page .vbg-contact-form > h2:first-child {
+  margin-top: 0.825em;
+}
 body.page.contact-page .entry-content > section:has(> .vbg-process) {
   width: 100vw;
   margin-top: 96px;
