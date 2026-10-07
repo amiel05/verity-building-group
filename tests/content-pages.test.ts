@@ -106,7 +106,7 @@ test("About team and service-area introductions use vertical gold dividers", asy
   );
   assert.match(
     styles,
-    /\.about-inline-intro > p:last-child::before\s*\{[^}]*width:\s*3px;[^}]*height:\s*46px;[^}]*background:\s*var\(--color-gold\);/s,
+    /\.about-inline-intro > p:last-child::before\s*\{[^}]*top:\s*0;[^}]*bottom:\s*0;[^}]*width:\s*3px;[^}]*background:\s*var\(--color-gold\);/s,
   );
   assert.match(styles, /\.about-areas__heading\.about-inline-intro[^}]*> div > h2/s);
 });
