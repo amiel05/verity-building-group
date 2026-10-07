@@ -208,6 +208,33 @@ test("field-guide listing preserves source order, images, and alternative text",
   }
 });
 
+test("Field Guide details share the article utility footer and project CTA", async () => {
+  const [route, styles] = await Promise.all([
+    readFile("src/pages/[...path].astro", "utf8"),
+    readFile("src/styles/site.css", "utf8"),
+  ]);
+
+  for (const path of fieldGuideRoutes) {
+    assert.match(route, new RegExp(path.replaceAll("/", "\\/")));
+  }
+  assert.match(route, /isFieldGuideDetail && <ProjectCta id="field-guide-detail-cta-title" \/>/);
+  assert.match(route, /\$1Explore Field Guide\$2/);
+  assert.match(route, /arrowIconMarkup\("left"\)/);
+  assert.match(route, /arrowIconMarkup\("right"\)/);
+  assert.match(
+    styles,
+    /\.field-guide-detail \.widget-area\s*\{[^}]*border-top:\s*0;[^}]*background:\s*var\(--background-dark\);/s,
+  );
+  assert.match(
+    styles,
+    /\.field-guide-detail \.post-navigation a\s*\{[^}]*border-bottom:\s*1px solid var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
+    /\.field-guide-detail > \.site > \.case-study-cta\s*\{[^}]*margin-top:\s*0;/s,
+  );
+});
+
 test("Portfolio and Field Guide listings end with the shared project CTA", async () => {
   const [portfolio, fieldGuide, cta, blogStyles] = await Promise.all([
     readFile("src/components/Portfolio.astro", "utf8"),

@@ -4,7 +4,8 @@ import Portfolio from "../components/Portfolio.astro";
 import BlogIndex from "../components/BlogIndex.astro";
 import ContactForm from "../components/ContactForm.astro";
 import ContactHandoffForm from "../components/ContactHandoffForm.astro";
-import { replaceArrowGlyphs } from "../lib/icons";
+import ProjectCta from "../components/ProjectCta.astro";
+import { arrowIconMarkup, replaceArrowGlyphs } from "../lib/icons";
 import portfolioPhotos from "../content/portfolio.json";
 const pages = import.meta.glob("../content/pages/*.json", {
   eager: true,
@@ -73,6 +74,11 @@ const blogProps = blogRoutes[path];
 const singleHeadingPaths = new Set([
   "/contact/",
   "/case-studies/",
+  "/custom-home-budget-planning-where-to-start-in-cornelius/",
+  "/what-thoughtful-homebuilding-means-for-charlotte-families/",
+  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
+]);
+const fieldGuideDetailPaths = new Set([
   "/custom-home-budget-planning-where-to-start-in-cornelius/",
   "/what-thoughtful-homebuilding-means-for-charlotte-families/",
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
@@ -160,6 +166,25 @@ const normalizePageHtml = (html: string) => {
       /class="content-block-search__button content-element-button"/g,
       'class="content-block-search__button content-element-button vbg-btn"',
     );
+  if (fieldGuideDetailPaths.has(path)) {
+    normalized = normalized
+      .replace(
+        /(<label class="content-block-search__label form-label"[^>]*>)Search(<\/label>)/,
+        "$1Explore Field Guide$2",
+      )
+      .replace(
+        /(<button[^>]*class="content-block-search__button content-element-button vbg-btn"[^>]*>)Search(<\/button>)/,
+        `$1Search ${arrowIconMarkup("right")}$2`,
+      )
+      .replace(
+        '<span class="nav-subtitle">Previous:</span>',
+        `<span class="nav-subtitle">${arrowIconMarkup("left")} Previous</span>`,
+      )
+      .replace(
+        '<span class="nav-subtitle">Next:</span>',
+        `<span class="nav-subtitle">Next ${arrowIconMarkup("right")}</span>`,
+      );
+  }
   if (primaryServiceDetailPaths.has(path)) {
     normalized = normalized.replace(
       /class="services-link"/,
@@ -196,12 +221,13 @@ const page =
         sections: homepage.sections,
       }
     : requestedPage;
+const isFieldGuideDetail = fieldGuideDetailPaths.has(path);
 if (!page) Astro.response.status = 404;
 ---
 
 <Site
   title={page?.title || "Page not found | Verity Building Group"}
-  bodyClass={page?.bodyClass}
+  bodyClass={`${page?.bodyClass || "page"}${isFieldGuideDetail ? " field-guide-detail" : ""}`}
   canonical={page?.canonical}
   meta={page?.meta}
   schema={page?.schema}
@@ -211,17 +237,20 @@ if (!page) Astro.response.status = 404;
   ) : page && blogProps ? (
     <BlogIndex {...blogProps} />
   ) : page ? (
-    page.sections.map((html, index) => (
-      <>
-        <Fragment set:html={normalizePageHtml(html)} />
-        {index < page.sections.length - 1 &&
-          (path === "/" || path === "/home-2/" ? (
-            <ContactHandoffForm id={`page-inquiry-${index}`} />
-          ) : (
-            <ContactForm id={`page-inquiry-${index}`} />
-          ))}
-      </>
-    ))
+    <>
+      {page.sections.map((html, index) => (
+        <>
+          <Fragment set:html={normalizePageHtml(html)} />
+          {index < page.sections.length - 1 &&
+            (path === "/" || path === "/home-2/" ? (
+              <ContactHandoffForm id={`page-inquiry-${index}`} />
+            ) : (
+              <ContactForm id={`page-inquiry-${index}`} />
+            ))}
+        </>
+      ))}
+      {isFieldGuideDetail && <ProjectCta id="field-guide-detail-cta-title" />}
+    </>
   ) : (
     <main id="primary" class="basic-content-row">
       <div class="container">
