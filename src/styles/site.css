@@ -725,12 +725,14 @@ body.page.contact-page .entry-content > section:has(> .vbg-process) {
       calc((100vw - var(--site-container-max)) / 2)
     )
     96px;
-  background: var(--color-surface-alt);
+  background: var(--background-dark);
+  color: var(--text-on-dark);
 }
 body.page.contact-page
   .entry-content
   > section:has(> .vbg-process)
   > h2:first-child {
+  color: var(--text-on-dark);
   margin-top: 0;
 }
 body.page.contact-page
@@ -738,6 +740,29 @@ body.page.contact-page
   > section:has(> .vbg-process)
   .vbg-process {
   margin-bottom: 0;
+}
+body.page.contact-page
+  .entry-content
+  > section:has(> .vbg-process)
+  .vbg-process
+  article {
+  background: transparent;
+  border-color: var(--border-on-dark);
+}
+body.page.contact-page
+  .entry-content
+  > section:has(> .vbg-process)
+  .vbg-process
+  :is(h3, p) {
+  color: var(--text-on-dark);
+}
+body.page.contact-page
+  .entry-content
+  > section:has(> .vbg-process)
+  .vbg-process
+  article
+  > span {
+  color: var(--color-gold);
 }
 .case-studies-hero {
   width: 100vw;
