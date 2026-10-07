@@ -759,6 +759,29 @@ body.page:not(.case-studies-page):not(.contact-page)
   left: 5px;
 }
 
+/* Bring the homepage team section into the same dark editorial treatment as
+   the About page's "Listen. Plan. Build." section. */
+.home .team-section {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+.home .team-section :is(h2, h3) {
+  color: var(--color-cream);
+}
+.home .team-section :is(.team-section__content > p, .team-value p) {
+  color: var(--color-text-on-dark);
+}
+.home .team-section .team-values,
+.home .team-section .team-value:not(:last-child) {
+  border-color: var(--color-border-dark);
+}
+.home .team-section .team-value__icon {
+  background: var(--color-gold);
+}
+.home .team-section .team-value__icon img {
+  filter: brightness(0) invert(1);
+}
+
 /* Homepage services: three balanced offerings with an in-flow action row. */
 .home .home-services {
   padding-block: clamp(48px, 5vw, 80px);
