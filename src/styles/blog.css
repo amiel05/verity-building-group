@@ -50,9 +50,11 @@
   grid-column: 2;
   grid-row: 1;
   padding: 28px;
-  background: var(--color-cream);
+  background: var(--background-dark);
+  color: var(--text-on-dark);
 }
 .blog-sidebar h2 {
+  color: var(--text-on-dark);
   font-size: 30px;
   line-height: 1.1;
   margin: 0 0 28px;
@@ -60,6 +62,7 @@
 .blog-sidebar label {
   display: block;
   margin: 20px 0 8px;
+  color: var(--text-on-dark);
   font-size: var(--font-size-body-regular);
   font-weight: 700;
 }
@@ -78,9 +81,25 @@
 .blog-sidebar button {
   width: 100%;
   margin-top: 24px;
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--text-on-dark);
   cursor: pointer;
   justify-content: space-between;
   gap: 8px;
+  white-space: nowrap;
+}
+.blog-sidebar button:is(:hover, :focus-visible, :active) {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--text-on-dark);
+}
+.blog-sidebar button .action-arrow {
+  left: 0;
+  transition: left 0.3s ease;
+}
+.blog-sidebar button:is(:hover, :focus-visible) .action-arrow {
+  left: 5px;
 }
 .blog-page a {
   color: inherit;
@@ -101,7 +120,7 @@
   font-size: 14px;
 }
 .blog-sidebar-note {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border-on-dark);
   margin-top: 32px;
   padding-top: 28px;
 }
@@ -109,6 +128,7 @@
   margin: 0 0 16px;
 }
 .blog-sidebar-note a {
+  color: var(--text-on-dark);
   font-weight: 700;
   border-bottom: 1px solid var(--color-gold);
   padding-bottom: 6px;
