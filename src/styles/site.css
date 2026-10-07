@@ -858,6 +858,10 @@ body.page:not(.case-studies-page):not(.contact-page)
   .cta-link {
   color: var(--color-gold);
 }
+:is(.home .home-services, .about-services)
+  .service-card__description:is(:hover, :focus-visible) {
+  color: var(--color-ink);
+}
 :is(.home .home-services, .about-services) .service-card .interface-icon {
   position: relative;
   left: 0;
