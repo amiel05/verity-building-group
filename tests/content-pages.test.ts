@@ -205,6 +205,30 @@ test("service detail pages feature the matching case study after Our Approach", 
   );
 });
 
+test("service detail heroes match staging media without disclaimer captions", async () => {
+  const [land, customHomes, legacy, header] = await Promise.all([
+    readFile("src/content/overrides/land-development-charlotte-nc.html", "utf8"),
+    readFile("src/content/overrides/custom-home-builder-charlotte-nc.html", "utf8"),
+    readFile("src/content/overrides/legacy-projects.html", "utf8"),
+    readFile("src/components/Header.astro", "utf8"),
+  ]);
+
+  assert.match(land, /src="\/assets\/12214cf068-verity-land-development-lake-norman\.webp"/);
+  assert.match(customHomes, /src="\/assets\/a399ddb102-verity_hero-e1786715846853\.webp"/);
+  assert.match(legacy, /src="\/assets\/f032cd6272-verity-legacy-neighborhood-home-v2\.webp"/);
+  for (const page of [land, customHomes, legacy]) {
+    assert.doesNotMatch(page, /AI-generated editorial concept/);
+    assert.doesNotMatch(page, /<figcaption>/);
+  }
+
+  const landPosition = header.indexOf('"/land-development-charlotte-nc/"');
+  const customPosition = header.indexOf('"/custom-home-builder-charlotte-nc/"');
+  const legacyPosition = header.indexOf('"/legacy-projects/"');
+  assert.ok(landPosition >= 0);
+  assert.ok(landPosition < customPosition);
+  assert.ok(customPosition < legacyPosition);
+});
+
 test("Custom Homes location and FAQ sections use their page-specific treatment", async () => {
   const styles = await readFile("src/styles/legacy.css", "utf8");
 

@@ -1,8 +1,28 @@
 ---
 import chrome from "../content/chrome.json";
 
+const serviceLinks = [
+  "/land-development-charlotte-nc/",
+  "/custom-home-builder-charlotte-nc/",
+  "/legacy-projects/",
+];
+const reorderServices = (html: string) =>
+  html.replace(
+    /(<a href="\/services\/">Services<\/a>\s*<ul class="sub-menu">)([\s\S]*?)(<\/ul>)/,
+    (_match, opening: string, items: string, closing: string) => {
+      const menuItems = Array.from(items.matchAll(/<li\b[\s\S]*?<\/li>/g)).map(
+        ([item]) => item,
+      );
+      const ordered = serviceLinks
+        .map((href) => menuItems.find((item) => item.includes(`href="${href}"`)))
+        .filter((item): item is string => Boolean(item));
+      const remaining = menuItems.filter((item) => !ordered.includes(item));
+      return `${opening}\n${[...ordered, ...remaining].join("\n")}\n${closing}`;
+    },
+  );
+
 let submenuIndex = 0;
-const header = chrome.header
+const header = reorderServices(chrome.header)
   .replaceAll(
     `href="${Astro.url.pathname}"`,
     `aria-current="page" href="${Astro.url.pathname}"`,
