@@ -139,12 +139,14 @@ body:not(.home) :is(h1, .entry-content .vbg-display-title) {
 :is(
   .entry-content .eyebrow,
   .services-page .services-eyebrow,
+  .services-closing .services-eyebrow,
   .blog-page .blog-kicker,
   .portfolio-eyebrow,
   .entry-content .field-guide-callout__eyebrow,
   .entry-content .case-study-cta .case-study-cta-eyebrow,
   .verity-project-modal__eyebrow
 ) {
+  font-family: var(--font-body);
   font-size: var(--font-size-eyebrow);
   font-weight: var(--font-weight-eyebrow);
   letter-spacing: var(--letter-spacing-eyebrow);

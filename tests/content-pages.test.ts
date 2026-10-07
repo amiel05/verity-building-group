@@ -72,7 +72,10 @@ test("case-study listing and routes represent all three source entries", async (
 });
 
 test("case-study detail CTAs reuse the footer-attached image treatment", async () => {
-  const servicesStyles = await readFile("src/styles/services.css", "utf8");
+  const [servicesStyles, siteStyles] = await Promise.all([
+    readFile("src/styles/services.css", "utf8"),
+    readFile("src/styles/site.css", "utf8"),
+  ]);
 
   for (const path of caseStudyRoutes) {
     const slug = path.split("/").filter(Boolean).at(-1);
@@ -110,6 +113,10 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
   assert.match(
     servicesStyles,
     /\.case-study-detail-closing \.services-button\s*\{[^}]*width:\s*fit-content;[^}]*max-width:\s*100%;[^}]*justify-content:\s*flex-start;[^}]*gap:\s*40px;/s,
+  );
+  assert.match(
+    siteStyles,
+    /:is\([^}]*\.services-closing \.services-eyebrow[^}]*\)\s*\{[^}]*font-family:\s*var\(--font-body\);[^}]*font-size:\s*var\(--font-size-eyebrow\);[^}]*text-transform:\s*uppercase;[^}]*color:\s*var\(--color-gold\);/s,
   );
 });
 
