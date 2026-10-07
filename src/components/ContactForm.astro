@@ -78,7 +78,7 @@ const field = (name: string) => `${id}-${name}`;
         </label>
         <input id={field("location")} name="location" maxlength="500" />
       </div>
-      <div class="starter half">
+      <div class="more half">
         <label class="screen-reader-text" for={field("projectType")}>
           Project Type
         </label>
@@ -87,6 +87,28 @@ const field = (name: string) => `${id}-${name}`;
           <option>Land Development</option>
           <option>New Home Construction</option>
           <option>Renovation</option>
+          <option>Legacy / Community Project</option>
+        </select>
+      </div>
+      <div class="more half">
+        <label for={field("propertyStatus")}>Property Status</label>
+        <select id={field("propertyStatus")} name="propertyStatus">
+          <option value="">Select property status</option>
+          <option>I own the property</option>
+          <option>Under contract</option>
+          <option>Searching or evaluating</option>
+          <option>Not applicable</option>
+        </select>
+      </div>
+      <div class="more half">
+        <label for={field("budget")}>Anticipated Construction Investment</label>
+        <select id={field("budget")} name="budget">
+          <option value="">Select a range</option>
+          <option>Not sure yet</option>
+          <option>Under $500,000</option>
+          <option>$500,000–$1 million</option>
+          <option>$1–$2 million</option>
+          <option>$2 million+</option>
         </select>
       </div>
       <div class="more">
@@ -126,6 +148,16 @@ const field = (name: string) => `${id}-${name}`;
           rows="6"
           maxlength="2000"
         ></textarea>
+      </div>
+      <div class="more">
+        <label for={field("decisionMakers")}>
+          Who Will Be Involved in Project Decisions?
+        </label>
+        <input
+          id={field("decisionMakers")}
+          name="decisionMakers"
+          maxlength="1000"
+        />
       </div>
       <div class="starter">
         <label class="screen-reader-text" for={field("message")}>
@@ -204,18 +236,28 @@ const field = (name: string) => `${id}-${name}`;
       <div class="vbg-process">
         <article>
           <span>01</span>
-          <h4>We review the basics</h4>
-          <p>We review the location, scope, timing, and information you shared.</p>
+          <h4>VBG reviews the basics</h4>
+          <p>
+            Location, scope, timing, and current information help us understand
+            whether the opportunity may be a fit.
+          </p>
         </article>
         <article>
           <span>02</span>
-          <h4>We schedule a conversation</h4>
-          <p>If the opportunity appears aligned, we will reach out to discuss goals, constraints, and priorities.</p>
+          <h4>VBG schedules a conversation</h4>
+          <p>
+            If aligned, VBG discusses goals, decision-makers, known constraints,
+            and the next useful piece of due diligence.
+          </p>
         </article>
         <article>
           <span>03</span>
-          <h4>We define a next step</h4>
-          <p>That may be a site review, document review, consultant introduction, or preconstruction conversation.</p>
+          <h4>VBG defines a next step</h4>
+          <p>
+            That may be a site review, document review, consultant introduction,
+            preconstruction discussion, or a recommendation to gather more
+            information.
+          </p>
         </article>
       </div>
     </div>

@@ -15,9 +15,12 @@ const FIELD_LIMITS = {
   phone: 40,
   location: 500,
   projectType: 100,
+  propertyStatus: 100,
+  budget: 100,
   intendedUse: 2000,
   stage: 100,
   timing: 2000,
+  decisionMakers: 1000,
   message: 10000,
   preferredContact: 40,
   bestTime: 300,
@@ -131,7 +134,25 @@ export function validateFields(form: FormData): {
     errors.email =
       "Provide an email address or phone number so we can respond.";
   const choices: Partial<Record<ContactField, string[]>> = {
-    projectType: ["Land Development", "New Home Construction", "Renovation"],
+    projectType: [
+      "Land Development",
+      "New Home Construction",
+      "Renovation",
+      "Legacy / Community Project",
+    ],
+    propertyStatus: [
+      "I own the property",
+      "Under contract",
+      "Searching or evaluating",
+      "Not applicable",
+    ],
+    budget: [
+      "Not sure yet",
+      "Under $500,000",
+      "$500,000–$1 million",
+      "$1–$2 million",
+      "$2 million+",
+    ],
     stage: [
       "Early Idea",
       "Land Search",

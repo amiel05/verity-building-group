@@ -57,13 +57,23 @@ test("validation requires a usable contact and rejects invalid choices and dupli
   const form = new FormData();
   assert.ok(validateFields(form).errors.email);
   form.set("phone", "+1 (704) 555-0123");
-  form.set("projectType", "New Home Construction");
+  form.set("projectType", "Legacy / Community Project");
+  form.set("propertyStatus", "Searching or evaluating");
+  form.set("budget", "$1–$2 million");
   assert.deepEqual(validateFields(form).errors, {});
   form.set("stage", "Invalid");
+  form.set("propertyStatus", "Invalid");
+  form.set("budget", "Invalid");
   form.append("phone", "5555555555");
   form.set("message", "x".repeat(10001));
   const { errors } = validateFields(form);
-  assert.ok(errors.stage && errors.phone && errors.message);
+  assert.ok(
+    errors.stage &&
+      errors.propertyStatus &&
+      errors.budget &&
+      errors.phone &&
+      errors.message,
+  );
 });
 
 test("rate limiter permits five attempts, isolates addresses, and expires", () => {
