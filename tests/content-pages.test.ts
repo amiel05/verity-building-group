@@ -178,6 +178,19 @@ test("Custom Homes location and FAQ sections use their page-specific treatment",
   );
 });
 
+test("Services planning introduction uses a body-copy gold divider", async () => {
+  const styles = await readFile("src/styles/services.css", "utf8");
+
+  assert.match(
+    styles,
+    /\.services-page:not\(\.legacy-page\)[\s\S]*?\.services-planning[\s\S]*?\.services-section-heading[\s\S]*?> div[\s\S]*?> h2::after\s*\{[^}]*content:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.services-page:not\(\.legacy-page\)[\s\S]*?\.services-planning[\s\S]*?\.services-section-heading[\s\S]*?> p:last-child::before\s*\{[^}]*inset-block:\s*0;[^}]*background:\s*var\(--color-gold\);/s,
+  );
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),

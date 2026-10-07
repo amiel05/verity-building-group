@@ -203,6 +203,31 @@
 .services-section-heading h2 {
   margin-top: 20px;
 }
+.services-page:not(.legacy-page)
+  .services-planning
+  .services-section-heading
+  > div
+  > h2::after {
+  content: none;
+}
+.services-page:not(.legacy-page)
+  .services-planning
+  .services-section-heading
+  > p:last-child {
+  position: relative;
+  padding-left: 32px;
+}
+.services-page:not(.legacy-page)
+  .services-planning
+  .services-section-heading
+  > p:last-child::before {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 3px;
+  background: var(--color-gold);
+  content: "";
+}
 .services-planning .services-eyebrow,
 .services-planning .services-number {
   color: var(--color-gold);
