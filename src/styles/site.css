@@ -1424,7 +1424,8 @@ body.home-portfolio-viewer-open {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
-  margin: 112px 0 24px;
+  margin: 112px 0 0;
+  padding-bottom: 112px;
 }
 .entry-content .case-study-card {
   display: flex;
