@@ -234,6 +234,25 @@ test("Services planning introduction uses a body-copy gold divider", async () =>
   );
 });
 
+test("Services offering eyebrows omit sequence numbers", async () => {
+  const services = await readFile("src/content/overrides/services.html", "utf8");
+  const offeringEyebrows = [
+    ...services.matchAll(
+      /<div class="services-offering__copy">\s*<p class="services-eyebrow">([\s\S]*?)<\/p>/g,
+    ),
+  ].map(([, eyebrow]) => eyebrow.trim());
+
+  assert.deepEqual(offeringEyebrows, [
+    "Land Development",
+    "Custom Homes",
+    "Legacy Projects",
+  ]);
+  assert.match(
+    services,
+    /<ol class="services-process">[\s\S]*?<span class="services-number" aria-hidden="true">01<\/span>/,
+  );
+});
+
 test("field-guide listing preserves source order, images, and alternative text", async () => {
   const posts = JSON.parse(
     await readFile("src/content/blog.json", "utf8"),
