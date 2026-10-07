@@ -2,38 +2,216 @@ import { arrowIconMarkup } from "../lib/icons";
 const doc = document;
 doc.documentElement.classList.add("js-enabled");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!reduced) {
-  doc.documentElement.classList.add("js-motion");
-  const observer = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const element = entry.target as HTMLElement;
-          const sequenceDelay = element.dataset.id
-            ? (Number(element.dataset.id) - 1) * 400
-            : 0;
-          const extraDelay = element.classList.contains("delay-250")
-            ? 250
-            : element.classList.contains("delay-500")
-              ? 500
-              : 0;
-          const revealDelay = sequenceDelay + extraDelay;
-          element.style.transitionDelay = element.classList.contains(
-            "contact-action",
-          )
-            ? `${revealDelay}ms, ${revealDelay}ms, 0ms, 0ms`
-            : `${revealDelay}ms`;
-          element.classList.add("is-visible");
-          observer.unobserve(element);
-        }
-      }),
-    { threshold: 0.08 },
-  );
-  doc.querySelectorAll(".animated,.entry-content > *").forEach((element) => {
-    if (!element.classList.contains("animated"))
-      element.classList.add("reveal-item");
-    observer.observe(element);
+const ENTRY_SEQUENCE_MS = 400;
+
+const addEntryItem = (
+  element: Element,
+  direction: "fadeInLeftShort" | "fadeInRightShort" | "fadeInUpShort",
+  sequenceIndex?: number,
+) => {
+  if (element.closest("[hidden], dialog, form, .site-header, #site-navigation"))
+    return;
+  element.classList.add("animated", direction);
+  if (sequenceIndex) element.setAttribute("data-id", String(sequenceIndex));
+};
+
+const addEntrySequence = (
+  container: Element,
+  items: Element[],
+  direction:
+    "fadeInLeftShort" | "fadeInRightShort" | "fadeInUpShort" = "fadeInUpShort",
+) => {
+  container.classList.add("animatedParent", "animateOnce");
+  container.setAttribute("data-sequence", String(ENTRY_SEQUENCE_MS));
+  items.forEach((item, index) => addEntryItem(item, direction, index + 1));
+};
+
+const prepareEntryAnimations = () => {
+  doc.querySelectorAll(".service-grid").forEach((grid) => {
+    addEntrySequence(
+      grid,
+      Array.from(grid.querySelectorAll(":scope > .service-card")),
+    );
   });
+
+  if (doc.body.classList.contains("home")) return;
+
+  const sequences: Array<[string, string]> = [
+    [".services-process", ":scope > li"],
+    [".legacy-steps", ":scope > li"],
+    [".about-team", ":scope > .vbg-team-card"],
+    [".about-area-grid", ":scope > .about-area-card"],
+    [".case-study-cards", ":scope > .case-study-card"],
+    [".vbg-process", ":scope > article"],
+  ];
+  sequences.forEach(([containerSelector, itemSelector]) => {
+    doc
+      .querySelectorAll(containerSelector)
+      .forEach((container) =>
+        addEntrySequence(
+          container,
+          Array.from(container.querySelectorAll(itemSelector)),
+        ),
+      );
+  });
+
+  const splitGroups: Array<[string, string, string]> = [
+    [
+      ".services-intro__grid",
+      ":scope > *:first-child",
+      ":scope > *:last-child",
+    ],
+    [".services-offering", ":scope > *:first-child", ":scope > *:last-child"],
+    [
+      ".services-section-heading",
+      ":scope > *:first-child",
+      ":scope > *:last-child",
+    ],
+    [".legacy-hero__grid", ":scope > *:first-child", ":scope > *:last-child"],
+    [".legacy-focus", ":scope > *:first-child", ":scope > *:last-child"],
+    [
+      ".featured-case-study__card",
+      ":scope > *:first-child",
+      ":scope > *:last-child",
+    ],
+    [".services-questions", ":scope > *:first-child", ":scope > *:last-child"],
+    [
+      ".services-closing__grid",
+      ":scope > *:first-child",
+      ":scope > *:last-child",
+    ],
+    [".blog-featured", ":scope > *:first-child", ":scope > *:last-child"],
+  ];
+  splitGroups.forEach(([groupSelector, leftSelector, rightSelector]) => {
+    doc.querySelectorAll(groupSelector).forEach((group) => {
+      group.classList.add("animatedParent", "animateOnce");
+      group.setAttribute("data-sequence", String(ENTRY_SEQUENCE_MS));
+      group
+        .querySelectorAll(leftSelector)
+        .forEach((item) => addEntryItem(item, "fadeInLeftShort", 1));
+      group
+        .querySelectorAll(rightSelector)
+        .forEach((item) => addEntryItem(item, "fadeInRightShort", 2));
+    });
+  });
+
+  const individualSelectors = [
+    ".services-intro > .services-wrap > .services-eyebrow",
+    ".services-jump",
+    ".legacy-approach__heading",
+    ".featured-case-study__intro",
+    ".legacy-note",
+    ".about-inline-intro > *",
+    ".about-team-description",
+    ".about-areas__heading",
+    ".about-areas__intro",
+    ".area-breadcrumb",
+    ".area-content > *",
+    ".case-studies-hero > .eyebrow",
+    ".case-studies-hero > .vbg-display-title",
+    ".case-studies-hero > .lead",
+    ".case-study-detail-hero > *",
+    ".vbg-gallery-item",
+    ".vbg-case-study > *",
+    ".case-study-back",
+    ".entry-header > *",
+    ".entry-content > *",
+    ".entry-footer",
+    ".post-navigation",
+    ".widget-area",
+    ".blog-heading > *",
+    ".blog-sidebar",
+    ".blog-results-heading",
+    ".blog-older > h2",
+    ".blog-row",
+    ".blog-empty",
+    ".portfolio-heading > *",
+    ".portfolio-toolbar",
+    ".portfolio-photo",
+  ];
+  individualSelectors.forEach((selector) => {
+    doc.querySelectorAll(selector).forEach((element) => {
+      if (
+        element.classList.contains("animated") ||
+        element.querySelector(".animated") ||
+        element.closest(".animated:not(.animatedParent)")
+      )
+        return;
+      addEntryItem(element, "fadeInUpShort");
+    });
+  });
+
+  doc.querySelectorAll(".case-study-cta").forEach((cta) => {
+    cta.classList.add("animatedParent", "animateOnce");
+    cta.setAttribute("data-sequence", String(ENTRY_SEQUENCE_MS));
+    cta
+      .querySelectorAll(":scope > div")
+      .forEach((element) => addEntryItem(element, "fadeInLeftShort", 1));
+    cta
+      .querySelectorAll(":scope > a")
+      .forEach((element) => addEntryItem(element, "fadeInRightShort", 2));
+  });
+};
+
+if (
+  !reduced &&
+  "IntersectionObserver" in window &&
+  !doc.documentElement.hasAttribute("data-entry-motion-initialized")
+) {
+  doc.documentElement.setAttribute("data-entry-motion-initialized", "true");
+  prepareEntryAnimations();
+  let observer: IntersectionObserver | null = null;
+  try {
+    observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLElement;
+            const sequenceDelay = element.dataset.id
+              ? (Number(element.dataset.id) - 1) * ENTRY_SEQUENCE_MS
+              : 0;
+            const extraDelay = element.classList.contains("delay-250")
+              ? 250
+              : element.classList.contains("delay-500")
+                ? 500
+                : 0;
+            const revealDelay = sequenceDelay + extraDelay;
+            element.style.transitionDelay = element.classList.contains(
+              "contact-action",
+            )
+              ? `${revealDelay}ms, ${revealDelay}ms, 0ms, 0ms`
+              : `${revealDelay}ms`;
+            element.classList.add("is-entering");
+            element.classList.add("is-visible");
+            const finishEntry = (event: TransitionEvent) => {
+              if (event.target !== element || event.propertyName !== "opacity")
+                return;
+              element.classList.remove("is-entering");
+              element.style.removeProperty("transition-delay");
+              element.removeEventListener("transitionend", finishEntry);
+            };
+            element.addEventListener("transitionend", finishEntry);
+            observer?.unobserve(element);
+          }
+        }),
+      { threshold: 0.08 },
+    );
+    doc.documentElement.classList.add("js-motion");
+    doc
+      .querySelectorAll(".animated")
+      .forEach((element) => observer?.observe(element));
+    window.addEventListener(
+      "pagehide",
+      () => {
+        observer?.disconnect();
+        observer = null;
+      },
+      { once: true },
+    );
+  } catch {
+    observer?.disconnect();
+    doc.documentElement.classList.remove("js-motion");
+  }
 }
 const navigationElement = doc.querySelector("#site-navigation");
 const toggle = navigationElement?.querySelector("button");

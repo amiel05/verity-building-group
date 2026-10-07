@@ -475,6 +475,39 @@ test("clickable images share one accessible five-percent zoom treatment", async 
   assert.match(pageTemplate, /case-study-card clickable-image/);
 });
 
+test("sitewide entry motion reuses the homepage animation contract", async () => {
+  const [script, styles] = await Promise.all([
+    readFile("src/scripts/site.ts", "utf8"),
+    readFile("src/styles/site.css", "utf8"),
+  ]);
+
+  assert.match(script, /const ENTRY_SEQUENCE_MS = 400;/);
+  assert.match(script, /\.service-grid/);
+  assert.match(script, /:scope > \.service-card/);
+  assert.match(script, /index \+ 1/);
+  assert.match(script, /\{ threshold: 0\.08 \}/);
+  assert.match(script, /observer\?\.unobserve\(element\)/);
+  assert.match(script, /observer\?\.disconnect\(\)/);
+  assert.match(script, /"IntersectionObserver" in window/);
+  assert.match(script, /prefers-reduced-motion: reduce/);
+  assert.match(script, /addEntryItem\(item, "fadeInRightShort", 2\)/);
+  assert.match(script, /removeProperty\("transition-delay"\)/);
+  assert.doesNotMatch(script, /reveal-item/);
+  assert.doesNotMatch(styles, /\.reveal-item/);
+  assert.match(
+    styles,
+    /\.js-motion \.animated\s*\{[^}]*opacity:\s*0;[^}]*translateY\(20px\)[^}]*opacity 1s ease[^}]*transform 1s ease;/s,
+  );
+  assert.match(
+    styles,
+    /\.js-motion \.animated\.is-entering\s*\{[^}]*transition-duration:\s*1s, 1s !important;/s,
+  );
+  assert.match(
+    styles,
+    /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.animated\s*\{[^}]*opacity:\s*1 !important;[^}]*transform:\s*none !important;/,
+  );
+});
+
 test("Zwilling gallery uses ten distinct local originals", async () => {
   const page = await readFile(
     "src/content/pages/case-studies__zwilling-custom-home.json",
