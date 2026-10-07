@@ -1543,9 +1543,10 @@ body.single.field-guide-detail .entry-content {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
-  margin-top: 72px;
+  margin-top: 0;
   padding-block: 28px;
-  border-block: 1px solid var(--border-on-light);
+  border-top: 1px solid var(--border-on-light);
+  border-bottom: 1px solid var(--color-gold);
   color: var(--body-on-light);
 }
 .field-guide-detail .entry-footer > span {

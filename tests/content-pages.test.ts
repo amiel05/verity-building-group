@@ -343,6 +343,10 @@ test("Field Guide details share the article utility footer and project CTA", asy
   );
   assert.match(
     styles,
+    /\.field-guide-detail \.entry-footer\s*\{[^}]*margin-top:\s*0;[^}]*border-top:\s*1px solid var\(--border-on-light\);[^}]*border-bottom:\s*1px solid var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
     /\.field-guide-detail \.post-navigation \.nav-subtitle\s*\{[^}]*border-bottom:\s*1px solid var\(--color-gold\);[^}]*color:\s*inherit;[^}]*font-size:\s*16px;[^}]*text-transform:\s*none;/s,
   );
   assert.match(
