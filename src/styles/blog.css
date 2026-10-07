@@ -169,6 +169,7 @@
   gap: 24px;
   padding: 12px 0 8px;
   border-bottom: 1px solid var(--color-gold);
+  color: var(--color-dark-blue);
   font-weight: 700;
 }
 .blog-older > h2 {
