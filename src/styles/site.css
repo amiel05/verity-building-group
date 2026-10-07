@@ -763,6 +763,10 @@ body.page.contact-page
   article
   > span {
   color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 1;
 }
 .case-studies-hero {
   width: 100vw;
