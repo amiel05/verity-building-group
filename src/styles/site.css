@@ -1348,6 +1348,13 @@ body.home-portfolio-viewer-open {
   }
 }
 
+/* Use the shared spacious section rhythm across the homepage and About's
+   service-card band. */
+.home :is(.home-services, .team-section, .home-portfolio-section, .contact-section),
+.about-page .about-services {
+  padding-block: 112px;
+}
+
 /* Insights: an editorial invitation to the published Field Guide archive. */
 .entry-content .field-guide-callout {
   margin: 48px 0 0;

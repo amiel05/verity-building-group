@@ -341,6 +341,15 @@ test("Portfolio and Field Guide listings end with the shared project CTA", async
   );
 });
 
+test("homepage sections and About services use the 112px section rhythm", async () => {
+  const styles = await readFile("src/styles/site.css", "utf8");
+
+  assert.match(
+    styles,
+    /\.home :is\(\.home-services, \.team-section, \.home-portfolio-section, \.contact-section\),\s*\.about-page \.about-services\s*\{[^}]*padding-block:\s*112px;/s,
+  );
+});
+
 test("shared CTA headlines balance their lines to prevent orphan words", async () => {
   const [siteStyles, servicesStyles] = await Promise.all([
     readFile("src/styles/site.css", "utf8"),
