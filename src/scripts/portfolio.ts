@@ -30,7 +30,8 @@ if (root) {
     position.textContent = `${current + 1} / ${active.length}`;
   }
   filters.forEach(button => button.addEventListener('click', () => {
-    selected = selected === button.dataset.portfolioFilter ? '' : button.dataset.portfolioFilter!;
+    const requested = button.dataset.portfolioFilter!;
+    selected = !requested || selected === requested ? '' : requested;
     filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter.dataset.portfolioFilter === selected)));
     photos.forEach(photo => { photo.hidden = Boolean(selected && photo.dataset.space !== selected); });
     active = photos.filter(photo => !photo.hidden);

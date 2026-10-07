@@ -49,3 +49,27 @@ test("portfolio assets exist locally and have distinct file contents", async () 
 
   assert.equal(new Set(hashes).size, 68);
 });
+
+test("portfolio filters default to All and return to All when toggled off", async () => {
+  const component = await readFile("src/components/Portfolio.astro", "utf8");
+  const script = await readFile("src/scripts/portfolio.ts", "utf8");
+  const allPosition = component.indexOf('data-portfolio-filter=""');
+  const interiorPosition = component.indexOf(
+    'data-portfolio-filter="Interior"',
+  );
+  const exteriorPosition = component.indexOf(
+    'data-portfolio-filter="Exterior"',
+  );
+
+  assert.ok(allPosition >= 0);
+  assert.ok(allPosition < interiorPosition);
+  assert.ok(interiorPosition < exteriorPosition);
+  assert.match(
+    component,
+    /data-portfolio-filter="" aria-pressed="true">\s*All\s*<\/button>/,
+  );
+  assert.match(
+    script,
+    /selected = !requested \|\| selected === requested \? (?:""|'') : requested;/,
+  );
+});
