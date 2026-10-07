@@ -872,9 +872,18 @@ body.page:not(.case-studies-page):not(.contact-page)
 .home-portfolio-section .swiper-slide {
   scroll-snap-align: start;
 }
+.home-portfolio-photo {
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+}
 .home-portfolio-section .work-gallery__items img {
   aspect-ratio: 4 / 3;
   border-radius: 6px;
+}
+.home-portfolio-photo:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
 }
 .home-portfolio-section .swiper :is(.swiper-button-prev, .swiper-button-next) {
   align-items: center;
@@ -907,6 +916,82 @@ body.page:not(.case-studies-page):not(.contact-page)
   stroke: currentColor;
   width: 20px;
 }
+.home-portfolio-viewer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 20px 24px;
+  border: 0;
+  background: var(--color-ink);
+  color: var(--text-on-dark);
+}
+.home-portfolio-viewer[open] {
+  display: flex;
+  flex-direction: column;
+}
+.home-portfolio-viewer::backdrop {
+  background: var(--color-ink);
+}
+.home-portfolio-viewer__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+}
+.home-portfolio-viewer__toolbar p {
+  margin: 0 auto 0 0;
+  font-size: 14px;
+}
+.home-portfolio-viewer button {
+  min-height: 48px;
+  min-width: 48px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: 0;
+  background: var(--color-ink);
+  color: var(--text-on-dark);
+  padding: 10px 16px;
+  cursor: pointer;
+  font:
+    700 15px Lato,
+    sans-serif;
+}
+.home-portfolio-viewer button:is(:hover, :focus-visible) {
+  background: var(--color-gold);
+  border-color: transparent;
+}
+.home-portfolio-viewer button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.home-portfolio-viewer__stage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  padding: 20px 0;
+}
+.home-portfolio-viewer__stage img {
+  width: calc(100% - 128px);
+  height: 100%;
+  object-fit: contain;
+  min-width: 0;
+}
+.home-portfolio-viewer__caption {
+  margin: 0;
+  text-align: center;
+  flex: none;
+  font-size: 15px;
+  line-height: 1.5;
+}
+body.home-portfolio-viewer-open {
+  overflow: hidden;
+}
 
 @media (max-width: 1199px) {
   .home-portfolio-section
@@ -928,6 +1013,40 @@ body.page:not(.case-studies-page):not(.contact-page)
     .swiper
     :is(.swiper-button-prev, .swiper-button-next) {
     display: flex;
+  }
+  .home-portfolio-viewer {
+    padding: 12px;
+  }
+  .home-portfolio-viewer__toolbar {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .home-portfolio-viewer__toolbar p {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .home-portfolio-viewer__toolbar button {
+    flex: 1;
+  }
+  .home-portfolio-viewer__stage {
+    position: relative;
+    gap: 4px;
+    padding-bottom: 64px;
+  }
+  .home-portfolio-viewer__stage img {
+    width: 100%;
+  }
+  .home-portfolio-viewer__stage button {
+    position: absolute;
+    bottom: 8px;
+    padding: 8px;
+    min-width: 48px;
+  }
+  .home-portfolio-viewer__stage [data-home-previous] {
+    left: calc(50% - 56px);
+  }
+  .home-portfolio-viewer__stage [data-home-next] {
+    right: calc(50% - 56px);
   }
 }
 

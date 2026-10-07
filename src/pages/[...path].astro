@@ -4,6 +4,7 @@ import Portfolio from "../components/Portfolio.astro";
 import BlogIndex from "../components/BlogIndex.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { replaceArrowGlyphs } from "../lib/icons";
+import portfolioPhotos from "../content/portfolio.json";
 const pages = import.meta.glob("../content/pages/*.json", {
   eager: true,
   import: "default",
@@ -80,8 +81,25 @@ const primaryServiceDetailPaths = new Set([
   "/land-development-charlotte-nc/",
   "/custom-home-builder-charlotte-nc/",
 ]);
+const escapeAttribute = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+const homePortfolioPhotos = portfolioPhotos.slice(0, 10);
+const homePortfolioSlides = homePortfolioPhotos
+  .map(
+    (photo) => `
+            <div class="swiper-slide">
+              <a class="home-portfolio-photo" href="${escapeAttribute(photo.src)}" aria-label="Enlarge: ${escapeAttribute(photo.alt)}">
+                <img alt="${escapeAttribute(photo.alt)}" decoding="async" height="${photo.height}" loading="lazy" src="${escapeAttribute(photo.src)}" width="${photo.width}" />
+              </a>
+            </div>`,
+  )
+  .join("");
 const homePortfolioCarousel = `
-<section class="work-section home-portfolio-section" id="portfolio" aria-labelledby="home-portfolio-title">
+<section class="work-section home-portfolio-section" id="portfolio" aria-labelledby="home-portfolio-title" data-home-portfolio>
   <div class="container">
     <div class="work-section__header">
       <div class="section-heading section-heading--inline animatedParent animateOnce" data-sequence="400">
@@ -93,11 +111,7 @@ const homePortfolioCarousel = `
       <div class="work-gallery__items work-gallery-init animated fadeIn" data-id="1">
         <div class="swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><img alt="Verity custom home portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/018219e5b4-gallery-1.webp" width="1000" /></div>
-            <div class="swiper-slide"><img alt="Verity residential construction portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/206eb54091-gallery-2.webp" width="1000" /></div>
-            <div class="swiper-slide"><img alt="Verity homebuilding portfolio detail" decoding="async" height="1000" loading="lazy" src="/assets/d422901874-gallery-3.webp" width="1000" /></div>
-            <div class="swiper-slide"><img alt="Verity finished home portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/0e9eb6aeba-gallery-4.webp" width="1000" /></div>
-            <div class="swiper-slide"><img alt="Verity building portfolio detail" decoding="async" height="1000" loading="lazy" src="/assets/a4b53212c6-gallery-5.webp" width="1000" /></div>
+            ${homePortfolioSlides}
           </div>
           <button class="swiper-button-prev" type="button" aria-label="Previous portfolio image"></button>
           <button class="swiper-button-next" type="button" aria-label="Next portfolio image"></button>
@@ -105,6 +119,19 @@ const homePortfolioCarousel = `
       </div>
     </div>
   </div>
+  <dialog class="home-portfolio-viewer" aria-label="Portfolio photo viewer">
+    <div class="home-portfolio-viewer__toolbar">
+      <p data-home-photo-position></p>
+      <button type="button" data-home-slideshow aria-pressed="false">Play slideshow</button>
+      <button type="button" data-home-close-viewer aria-label="Close photo viewer">Close <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="home-portfolio-viewer__stage">
+      <button type="button" data-home-previous aria-label="Previous photo"></button>
+      <img data-home-large-photo alt="" />
+      <button type="button" data-home-next aria-label="Next photo"></button>
+    </div>
+    <p class="home-portfolio-viewer__caption" data-home-photo-caption aria-live="polite"></p>
+  </dialog>
 </section>`;
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);

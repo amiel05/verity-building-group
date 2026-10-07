@@ -73,3 +73,20 @@ test("portfolio filters default to All and return to All when toggled off", asyn
     /selected = !requested \|\| selected === requested \? (?:""|'') : requested;/,
   );
 });
+
+test("homepage portfolio uses the latest ten shared photos and opens them in a viewer", async () => {
+  const page = await readFile("src/pages/[...path].astro", "utf8");
+  const script = await readFile("src/scripts/site.ts", "utf8");
+
+  assert.match(page, /portfolioPhotos\.slice\(0, 10\)/);
+  assert.match(page, /class="home-portfolio-photo"/);
+  assert.match(page, /class="home-portfolio-viewer"/);
+  assert.doesNotMatch(page, /018219e5b4-gallery-1\.webp/);
+  assert.match(
+    script,
+    /querySelectorAll<HTMLElement>\("\[data-home-portfolio\]"\)/,
+  );
+  assert.match(script, /viewer\.showModal\(\)/);
+  assert.match(script, /data-home-previous/);
+  assert.match(script, /data-home-next/);
+});
