@@ -12,6 +12,10 @@
     "file": "case-studies__brancer-custom-home.json"
   },
   {
+    "path": "/case-studies/zwilling-custom-home/",
+    "file": "case-studies__zwilling-custom-home.json"
+  },
+  {
     "path": "/north-mecklenburg-iredell-builder/",
     "file": "north-mecklenburg-iredell-builder.json"
   },
