@@ -782,6 +782,89 @@ body.page:not(.case-studies-page):not(.contact-page)
   filter: brightness(0) invert(1);
 }
 
+/* Homepage portfolio carousel: keep the gallery on the shared content grid,
+   show five complete images at desktop, and progressively reveal fewer as the
+   viewport narrows. */
+.home-portfolio-section {
+  background: var(--color-surface-alt);
+  padding: 72px 0;
+}
+.home-portfolio-section .work-gallery {
+  margin: 0;
+  padding: 0;
+}
+.home-portfolio-section .swiper {
+  position: relative;
+}
+.home-portfolio-section .swiper-wrapper {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+}
+.home-portfolio-section .swiper-slide {
+  scroll-snap-align: start;
+}
+.home-portfolio-section .work-gallery__items img {
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+}
+.home-portfolio-section
+  .swiper
+  :is(.swiper-button-prev, .swiper-button-next) {
+  align-items: center;
+  background: var(--color-ink);
+  border-radius: 50%;
+  color: #fff;
+  display: none;
+  height: 44px;
+  justify-content: center;
+  min-width: 44px;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  z-index: 2;
+}
+.home-portfolio-section .swiper-button-prev {
+  left: 12px;
+}
+.home-portfolio-section .swiper-button-next {
+  right: 12px;
+}
+.home-portfolio-section
+  .swiper
+  :is(.swiper-button-prev, .swiper-button-next)
+  svg {
+  display: block;
+  height: 20px;
+  stroke: currentColor;
+  width: 20px;
+}
+
+@media (max-width: 1199px) {
+  .home-portfolio-section
+    .swiper
+    :is(.swiper-button-prev, .swiper-button-next) {
+    display: flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-portfolio-section {
+    padding: 56px 0;
+  }
+  .home-portfolio-section .work-section__header {
+    margin-bottom: 30px;
+  }
+  .home-portfolio-section
+    .work-gallery
+    .swiper
+    :is(.swiper-button-prev, .swiper-button-next) {
+    display: flex;
+  }
+}
+
 /* Homepage services: three balanced offerings with an in-flow action row. */
 .home .home-services {
   padding-block: clamp(48px, 5vw, 80px);

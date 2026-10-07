@@ -80,8 +80,40 @@ const primaryServiceDetailPaths = new Set([
   "/land-development-charlotte-nc/",
   "/custom-home-builder-charlotte-nc/",
 ]);
+const homePortfolioCarousel = `
+<section class="work-section home-portfolio-section" id="portfolio" aria-labelledby="home-portfolio-title">
+  <div class="container">
+    <div class="work-section__header">
+      <div class="section-heading section-heading--inline animatedParent animateOnce" data-sequence="400">
+        <h2 class="animated fadeInLeftShort" data-id="1" id="home-portfolio-title">Our Portfolio</h2>
+        <p class="animated fadeInLeftShort" data-id="2">A closer look at the homes, land, and details we build with purpose.</p>
+      </div>
+    </div>
+    <div class="work-gallery animatedParent animateOnce" data-sequence="400">
+      <div class="work-gallery__items work-gallery-init animated fadeIn" data-id="1">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img alt="Verity custom home portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/018219e5b4-gallery-1.webp" width="1000" /></div>
+            <div class="swiper-slide"><img alt="Verity residential construction portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/206eb54091-gallery-2.webp" width="1000" /></div>
+            <div class="swiper-slide"><img alt="Verity homebuilding portfolio detail" decoding="async" height="1000" loading="lazy" src="/assets/d422901874-gallery-3.webp" width="1000" /></div>
+            <div class="swiper-slide"><img alt="Verity finished home portfolio project" decoding="async" height="1000" loading="lazy" src="/assets/0e9eb6aeba-gallery-4.webp" width="1000" /></div>
+            <div class="swiper-slide"><img alt="Verity building portfolio detail" decoding="async" height="1000" loading="lazy" src="/assets/a4b53212c6-gallery-5.webp" width="1000" /></div>
+          </div>
+          <button class="swiper-button-prev" type="button" aria-label="Previous portfolio image"></button>
+          <button class="swiper-button-next" type="button" aria-label="Next portfolio image"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`;
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);
+  if (path === "/" || path === "/home-2/") {
+    normalized = normalized.replace(
+      /(<\/section>\s*)(<section class="contact-section")/,
+      `$1${homePortfolioCarousel}\n$2`,
+    );
+  }
   if (path !== "/" && path !== "/home-2/") {
     normalized = normalized
       .replace(/<h1 class="([^"]*)"/g, '<h1 class="$1 page-title"')
