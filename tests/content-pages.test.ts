@@ -104,6 +104,26 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
   );
 });
 
+test("detail galleries, team portraits, and Field Guide lead images are rounded", async () => {
+  const [siteStyles, aboutStyles] = await Promise.all([
+    readFile("src/styles/site.css", "utf8"),
+    readFile("src/styles/about.css", "utf8"),
+  ]);
+
+  assert.match(
+    siteStyles,
+    /\.vbg-case-study \.vbg-gallery-item\s*\{[^}]*border-radius:\s*8px;[^}]*overflow:\s*hidden;/s,
+  );
+  assert.match(
+    siteStyles,
+    /\.field-guide-detail \.vbg-editorial-image\s*\{[^}]*border-radius:\s*8px;[^}]*overflow:\s*hidden;/s,
+  );
+  assert.match(
+    aboutStyles,
+    /\.about-team figure\s*\{[^}]*overflow:\s*hidden;[^}]*border-radius:\s*8px;/s,
+  );
+});
+
 test("About team and service-area introductions use vertical gold dividers", async () => {
   const [about, styles] = await Promise.all([
     readFile("src/content/overrides/about.html", "utf8"),

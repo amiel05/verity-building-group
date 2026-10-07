@@ -59,6 +59,7 @@
   overflow: hidden;
   aspect-ratio: 3 / 4;
   background: var(--color-ink);
+  border-radius: 8px;
 }
 .about-team :is(img, svg) {
   display: block;

@@ -862,6 +862,10 @@ body.page .entry-content:has(> .vbg-case-study) {
 .entry-content > .vbg-case-study > h2:first-child {
   margin-top: 0;
 }
+.vbg-case-study .vbg-gallery-item {
+  border-radius: 8px;
+  overflow: hidden;
+}
 @media (max-width: 700px) {
   body.page .case-study-detail-hero {
     padding-block: 72px 40px;
@@ -1476,6 +1480,10 @@ body.home-portfolio-viewer-open {
   );
   max-width: none;
   margin-inline: auto;
+}
+.field-guide-detail .vbg-editorial-image {
+  border-radius: 8px;
+  overflow: hidden;
 }
 .field-guide-detail .entry-footer {
   display: grid;
