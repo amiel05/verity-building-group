@@ -49,6 +49,8 @@ test("case-study listing and routes represent all three source entries", async (
 });
 
 test("case-study detail CTAs reuse the footer-attached image treatment", async () => {
+  const servicesStyles = await readFile("src/styles/services.css", "utf8");
+
   for (const path of caseStudyRoutes) {
     const slug = path.split("/").filter(Boolean).at(-1);
     const override = await readFile(
@@ -65,6 +67,10 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
     assert.match(override, /class="services-button" href="\/contact\/"/);
     assert.match(
       override,
+      /Have a project you would<br \/>like to discuss\?/,
+    );
+    assert.match(
+      override,
       /<header class="entry-header case-study-detail-hero">\s*<p class="eyebrow">[^<]+<\/p>\s*<h1 class="entry-title">[^<]+<\/h1>\s*<\/header>/,
     );
     assert.doesNotMatch(
@@ -77,6 +83,11 @@ test("case-study detail CTAs reuse the footer-attached image treatment", async (
     );
     assert.match(override, /<\/section>\s*<\/main>\s*$/);
   }
+
+  assert.match(
+    servicesStyles,
+    /\.case-study-detail-closing \.services-button\s*\{[^}]*width:\s*460px;[^}]*max-width:\s*100%;[^}]*justify-content:\s*space-between;[^}]*gap:\s*48px;/s,
+  );
 });
 
 test("About team and service-area introductions use vertical gold dividers", async () => {
