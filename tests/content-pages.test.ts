@@ -149,6 +149,10 @@ test("service detail pages feature the matching case study after Our Approach", 
   );
   assert.match(
     styles,
+    /\.featured-case-study__intro\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1\.15fr\) minmax\(0, 0\.85fr\);[^}]*align-items:\s*center;/s,
+  );
+  assert.match(
+    styles,
     /\.featured-case-study__intro > p:last-child::before\s*\{[^}]*inset-block:\s*0;[^}]*background:\s*var\(--color-gold\);/s,
   );
 });
