@@ -53,6 +53,7 @@ test("portfolio assets exist locally and have distinct file contents", async () 
 test("portfolio filters default to All and return to All when toggled off", async () => {
   const component = await readFile("src/components/Portfolio.astro", "utf8");
   const script = await readFile("src/scripts/portfolio.ts", "utf8");
+  const styles = await readFile("src/styles/portfolio.css", "utf8");
   const allPosition = component.indexOf('data-portfolio-filter=""');
   const interiorPosition = component.indexOf(
     'data-portfolio-filter="Interior"',
@@ -71,6 +72,10 @@ test("portfolio filters default to All and return to All when toggled off", asyn
   assert.match(
     script,
     /selected = !requested \|\| selected === requested \? (?:""|'') : requested;/,
+  );
+  assert.match(
+    styles,
+    /background-color 0\.3s ease,[\s\S]*border-color 0\.3s ease,[\s\S]*color 0\.3s ease;/,
   );
 });
 

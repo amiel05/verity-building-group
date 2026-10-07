@@ -59,6 +59,10 @@
   min-height: 48px;
   font: 700 16px var(--font-body);
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
 }
 .portfolio-filters button[aria-pressed="true"] {
   background: var(--color-ink);
