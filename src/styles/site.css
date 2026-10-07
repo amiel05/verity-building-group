@@ -1328,7 +1328,53 @@ body.page:not(.case-studies-page):not(.contact-page)
 }
 .site-header .primary-menu > li > .sub-menu {
   background: var(--color-ink) !important;
-  border-top-color: var(--border-top-accent) !important;
+  border-top: 3px solid var(--color-gold) !important;
+}
+.site-header .primary-menu > li > .sub-menu .submenu-link__label {
+  display: inline-block;
+  position: relative;
+}
+.site-header .primary-menu > li > .sub-menu .submenu-link__label::after {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 0;
+  height: 3px;
+  background: var(--color-gold);
+  content: "";
+  opacity: 0;
+  transform: translateX(-50%);
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
+}
+.site-header
+  .primary-menu
+  > li
+  > .sub-menu
+  > li:not(.current-menu-item)
+  > a:not([aria-current="page"]):is(:hover, :focus-visible)
+  .submenu-link__label::after {
+  width: 100%;
+  opacity: 1;
+}
+.site-header
+  .primary-menu
+  > li
+  > .sub-menu
+  > li.current-menu-item
+  > a
+  .submenu-link__label::after,
+.site-header
+  .primary-menu
+  > li
+  > .sub-menu
+  > li
+  > a[aria-current="page"]
+  .submenu-link__label::after {
+  width: 100%;
+  opacity: 1;
+  transition: none;
 }
 .site-header .primary-menu > li > .sub-menu > li > a:hover,
 .site-header .primary-menu > li > .sub-menu > li > a:focus,
