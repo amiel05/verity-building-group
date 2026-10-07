@@ -4,6 +4,9 @@ import path from "node:path";
 import test from "node:test";
 
 const approvedHex = new Set([
+  "#000000",
+  "#141c23",
+  "#171513",
   "#1f2e3d",
   "#59636a",
   "#b08a44",
@@ -36,7 +39,7 @@ async function sourceFiles(directory: string): Promise<string[]> {
   return nested.flat();
 }
 
-test("UI source uses only the approved color palette", async () => {
+test("UI source uses only the approved palette and overlay tokens", async () => {
   const files = [
     ...(await sourceFiles(path.resolve("src"))),
     ...(await sourceFiles(path.resolve("public"))),

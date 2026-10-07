@@ -286,13 +286,7 @@
 }
 :is(.services-closing, .case-study-cta) {
   background-image:
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--background-dark) 90%, transparent) 0%,
-      color-mix(in srgb, var(--background-dark) 76%, transparent) 45%,
-      color-mix(in srgb, var(--background-dark) 65%, transparent) 100%
-    ),
-    url("/assets/3b5da70afa-conatct_image.webp");
+    var(--gradient-overlay-warm), url("/assets/3b5da70afa-conatct_image.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

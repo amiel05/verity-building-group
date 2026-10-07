@@ -92,10 +92,7 @@
   left: 0;
   right: 0;
   padding: 32px 18px 16px;
-  background: linear-gradient(
-    transparent,
-    color-mix(in srgb, var(--background-dark) 85%, transparent)
-  );
+  background: var(--gradient-overlay-caption);
   font-size: 14px;
   line-height: 1.5;
   display: flex;

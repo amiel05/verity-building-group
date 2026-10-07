@@ -11,6 +11,25 @@
   --border-on-light: #d9d0c3;
   --border-on-dark: #59636a;
   --border-top-accent: #b08a4473;
+  --color-overlay-hero: #141c23;
+  --color-overlay-warm: #171513;
+  --color-overlay-caption: #000000;
+  --gradient-overlay-hero: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-overlay-hero) 72%, transparent) 0%,
+    color-mix(in srgb, var(--color-overlay-hero) 50%, transparent) 34%,
+    color-mix(in srgb, var(--color-overlay-hero) 8%, transparent) 74%
+  );
+  --gradient-overlay-warm: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-overlay-warm) 90%, transparent) 0%,
+    color-mix(in srgb, var(--color-overlay-warm) 76%, transparent) 45%,
+    color-mix(in srgb, var(--color-overlay-warm) 65%, transparent) 100%
+  );
+  --gradient-overlay-caption: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--color-overlay-caption) 85%, transparent)
+  );
 
   /* Backward-compatible semantic aliases for migrated components. */
   --color-ink: var(--color-dark-blue);
