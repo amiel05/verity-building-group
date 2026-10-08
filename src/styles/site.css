@@ -423,12 +423,12 @@ select:focus-visible {
   opacity: 0;
   transform: translateY(20px);
   transition:
-    opacity 1s ease,
-    transform 1s ease;
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 .js-motion .animated.is-entering {
   transition-property: opacity, transform !important;
-  transition-duration: 1s, 1s !important;
+  transition-duration: 0.7s, 0.7s !important;
   transition-timing-function: ease, ease !important;
 }
 .js-motion .fadeInLeftShort {

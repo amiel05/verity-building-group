@@ -17,7 +17,16 @@ const results = query
   : [];
 ---
 
-<Site title={`Search: ${query} | Verity Building Group`}>
+<Site
+  title={`Search: ${query} | Verity Building Group`}
+  robots="noindex, follow"
+  meta={[
+    {
+      name: "description",
+      content: "Search Verity Building Group project, service, and Field Guide content.",
+    },
+  ]}
+>
   <main id="primary" class="basic-content-row">
     <div class="container">
       <h1>Search Results for: {query}</h1>

@@ -6,6 +6,7 @@ import ContactForm from "../components/ContactForm.astro";
 import ContactHandoffForm from "../components/ContactHandoffForm.astro";
 import ProjectCta from "../components/ProjectCta.astro";
 import { arrowIconMarkup, replaceArrowGlyphs } from "../lib/icons";
+import { buildSeo } from "../lib/seo";
 import portfolioPhotos from "../content/portfolio.json";
 const pages = import.meta.glob("../content/pages/*.json", {
   eager: true,
@@ -109,12 +110,12 @@ const homePortfolioCarousel = `
 <section class="work-section home-portfolio-section" id="portfolio" aria-labelledby="home-portfolio-title" data-home-portfolio>
   <div class="container">
     <div class="work-section__header">
-      <div class="section-heading section-heading--inline animatedParent animateOnce" data-sequence="400">
+      <div class="section-heading section-heading--inline animatedParent animateOnce" data-sequence="180">
         <h2 class="animated fadeInLeftShort" data-id="1" id="home-portfolio-title">Our Portfolio</h2>
         <p class="animated fadeInLeftShort" data-id="2">A closer look at the homes, land, and details we build with purpose.</p>
       </div>
     </div>
-    <div class="work-gallery animatedParent animateOnce" data-sequence="400">
+    <div class="work-gallery animatedParent animateOnce" data-sequence="180">
       <div class="work-gallery__items work-gallery-init animated fadeIn" data-id="1">
         <div class="swiper">
           <div class="swiper-wrapper">
@@ -240,15 +241,25 @@ const page =
       }
     : requestedPage;
 const isFieldGuideDetail = fieldGuideDetailPaths.has(path);
+const siteUrl = process.env.SITE_URL || Astro.url.origin;
+const seo = page
+  ? buildSeo({
+      path,
+      site: siteUrl,
+      page,
+      portfolioImages: portfolioPhotos,
+    })
+  : null;
 if (!page) Astro.response.status = 404;
 ---
 
 <Site
-  title={page?.title || "Page not found | Verity Building Group"}
+  title={seo?.title || "Page not found | Verity Building Group"}
   bodyClass={`${page?.bodyClass || "page"}${isFieldGuideDetail ? " field-guide-detail" : ""}`}
-  canonical={page?.canonical}
-  meta={page?.meta}
-  schema={page?.schema}
+  canonical={seo?.canonical}
+  meta={seo?.meta}
+  robots={seo?.robots}
+  schema={seo?.schema}
 >
   {page && path === "/portfolio/" ? (
     <Portfolio />

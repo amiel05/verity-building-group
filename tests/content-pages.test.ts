@@ -588,11 +588,14 @@ test("sitewide entry motion reuses the homepage animation contract", async () =>
     readFile("src/styles/site.css", "utf8"),
   ]);
 
-  assert.match(script, /const ENTRY_SEQUENCE_MS = 400;/);
+  assert.match(script, /const ENTRY_SEQUENCE_MS = 180;/);
   assert.match(script, /\.service-grid/);
   assert.match(script, /:scope > \.service-card/);
   assert.match(script, /index \+ 1/);
-  assert.match(script, /\{ threshold: 0\.08 \}/);
+  assert.match(
+    script,
+    /\{ threshold: 0\.04, rootMargin: "0px 0px 12% 0px" \}/,
+  );
   assert.match(script, /observer\?\.unobserve\(element\)/);
   assert.match(script, /observer\?\.disconnect\(\)/);
   assert.match(script, /"IntersectionObserver" in window/);
@@ -603,11 +606,11 @@ test("sitewide entry motion reuses the homepage animation contract", async () =>
   assert.doesNotMatch(styles, /\.reveal-item/);
   assert.match(
     styles,
-    /\.js-motion \.animated\s*\{[^}]*opacity:\s*0;[^}]*translateY\(20px\)[^}]*opacity 1s ease[^}]*transform 1s ease;/s,
+    /\.js-motion \.animated\s*\{[^}]*opacity:\s*0;[^}]*translateY\(20px\)[^}]*opacity 0\.7s ease[^}]*transform 0\.7s ease;/s,
   );
   assert.match(
     styles,
-    /\.js-motion \.animated\.is-entering\s*\{[^}]*transition-duration:\s*1s, 1s !important;/s,
+    /\.js-motion \.animated\.is-entering\s*\{[^}]*transition-duration:\s*0\.7s, 0\.7s !important;/s,
   );
   assert.match(
     styles,

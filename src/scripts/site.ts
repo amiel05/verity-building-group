@@ -2,7 +2,7 @@ import { arrowIconMarkup } from "../lib/icons";
 const doc = document;
 doc.documentElement.classList.add("js-enabled");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const ENTRY_SEQUENCE_MS = 400;
+const ENTRY_SEQUENCE_MS = 180;
 
 const addEntryItem = (
   element: Element,
@@ -194,7 +194,7 @@ if (
             observer?.unobserve(element);
           }
         }),
-      { threshold: 0.08 },
+      { threshold: 0.04, rootMargin: "0px 0px 12% 0px" },
     );
     doc.documentElement.classList.add("js-motion");
     doc

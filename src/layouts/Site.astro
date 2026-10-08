@@ -18,6 +18,7 @@ interface Props {
   bodyClass?: string;
   meta?: Record<string, string>[];
   canonical?: string;
+  robots?: string;
   schema?: unknown[];
 }
 const {
@@ -25,6 +26,7 @@ const {
   bodyClass = "page",
   meta = [],
   canonical,
+  robots = "index, follow",
   schema = [],
 } = Astro.props;
 const site = process.env.SITE_URL || Astro.url.origin;
@@ -71,7 +73,7 @@ function localizeStructuredData(value: unknown): unknown {
     <link rel="canonical" href={new URL(canonicalPath, site).href} />
     <meta
       name="robots"
-      content={staging ? "noindex, nofollow" : "index, follow"}
+      content={staging ? "noindex, nofollow" : robots}
     />
     {meta
       .filter((m) => m.name !== "robots")
