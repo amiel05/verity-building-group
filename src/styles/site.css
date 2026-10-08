@@ -2002,6 +2002,7 @@ body.single.field-guide-detail .entry-content {
 }
 .verity-project-modal__dialog {
   background: var(--color-surface);
+  border-radius: 8px;
   color: var(--color-ink);
 }
 .verity-project-modal__close {

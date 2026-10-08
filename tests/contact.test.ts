@@ -88,6 +88,10 @@ test("homepage and modal use the four-field Contact handoff", async () => {
     styles,
     /\.contact-handoff-next\s*\{[^}]*gap:\s*24px;[^}]*justify-content:\s*center;/s,
   );
+  assert.match(
+    styles,
+    /\.verity-project-modal__dialog\s*\{[^}]*border-radius:\s*8px;/s,
+  );
 });
 function request(
   values: Record<string, string> = {},
