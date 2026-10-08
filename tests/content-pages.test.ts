@@ -482,6 +482,15 @@ test("shared CTA headlines balance their lines to prevent orphan words", async (
   );
 });
 
+test("animated CTA buttons preserve the homepage color transition", async () => {
+  const styles = await readFile("src/styles/site.css", "utf8");
+
+  assert.match(
+    styles,
+    /\.js-motion\s+:is\(\s*\.services-closing \.services-button,\s*\.case-study-cta \.case-study-cta-button\s*\)\.animated\s*\{[^}]*opacity 1s ease,[^}]*transform 1s ease,[^}]*background-color 0\.3s ease,[^}]*border-color 0\.3s ease,[^}]*color 0\.3s ease;/s,
+  );
+});
+
 test("clickable images share one accessible five-percent zoom treatment", async () => {
   const [siteStyles, legacyStyles, portfolio, blog, pageTemplate] =
     await Promise.all([

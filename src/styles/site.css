@@ -726,6 +726,7 @@ select:focus-visible {
   min-height: 60px;
   transition:
     background-color 0.3s ease,
+    border-color 0.3s ease,
     color 0.3s ease;
 }
 .js-motion .contact-action.animated {
@@ -733,6 +734,19 @@ select:focus-visible {
     opacity 1s ease,
     transform 1s ease,
     background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+.js-motion
+  :is(
+    .services-closing .services-button,
+    .case-study-cta .case-study-cta-button
+  ).animated {
+  transition:
+    opacity 1s ease,
+    transform 1s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
     color 0.3s ease;
 }
 .contact-action .interface-icon {
@@ -952,6 +966,7 @@ body.page:not(.case-studies-page):not(.contact-page)
   text-transform: uppercase;
   transition:
     background-color 0.3s ease,
+    border-color 0.3s ease,
     color 0.3s ease;
 }
 :is(.services-button, .vbg-cta > a, .blog-sidebar button) {
