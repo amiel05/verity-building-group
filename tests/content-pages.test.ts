@@ -302,6 +302,14 @@ test("location pages share the aligned editorial layout and footer-attached CTA 
   );
   assert.match(
     styles,
+    /\.area-page \.area-content--cream > \.legacy-focus__intro\s*\{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*0\.8fr 1\.2fr;[^}]*max-width:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.area-content--cream > \.legacy-focus__intro h2::after\s*\{[^}]*display:\s*none;[^}]*content:\s*none;/s,
+  );
+  assert.match(
+    styles,
     /\.area-page \.area-content > \.legacy-focus__intro\s*\{[^}]*margin-bottom:\s*28px;/s,
   );
   assert.match(
