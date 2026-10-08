@@ -320,6 +320,22 @@ test("location pages share the aligned editorial layout and footer-attached CTA 
     styles,
     /\.area-page \.area-related \.services-jump\s*\{[^}]*border-bottom:\s*1px solid var\(--services-line\);/s,
   );
+  assert.match(
+    lakeNorman,
+    /class="services-wrap area-related area-related--cream"/,
+  );
+  assert.doesNotMatch(
+    charlotte,
+    /class="services-wrap area-related area-related--cream"/,
+  );
+  assert.doesNotMatch(
+    northMecklenburg,
+    /class="services-wrap area-related area-related--cream"/,
+  );
+  assert.match(
+    styles,
+    /\.area-related--cream\s*\{[^}]*background:\s*var\(--color-cream\);/s,
+  );
 });
 
 test("Services planning introduction uses a body-copy gold divider", async () => {

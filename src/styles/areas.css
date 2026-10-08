@@ -129,6 +129,11 @@
 .area-related {
   padding-block: 112px;
 }
+.area-related--cream {
+  background: var(--color-cream);
+  box-shadow: 0 0 0 100vmax var(--color-cream);
+  clip-path: inset(0 -100vmax);
+}
 .area-related h2 {
   margin-bottom: 32px;
 }
