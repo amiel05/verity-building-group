@@ -23,6 +23,16 @@ const fieldGuideRoutes = [
   "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/",
 ];
 
+test("shared footer uses the approved tagline sitewide", async () => {
+  const chrome = await readFile("src/content/chrome.json", "utf8");
+
+  assert.match(
+    chrome,
+    /<p class=\\"site-footer__tagline\\">Built Together\. For the Way You Live\.<\/p>/,
+  );
+  assert.doesNotMatch(chrome, /Built for the way you live and work\./);
+});
+
 test("case-study listing and routes represent all three source entries", async () => {
   const routes = JSON.parse(
     await readFile("src/content/routes.json", "utf8"),
