@@ -7,6 +7,13 @@
 .area-page .services-intro .area-jump {
   border-bottom: 0;
 }
+.area-page .services-intro .area-jump a {
+  color: var(--color-dark-blue);
+}
+.area-page .services-intro .area-jump a:hover,
+.area-page .services-intro .area-jump a:focus-visible {
+  color: var(--color-gold);
+}
 .area-page > section {
   padding-block: 112px;
 }

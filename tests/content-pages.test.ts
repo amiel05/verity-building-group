@@ -298,6 +298,18 @@ test("location pages share the aligned editorial layout and footer-attached CTA 
   );
   assert.match(
     styles,
+    /\.area-page \.services-intro \.area-jump a\s*\{[^}]*color:\s*var\(--color-dark-blue\);/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.services-intro \.area-jump a:hover,\s*\.area-page \.services-intro \.area-jump a:focus-visible\s*\{[^}]*color:\s*var\(--color-gold\);/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.services-jump a\s*\{[^}]*transition:\s*color 0\.3s ease;/s,
+  );
+  assert.match(
+    styles,
     /\.area-page \.area-content > \.legacy-focus__intro h2::after\s*\{[^}]*width:\s*80px;[^}]*height:\s*3px;[^}]*background:\s*var\(--color-gold\);/s,
   );
   assert.match(
