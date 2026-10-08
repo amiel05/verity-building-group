@@ -36,6 +36,7 @@
 .area-page .area-content > .legacy-focus__intro {
   display: block;
   max-width: 880px;
+  margin-bottom: 28px;
 }
 .area-page .area-content > .legacy-focus__intro .services-eyebrow {
   padding-top: 0;
@@ -90,6 +91,9 @@
 .area-prose {
   max-width: 920px;
   margin-top: 28px;
+}
+.area-page .area-content > .area-prose {
+  margin-top: 0;
 }
 .area-content--cream,
 .area-faq--cream {

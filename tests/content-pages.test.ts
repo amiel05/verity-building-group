@@ -302,6 +302,14 @@ test("location pages share the aligned editorial layout and footer-attached CTA 
   );
   assert.match(
     styles,
+    /\.area-page \.area-content > \.legacy-focus__intro\s*\{[^}]*margin-bottom:\s*28px;/s,
+  );
+  assert.match(
+    styles,
+    /\.area-page \.area-content > \.area-prose\s*\{[^}]*margin-top:\s*0;/s,
+  );
+  assert.match(
+    styles,
     /\.area-page \.area-related \.services-jump\s*\{[^}]*border-bottom:\s*1px solid var\(--services-line\);/s,
   );
 });
