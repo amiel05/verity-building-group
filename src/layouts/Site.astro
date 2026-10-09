@@ -2,12 +2,13 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ProjectModal from "../components/ProjectModal.astro";
+import Measurement from "../components/Measurement.astro";
 import "../styles/source.css";
 import "../styles/site.css";
-import "../styles/services.css";
-import "../styles/legacy.css";
-import "../styles/about.css";
-import "../styles/areas.css";
+import servicesCss from "../styles/services.css?url";
+import legacyCss from "../styles/legacy.css?url";
+import aboutCss from "../styles/about.css?url";
+import areasCss from "../styles/areas.css?url";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
@@ -33,6 +34,27 @@ const site = process.env.SITE_URL || Astro.url.origin;
 const canonicalPath = canonical
   ? new URL(canonical).pathname
   : Astro.url.pathname;
+const serviceDetailPaths = new Set([
+  "/services/",
+  "/land-development-charlotte-nc/",
+  "/custom-home-builder-charlotte-nc/",
+]);
+const areaPaths = new Set([
+  "/custom-home-builder-in-charlotte-nc/",
+  "/lake-norman-custom-home-builder/",
+  "/north-mecklenburg-iredell-builder/",
+]);
+const routeStyles = [
+  ...(serviceDetailPaths.has(canonicalPath) ||
+  canonicalPath.startsWith("/case-studies/") ||
+  canonicalPath === "/legacy-projects/" ||
+  areaPaths.has(canonicalPath)
+    ? [servicesCss]
+    : []),
+  ...(canonicalPath === "/legacy-projects/" ? [legacyCss] : []),
+  ...(canonicalPath === "/about/" ? [aboutCss] : []),
+  ...(areaPaths.has(canonicalPath) ? [areasCss] : []),
+];
 const localize = (value: string) =>
   value.replaceAll("https://veritybuildstg.wpenginepowered.com", site);
 const staging = process.env.INDEXABLE !== "true";
@@ -70,6 +92,18 @@ function localizeStructuredData(value: unknown): unknown {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <Measurement />
+    {routeStyles.map((href) => <link rel="stylesheet" href={href} />)}
+    {canonicalPath === "/" && (
+      <link
+        rel="preload"
+        as="image"
+        href="/assets/a399ddb102-verity_hero-e1786715846853-1200.webp"
+        imagesrcset="/assets/a399ddb102-verity_hero-e1786715846853-720.webp 720w, /assets/a399ddb102-verity_hero-e1786715846853-1200.webp 1200w, /assets/a399ddb102-verity_hero-e1786715846853.webp 1795w"
+        imagesizes="100vw"
+        fetchpriority="high"
+      />
+    )}
     <link rel="canonical" href={new URL(canonicalPath, site).href} />
     <meta
       name="robots"

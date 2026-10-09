@@ -14,6 +14,7 @@ ENV NODE_ENV=production HOST=0.0.0.0
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/scripts/server.mjs ./scripts/server.mjs
 USER node
 EXPOSE 3000
-CMD ["node","dist/server/entry.mjs"]
+CMD ["node","scripts/server.mjs"]

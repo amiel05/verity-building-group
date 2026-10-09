@@ -606,11 +606,11 @@ test("sitewide entry motion reuses the homepage animation contract", async () =>
   assert.doesNotMatch(styles, /\.reveal-item/);
   assert.match(
     styles,
-    /\.js-motion \.animated\s*\{[^}]*opacity:\s*0;[^}]*translateY\(20px\)[^}]*opacity 0\.7s ease[^}]*transform 0\.7s ease;/s,
+    /\.js-motion \.animated\s*\{[^}]*opacity:\s*0;[^}]*translateY\(20px\)[^}]*opacity 0\.55s ease[^}]*transform 0\.55s ease;/s,
   );
   assert.match(
     styles,
-    /\.js-motion \.animated\.is-entering\s*\{[^}]*transition-duration:\s*0\.7s, 0\.7s !important;/s,
+    /\.js-motion \.animated\.is-entering\s*\{[^}]*transition-duration:\s*0\.55s, 0\.55s !important;/s,
   );
   assert.match(
     styles,

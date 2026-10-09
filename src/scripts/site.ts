@@ -1,4 +1,32 @@
 import { arrowIconMarkup } from "../lib/icons";
+import { onCLS, onINP, onLCP, type Metric } from "web-vitals";
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+const trackEvent = (name: string, parameters: Record<string, unknown> = {}) =>
+  window.gtag?.("event", name, parameters);
+
+const reportWebVital = (metric: Metric) => {
+  trackEvent(metric.name, {
+    value: Math.round(metric.name === "CLS" ? metric.delta * 1000 : metric.delta),
+    metric_id: metric.id,
+    metric_value: metric.value,
+    metric_delta: metric.delta,
+    metric_rating: metric.rating,
+    non_interaction: true,
+  });
+};
+
+if (window.gtag) {
+  onCLS(reportWebVital);
+  onINP(reportWebVital);
+  onLCP(reportWebVital);
+}
+
 const doc = document;
 doc.documentElement.classList.add("js-enabled");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -692,6 +720,10 @@ doc.querySelectorAll<HTMLFormElement>("[data-inquiry-form]").forEach((form) => {
         }
       }
       if (response.ok && result.ok) {
+        trackEvent("generate_lead", {
+          form_name: form.getAttribute("aria-label") || "project_inquiry",
+          page_path: window.location.pathname,
+        });
         try {
           sessionStorage.removeItem(contactHandoffStorageKey);
         } catch {

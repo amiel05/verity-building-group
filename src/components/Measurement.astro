@@ -1,0 +1,20 @@
+---
+const gaId = (process.env.GA_MEASUREMENT_ID || "").trim();
+const googleVerification = (process.env.GOOGLE_SITE_VERIFICATION || "").trim();
+const bingVerification = (process.env.BING_SITE_VERIFICATION || "").trim();
+const validGaId = /^G-[A-Z0-9]+$/i.test(gaId) ? gaId : "";
+---
+
+{googleVerification && (
+  <meta name="google-site-verification" content={googleVerification} />
+)}
+{bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
+{validGaId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${validGaId}`}></script>
+    <script
+      is:inline
+      set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag("js",new Date());gtag("config",${JSON.stringify(validGaId)},{anonymize_ip:true});`}
+    ></script>
+  </>
+)}

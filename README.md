@@ -31,6 +31,10 @@ Set runtime environment variables through your shell or Railway. Never commit ac
 | `CONTACT_FORM_SECRET`   | Random secret at least 32 characters; used to sign expiring form tokens. Configure privately in Railway. |
 | `CONTACT_WEBHOOK_URL`   | Your HTTPS inquiry-delivery endpoint accepting multipart fields and attachments.                         |
 | `CONTACT_WEBHOOK_TOKEN` | Optional bearer token for that endpoint.                                                                 |
+| `GA_MEASUREMENT_ID`     | Optional GA4 web stream ID (`G-...`). Enables GA4, successful-inquiry conversion events, and Core Web Vitals reporting. |
+| `GOOGLE_SITE_VERIFICATION` | Optional Google Search Console HTML-tag verification token.                                          |
+| `BING_SITE_VERIFICATION` | Optional Bing Webmaster Tools HTML-tag verification token.                                            |
+| `INDEXNOW_KEY`          | Optional 8–128 character IndexNow key. Enables the required `/{key}.txt` proof and `pnpm indexnow`.      |
 
 ## Architecture and editing
 
@@ -100,6 +104,8 @@ Generate a Railway domain, set `SITE_URL` to that HTTPS origin, leave `INDEXABLE
 Manage permanent redirects in `src/content/redirects.json`. Middleware normalizes known content to trailing slashes. The obsolete commercial-services route preserves the source redirect to `/`; WordPress sitemap URLs redirect to `/sitemap.xml`. `/feed/` redirects to a standalone RSS feed. Author archive URLs redirect to `/insights/` without migrating user accounts. Unknown paths return 404.
 
 Titles, descriptions, Open Graph/Twitter fields and relevant JSON-LD are centralized in `src/lib/seo.ts`. Canonical/social origins use `SITE_URL`; public image metadata resolves source upload URLs to local assets. Staging stays excluded from indexing. In production, set `SITE_URL=https://veritybuildinggroup.com` and enable `INDEXABLE=true` only after the apex and `www` domains pass DNS and certificate validation. Requests arriving on alternate production hosts then redirect to the canonical apex domain.
+
+GA4, Google Search Console, Bing Webmaster Tools, and IndexNow are intentionally inert until their owner-issued values are configured. After production DNS and indexing are enabled, set the applicable variables, verify both webmaster accounts, submit `/sitemap.xml`, and run `pnpm indexnow` after material URL or content changes. GA4 receives `generate_lead` only after the inquiry endpoint accepts a submission, plus LCP, CLS, and INP events from the official `web-vitals` library. Confirm the site's consent requirements before enabling analytics.
 
 ## Source and licenses
 
