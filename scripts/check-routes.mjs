@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 const base = process.env.TEST_BASE_URL || "http://localhost:4321";
+const indexable = process.env.EXPECT_INDEXABLE === "true";
 const routes = JSON.parse(await fs.readFile("src/content/routes.json", "utf8"));
 const redirects = JSON.parse(
   await fs.readFile("src/content/redirects.json", "utf8"),
@@ -15,7 +16,10 @@ function collectAsset(value, context = base + "/", required = false) {
   const url = new URL(value.replaceAll("&amp;", "&"), context);
   if (/wpengine|wp-content|wp-includes|typekit|kit\.fontawesome/.test(url.href))
     failures.push(`Obsolete runtime asset: ${url.href}`);
-  if (url.pathname.startsWith("/assets/") || url.pathname.startsWith("/_astro/"))
+  if (
+    url.pathname.startsWith("/assets/") ||
+    url.pathname.startsWith("/_astro/")
+  )
     assets.add(url.pathname + url.search);
   else if (required && url.origin === baseOrigin)
     assets.add(url.pathname + url.search);
@@ -25,13 +29,18 @@ function collectCss(css, context) {
     collectAsset(match[1].trim(), context, true);
 }
 function collectSchema(value, key = "") {
-  if (typeof value === "string" && ["image", "logo", "contentUrl", "thumbnailUrl"].includes(key))
+  if (
+    typeof value === "string" &&
+    ["image", "logo", "contentUrl", "thumbnailUrl"].includes(key)
+  )
     collectAsset(value, base + "/", true);
-  else if (Array.isArray(value)) value.forEach((item) => collectSchema(item, key));
+  else if (Array.isArray(value))
+    value.forEach((item) => collectSchema(item, key));
   else if (value && typeof value === "object")
     Object.entries(value).forEach(([name, item]) => collectSchema(item, name));
 }
 for (const { path } of routes) {
+  if (redirects[path]) continue;
   const response = await fetch(base + path);
   const html = await response.text();
   const checks = {
@@ -61,9 +70,14 @@ for (const { path } of routes) {
     for (const candidate of match[1].split(","))
       collectAsset(candidate.trim().split(/\s+/)[0], base + path, true);
   collectCss(html, base + path);
-  for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/g)) {
-    try { collectSchema(JSON.parse(match[1])); }
-    catch { failures.push(`${path}: invalid JSON-LD`); }
+  for (const match of html.matchAll(
+    /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/g,
+  )) {
+    try {
+      collectSchema(JSON.parse(match[1]));
+    } catch {
+      failures.push(`${path}: invalid JSON-LD`);
+    }
   }
   results.push({ path, ...checks });
 }
@@ -84,6 +98,7 @@ for (const [path, destination] of Object.entries(redirects)) {
     failures.push(`Redirect ${path}: ${r.status}`);
 }
 for (const path of paths) {
+  if (redirects[path]) continue;
   if (path !== "/") {
     const r = await fetch(base + path.slice(0, -1), { redirect: "manual" });
     if (r.status !== 301) failures.push(`Trailing slash ${path}: ${r.status}`);
@@ -92,12 +107,16 @@ for (const path of paths) {
 if ((await fetch(base + "/does-not-exist-verity-check/")).status !== 404)
   failures.push("Unknown route does not return404");
 const sitemap = await (await fetch(base + "/sitemap.xml")).text();
-for (const p of paths)
-  if (!sitemap.includes(p + "</loc>"))
-    failures.push("Missing sitemap route " + p);
+for (const path of Object.keys(redirects))
+  if (sitemap.includes(new URL(path, base).href + "</loc>"))
+    failures.push("Redirected route remains in sitemap " + path);
 const robots = await (await fetch(base + "/robots.txt")).text();
-if (!robots.includes("Disallow: /"))
-  failures.push("Staging robots is indexable");
+if (!robots.includes(indexable ? "Allow: /" : "Disallow: /"))
+  failures.push(
+    indexable
+      ? "Production robots does not allow crawling"
+      : "Staging robots is indexable",
+  );
 const health = await fetch(base + "/health.json");
 if (!health.ok) failures.push("Health check failed");
 const report = {

@@ -1,5 +1,7 @@
 type MetaTag = Record<string, string>;
 
+import assets from "../../docs/assets.json";
+
 export type SeoSourcePage = {
   title: string;
   meta: MetaTag[];
@@ -137,25 +139,30 @@ export const seoByPath: Record<string, SeoDefinition> = {
     description:
       "Explore how early planning, clear communication, and coordinated construction decisions support lasting custom homes for Charlotte families.",
   },
-  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/": {
-    title: "Lake Norman Homesite Due-Diligence Checklist | Verity",
-    description:
-      "Review access, utilities, approvals, shoreline conditions, grading, and other questions to investigate before buying a Lake Norman homesite.",
-  },
+  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/":
+    {
+      title: "Lake Norman Homesite Due-Diligence Checklist | Verity",
+      description:
+        "Review access, utilities, approvals, shoreline conditions, grading, and other questions to investigate before buying a Lake Norman homesite.",
+    },
   "/category/custom-home-construction/": {
     title: "Custom Home Construction Articles | Verity Field Guide",
     description:
       "Read Verity Field Guide articles about custom home planning, budgeting, design coordination, construction, and long-term living.",
+    robots: "noindex, follow",
   },
   "/category/land-development/": {
     title: "Land Development Articles | Verity Field Guide",
     description:
       "Explore practical articles about homesite evaluation, utilities, permitting, access, grading, approvals, and land development strategy.",
+    robots: "noindex, follow",
   },
   "/category/field-guide/": {
     title: "The Verity Field Guide | Building & Property Insights",
     description:
       "Browse practical Verity Building Group guidance for custom homes, land development, renovation, and property decisions in the Charlotte region.",
+    canonicalPath: "/insights/",
+    robots: "noindex, follow",
   },
   "/category/legacy-projects/": {
     title: "Legacy Project Articles | Verity Field Guide",
@@ -173,16 +180,19 @@ export const seoByPath: Record<string, SeoDefinition> = {
     title: "Charlotte Building Articles | Verity Field Guide",
     description:
       "Read custom home, renovation, and property-planning guidance for owners building in Charlotte, North Carolina.",
+    robots: "noindex, follow",
   },
   "/tag/cornelius/": {
     title: "Cornelius Custom Home Articles | Verity Field Guide",
     description:
       "Explore custom home budgeting, planning, and construction guidance for owners building in Cornelius and near Lake Norman.",
+    robots: "noindex, follow",
   },
   "/tag/lake-norman/": {
     title: "Lake Norman Building Articles | Verity Field Guide",
     description:
       "Read homesite, shoreline, land-development, and custom-home guidance for owners planning projects around Lake Norman.",
+    robots: "noindex, follow",
   },
   "/tag/davidson/": {
     title: "Davidson Building Articles | Verity Field Guide",
@@ -223,11 +233,12 @@ const articleByPath: Record<string, ArticleDefinition> = {
     headline: "What Thoughtful Homebuilding Means for Charlotte Families",
     datePublished: "2026-09-11T15:00:00-04:00",
   },
-  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/": {
-    headline:
-      "Before You Buy a Lake Norman Homesite: A Builder’s Due-Diligence Checklist",
-    datePublished: "2026-09-04T15:00:00-04:00",
-  },
+  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/":
+    {
+      headline:
+        "Before You Buy a Lake Norman Homesite: A Builder’s Due-Diligence Checklist",
+      datePublished: "2026-09-04T15:00:00-04:00",
+    },
 };
 
 const commonArea = [
@@ -313,7 +324,11 @@ export const noIndexPaths = new Set(
 const absoluteUrl = (value: string, site: string) => {
   if (!value) return "";
   if (value.startsWith(stagingOrigin)) {
-    return new URL(new URL(value).pathname, site).href;
+    const sourcePath = new URL(value).pathname;
+    const localAsset = Object.entries(assets).find(
+      ([, asset]) => asset.source === sourcePath,
+    )?.[0];
+    return new URL(localAsset || sourcePath, site).href;
   }
   return new URL(value, site).href;
 };
@@ -376,7 +391,8 @@ const extractGalleryImages = (sections: string[]): GalleryImage[] => {
       if (!src) continue;
       images.push({
         src,
-        alt: attributes.match(/\balt="([^"]*)"/i)?.[1] || "Verity project image",
+        alt:
+          attributes.match(/\balt="([^"]*)"/i)?.[1] || "Verity project image",
       });
     }
   }
@@ -445,7 +461,35 @@ export const buildSeo = ({
   const galleryId = `${canonical}#gallery`;
   const serviceId = `${canonical}#service`;
   const articleId = `${canonical}#article`;
+  const organizationId = `${absoluteUrl("/", site)}#organization`;
+  const organization = {
+    "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
+    "@id": organizationId,
+    name: brand,
+    alternateName: "VBG",
+    url: absoluteUrl("/", site),
+    logo: {
+      "@type": "ImageObject",
+      contentUrl: absoluteUrl("/assets/ad91a04237-Verity-Logotype.png", site),
+      width: 8571,
+      height: 2658,
+    },
+    ...(image ? { image } : {}),
+    description:
+      "Verity Building Group plans and builds custom homes, residential renovations, and land-development projects across Charlotte and Lake Norman.",
+    areaServed: commonArea.map((area) => ({
+      "@type": area.type,
+      name: area.name,
+    })),
+    knowsAbout: [
+      "Luxury custom homes",
+      "Residential renovation",
+      "Land development",
+      "Homesite planning",
+    ],
+  };
   const graph: Record<string, unknown>[] = [
+    organization,
     {
       "@type": "WebPage",
       "@id": `${canonical}#webpage`,
@@ -461,35 +505,15 @@ export const buildSeo = ({
   ];
 
   if (path === "/") {
-    graph.push(
-      {
-        "@type": "WebSite",
-        "@id": `${canonical}#website`,
-        url: canonical,
-        name: brand,
-        alternateName: "VBG",
-        inLanguage: "en-US",
-      },
-      {
-        "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
-        "@id": `${canonical}#organization`,
-        name: brand,
-        alternateName: "VBG",
-        url: canonical,
-        image,
-        description: definition.description,
-        areaServed: commonArea.map((area) => ({
-          "@type": area.type,
-          name: area.name,
-        })),
-        knowsAbout: [
-          "Luxury custom homes",
-          "Residential renovation",
-          "Land development",
-          "Homesite planning",
-        ],
-      },
-    );
+    graph.push({
+      "@type": "WebSite",
+      "@id": `${canonical}#website`,
+      url: canonical,
+      name: brand,
+      alternateName: "VBG",
+      publisher: { "@id": organizationId },
+      inLanguage: "en-US",
+    });
   }
 
   if (breadcrumbs.length) {
@@ -515,7 +539,7 @@ export const buildSeo = ({
       serviceType: service.serviceType,
       provider: {
         "@type": ["HomeAndConstructionBusiness", "GeneralContractor"],
-        "@id": `${absoluteUrl("/", site)}#organization`,
+        "@id": organizationId,
         name: brand,
         url: absoluteUrl("/", site),
       },
@@ -538,12 +562,19 @@ export const buildSeo = ({
       dateModified: article.datePublished,
       author: {
         "@type": "Organization",
+        "@id": organizationId,
+        name: brand,
+        url: absoluteUrl("/about/", site),
+      },
+      reviewedBy: {
+        "@type": "Organization",
+        "@id": organizationId,
         name: brand,
         url: absoluteUrl("/about/", site),
       },
       publisher: {
         "@type": "Organization",
-        "@id": `${absoluteUrl("/", site)}#organization`,
+        "@id": organizationId,
         name: brand,
         url: absoluteUrl("/", site),
       },

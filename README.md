@@ -24,7 +24,7 @@ Set runtime environment variables through your shell or Railway. Never commit ac
 
 | Variable                | Purpose                                                                                                  |
 | ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| `SITE_URL`              | Canonical origin, such as the Railway HTTPS staging URL. Required for the form origin check on Railway.  |
+| `SITE_URL`              | Canonical origin. Production must use `https://veritybuildinggroup.com`; previews use their Railway URL. |
 | `INDEXABLE`             | Only `true` enables indexing. Omit on staging to preserve source noindex/nofollow and robots disallow.   |
 | `HOST`                  | `0.0.0.0` for production; already set in Dockerfile.                                                     |
 | `PORT`                  | Supplied by Railway; local production defaults to adapter default if omitted.                            |
@@ -37,7 +37,7 @@ Set runtime environment variables through your shell or Railway. Never commit ac
 Astro 7 with the official Node adapter was selected because the site is primarily editorial and needs server-rendered HTML, straightforward file editing, reusable chrome, small native interaction scripts, and a server-side inquiry endpoint. React hydration and a database are unnecessary.
 
 - `src/content/pages/*.json`: one document per public route. `sections` are sanitized, browser-normalized HTML fragments, retaining formatting and image associations. A split between sections inserts the shared inquiry form. Edit text, links and headings directly, without WordPress shortcodes or block comments.
-- Area-page overrides (`custom-home-builder-in-charlotte-nc`, `lake-norman-custom-home-builder`, `north-mecklenburg-iredell-builder`) have editable `.html` and `.seo.json` files in `src/content/overrides/`. The SEO files own titles, descriptions, social metadata and structured data. Reapply the override script after editing. Run `pnpm test:seo` against the running site; see `docs/AREA_SEO.md` for launch and validation details.
+- Area-page overrides (`custom-home-builder-in-charlotte-nc`, `lake-norman-custom-home-builder`, `north-mecklenburg-iredell-builder`) have editable `.html` files in `src/content/overrides/`. Shared titles, descriptions, social metadata, and structured data are owned by `src/lib/seo.ts`; the historical `.seo.json` snapshots no longer override that shared source of truth. Reapply the override script after editing page content. Run `pnpm test:seo` against the running site; see `docs/AREA_SEO.md` for launch and validation details.
 - `src/content/overrides/about.html`: editable About page, including fully linked area cards; page styling is in `src/styles/about.css`.
 - `src/content/overrides/custom-home-builder-charlotte-nc.html`: editable Custom Homes page; shares the service detail layout and styles.
 - `src/content/overrides/land-development-charlotte-nc.html`: editable Land Development page; shares the Legacy Projects layout and styles.
@@ -87,19 +87,19 @@ pnpm test:routes
 TEST_BASE_URL=https://your-staging.up.railway.app pnpm test:routes
 ```
 
-Route validation checks all 34 migrated routes for successful meaningful HTML, titles, canonical metadata, absence of WordPress runtime references, referenced assets, internal links, redirects, trailing slashes, sitemap entries, staging robots and proper 404 status. Contact unit tests cover anti-spam, bounds, validation and provider success/failure using mocks.
+Route validation checks the 34-route inventory for successful meaningful HTML, titles, canonical metadata, absence of WordPress runtime references, referenced assets, internal links, redirects, trailing slashes, sitemap exclusions, the selected indexing mode, and proper 404 status. Contact unit tests cover anti-spam, bounds, validation and provider success/failure using mocks.
 
 ## Railway staging
 
 Use the Digital Alchemy organization and its existing Pro plan. Create a project/service from `Go-Digital-Alchemy-Repos/verity-building-group`, name the environment `staging`, and deploy `main`. The service uses the Dockerfile builder, `/health.json` health check, one replica, and three on-failure retries. These were configured in Railway directly because its dashboard reports that new services cannot opt into legacy Config as Code; `railway.json` remains a documented legacy equivalent. Docker copies only standalone source, public assets and the public content/asset manifests; the raw WordPress tree, backups and local artifacts never enter the image.
 
-Generate a Railway domain, set `SITE_URL` to that HTTPS origin, leave `INDEXABLE` unset, and configure the inquiry variables privately. The server uses Railway's supplied `PORT` and binds `0.0.0.0`. Do not attach or change production domains/DNS during staging.
+Generate a Railway domain, set `SITE_URL` to that HTTPS origin, leave `INDEXABLE` unset, and configure the inquiry variables privately. The server uses Railway's supplied `PORT` and binds `0.0.0.0`. Preview and staging environments remain blocked from indexing.
 
 ## Redirects and SEO
 
 Manage permanent redirects in `src/content/redirects.json`. Middleware normalizes known content to trailing slashes. The obsolete commercial-services route preserves the source redirect to `/`; WordPress sitemap URLs redirect to `/sitemap.xml`. `/feed/` redirects to a standalone RSS feed. Author archive URLs redirect to `/insights/` without migrating user accounts. Unknown paths return 404.
 
-Titles, descriptions, Open Graph/Twitter fields and relevant JSON-LD are derived from published output. Canonical/social origins use `SITE_URL`; public image metadata uses local assets. Staging stays excluded from indexing. Production indexing/domain changes require owner approval.
+Titles, descriptions, Open Graph/Twitter fields and relevant JSON-LD are centralized in `src/lib/seo.ts`. Canonical/social origins use `SITE_URL`; public image metadata resolves source upload URLs to local assets. Staging stays excluded from indexing. In production, set `SITE_URL=https://veritybuildinggroup.com` and enable `INDEXABLE=true` only after the apex and `www` domains pass DNS and certificate validation. Requests arriving on alternate production hosts then redirect to the canonical apex domain.
 
 ## Source and licenses
 
@@ -116,7 +116,7 @@ Legacy WordPress files from the earlier backup import remain local and ignored. 
 - Configured: `SITE_URL` and `PORT=3000`; Docker supplies `HOST=0.0.0.0`.
 - Inquiry delivery remains unavailable for the confirmed destination `info@veritybuildinggroup.com` until the owner privately configures `CONTACT_FORM_SECRET`, `CONTACT_WEBHOOK_URL`, and optionally `CONTACT_WEBHOOK_TOKEN`.
 
-Astro's trusted-host list in `astro.config.mjs` includes the exact staging hostname and localhost; add an approved production hostname there and rebuild during cutover. Origin validation remains enabled.
+Astro's trusted-host list in `astro.config.mjs` includes the staging hostname, the approved apex and `www` production hosts, and localhost. Origin validation remains enabled.
 
 No production cutover has been performed. See `docs/VALIDATION.md` for evidence and limitations.
 

@@ -10,6 +10,8 @@ export default defineConfig({
         hostname: "verity-building-group-staging-staging.up.railway.app",
         protocol: "https",
       },
+      { hostname: "veritybuildinggroup.com", protocol: "https" },
+      { hostname: "www.veritybuildinggroup.com", protocol: "https" },
       { hostname: "localhost", protocol: "http" },
       { hostname: "127.0.0.1", protocol: "http" },
     ],

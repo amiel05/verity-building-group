@@ -89,6 +89,75 @@ const primaryServiceDetailPaths = new Set([
   "/land-development-charlotte-nc/",
   "/custom-home-builder-charlotte-nc/",
 ]);
+const caseStudyDetailPaths = new Set([
+  "/case-studies/zwilling-custom-home/",
+  "/case-studies/brancer-custom-home/",
+  "/case-studies/hallway-improvement/",
+]);
+const relatedLinksByPath: Record<
+  string,
+  Array<{ href: string; label: string }>
+> = {
+  "/custom-home-budget-planning-where-to-start-in-cornelius/": [
+    {
+      href: "/custom-home-builder-charlotte-nc/",
+      label: "Custom home construction",
+    },
+    {
+      href: "/north-mecklenburg-iredell-builder/",
+      label: "North Mecklenburg & Iredell",
+    },
+    {
+      href: "/case-studies/brancer-custom-home/",
+      label: "Brancer custom home",
+    },
+  ],
+  "/what-thoughtful-homebuilding-means-for-charlotte-families/": [
+    {
+      href: "/custom-home-builder-charlotte-nc/",
+      label: "Custom home construction",
+    },
+    {
+      href: "/custom-home-builder-in-charlotte-nc/",
+      label: "Building in Charlotte",
+    },
+    { href: "/case-studies/", label: "Project case studies" },
+  ],
+  "/before-you-buy-a-lake-norman-homesite-a-builder-s-due-diligence-checklist/":
+    [
+      { href: "/land-development-charlotte-nc/", label: "Land development" },
+      {
+        href: "/lake-norman-custom-home-builder/",
+        label: "Building at Lake Norman",
+      },
+      {
+        href: "/case-studies/zwilling-custom-home/",
+        label: "Zwilling lakefront home",
+      },
+    ],
+  "/case-studies/zwilling-custom-home/": [
+    {
+      href: "/custom-home-builder-charlotte-nc/",
+      label: "Custom home construction",
+    },
+    { href: "/land-development-charlotte-nc/", label: "Land development" },
+    {
+      href: "/lake-norman-custom-home-builder/",
+      label: "Lake Norman service area",
+    },
+  ],
+  "/case-studies/brancer-custom-home/": [
+    {
+      href: "/custom-home-builder-charlotte-nc/",
+      label: "Custom home construction",
+    },
+    { href: "/portfolio/", label: "Explore the portfolio" },
+  ],
+  "/case-studies/hallway-improvement/": [
+    { href: "/services/", label: "Explore construction services" },
+    { href: "/case-studies/", label: "More project case studies" },
+  ],
+};
 const escapeAttribute = (value: string) =>
   value
     .replaceAll("&", "&amp;")
@@ -141,6 +210,15 @@ const homePortfolioCarousel = `
     <p class="home-portfolio-viewer__caption" data-home-photo-caption aria-live="polite"></p>
   </dialog>
 </section>`;
+const relatedLinks = relatedLinksByPath[path] || [];
+const relatedLinksMarkup = relatedLinks.length
+  ? `<nav class="content-related-links" aria-label="Related Verity resources"><strong>Related:</strong>${relatedLinks
+      .map(
+        ({ href, label }) =>
+          `<a href="${escapeAttribute(href)}">${escapeAttribute(label)}</a>`,
+      )
+      .join("")}</nav>`
+  : "";
 const normalizePageHtml = (html: string) => {
   let normalized = replaceArrowGlyphs(html);
   normalized = normalized
@@ -183,6 +261,10 @@ const normalizePageHtml = (html: string) => {
   if (fieldGuideDetailPaths.has(path)) {
     normalized = normalized
       .replace(
+        /<span class="byline">\s*by\s*<span class="author vcard"><a class="url fn n" href="\/insights\/">veritybuilding<\/a><\/span><\/span>/,
+        '<span class="byline"> Reviewed by <span class="author vcard"><a class="url fn n" href="/about/">Verity Building Group</a></span></span>',
+      )
+      .replace(
         /(<label class="content-block-search__label form-label"[^>]*>)Search(<\/label>)/,
         "$1Explore Field Guide$2",
       )
@@ -198,6 +280,18 @@ const normalizePageHtml = (html: string) => {
         '<span class="nav-subtitle">Next:</span>',
         `<span class="nav-subtitle">Next ${arrowIconMarkup("right")}</span>`,
       );
+    if (relatedLinksMarkup) {
+      normalized = normalized.replace(
+        /(<p class="vbg-cta">)/,
+        `${relatedLinksMarkup}$1`,
+      );
+    }
+  }
+  if (caseStudyDetailPaths.has(path) && relatedLinksMarkup) {
+    normalized = normalized.replace(
+      /(<p class="case-study-back">)/,
+      `${relatedLinksMarkup}$1`,
+    );
   }
   if (primaryServiceDetailPaths.has(path)) {
     normalized = normalized.replace(

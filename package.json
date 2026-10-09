@@ -16,7 +16,7 @@
     "test": "tsx --test tests/*.test.ts",
     "test:routes": "node scripts/check-routes.mjs",
     "migrate": "python3 scripts/migrate-public.py",
-    "test:seo": "node scripts/check-area-seo.mjs"
+    "test:seo": "tsx scripts/check-area-seo.mjs"
   },
   "dependencies": {
     "@astrojs/node": "11.1.6",

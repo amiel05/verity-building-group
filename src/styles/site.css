@@ -1607,6 +1607,27 @@ body.single.field-guide-detail .entry-content {
 .field-guide-detail .entry-footer a:is(:hover, :focus-visible) {
   color: var(--color-gold);
 }
+.content-related-links {
+  align-items: center;
+  border-top: 1px solid var(--border-on-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin: 36px 0;
+  padding-top: 24px;
+}
+.content-related-links strong {
+  color: var(--color-ink);
+}
+.content-related-links a {
+  color: var(--body-on-light);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.3s ease;
+}
+.content-related-links a:is(:hover, :focus-visible) {
+  color: var(--color-gold);
+}
 .field-guide-detail .post-navigation {
   margin-bottom: 0;
   padding-block: 64px 80px;

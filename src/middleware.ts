@@ -3,6 +3,18 @@ import redirects from "./content/redirects.json";
 import routes from "./content/routes.json";
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname, searchParams } = context.url;
+  const canonicalOrigin = process.env.SITE_URL;
+  if (
+    process.env.INDEXABLE === "true" &&
+    canonicalOrigin &&
+    pathname !== "/health.json" &&
+    context.url.origin !== new URL(canonicalOrigin).origin
+  ) {
+    return context.redirect(
+      new URL(pathname + context.url.search, canonicalOrigin).href,
+      301,
+    );
+  }
   const target = (redirects as Record<string, string>)[pathname];
   if (target) return context.redirect(target, 301);
   if (pathname === "/" && searchParams.has("s"))

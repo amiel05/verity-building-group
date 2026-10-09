@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { seoByPath } from "../src/lib/seo.ts";
 const base = process.env.TEST_BASE_URL || "http://localhost:4321";
 const origin = process.env.EXPECT_SITE_URL || new URL(base).origin;
 const indexable = process.env.EXPECT_INDEXABLE === "true";
@@ -16,12 +16,7 @@ const titles = new Set();
 const descriptions = new Set();
 const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
 for (const slug of slugs) {
-  const expected = JSON.parse(
-    await readFile(
-      new URL(`../src/content/overrides/${slug}.seo.json`, import.meta.url),
-      "utf8",
-    ),
-  );
+  const expected = seoByPath[`/${slug}/`];
   const response = await fetch(`${base}/${slug}/`);
   assert.equal(response.status, 200);
   const html = await response.text();
@@ -41,9 +36,7 @@ for (const slug of slugs) {
     tags
       .filter((t) => attr(t, "name") === key || attr(t, "property") === key)
       .map((t) => attr(t, "content"));
-  const description = expected.meta.find(
-    (m) => m.name === "description",
-  ).content;
+  const description = expected.description;
   assert.deepEqual(meta("description"), [description]);
   assert(!descriptions.has(description));
   descriptions.add(description);
