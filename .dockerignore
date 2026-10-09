@@ -8,4 +8,5 @@
 !public/**
 !docs/assets.json
 !docs/public-inventory.json
+!scripts/server.mjs
 !Dockerfile
