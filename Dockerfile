@@ -5,6 +5,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY astro.config.mjs tsconfig.json ./
 COPY src ./src
+COPY scripts/server.mjs ./scripts/server.mjs
 COPY public ./public
 COPY docs/assets.json docs/public-inventory.json ./docs/
 RUN pnpm build
