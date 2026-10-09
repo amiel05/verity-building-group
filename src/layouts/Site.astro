@@ -5,10 +5,10 @@ import ProjectModal from "../components/ProjectModal.astro";
 import Measurement from "../components/Measurement.astro";
 import "../styles/source.css";
 import "../styles/site.css";
-import servicesCss from "../styles/services.css?url";
-import legacyCss from "../styles/legacy.css?url";
-import aboutCss from "../styles/about.css?url";
-import areasCss from "../styles/areas.css?url";
+import "../styles/services.css";
+import "../styles/legacy.css";
+import "../styles/about.css";
+import "../styles/areas.css";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
@@ -34,27 +34,6 @@ const site = process.env.SITE_URL || Astro.url.origin;
 const canonicalPath = canonical
   ? new URL(canonical).pathname
   : Astro.url.pathname;
-const serviceDetailPaths = new Set([
-  "/services/",
-  "/land-development-charlotte-nc/",
-  "/custom-home-builder-charlotte-nc/",
-]);
-const areaPaths = new Set([
-  "/custom-home-builder-in-charlotte-nc/",
-  "/lake-norman-custom-home-builder/",
-  "/north-mecklenburg-iredell-builder/",
-]);
-const routeStyles = [
-  ...(serviceDetailPaths.has(canonicalPath) ||
-  canonicalPath.startsWith("/case-studies/") ||
-  canonicalPath === "/legacy-projects/" ||
-  areaPaths.has(canonicalPath)
-    ? [servicesCss]
-    : []),
-  ...(canonicalPath === "/legacy-projects/" ? [legacyCss] : []),
-  ...(canonicalPath === "/about/" ? [aboutCss] : []),
-  ...(areaPaths.has(canonicalPath) ? [areasCss] : []),
-];
 const localize = (value: string) =>
   value.replaceAll("https://veritybuildstg.wpenginepowered.com", site);
 const staging = process.env.INDEXABLE !== "true";
@@ -93,7 +72,6 @@ function localizeStructuredData(value: unknown): unknown {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <Measurement />
-    {routeStyles.map((href) => <link rel="stylesheet" href={href} />)}
     {canonicalPath === "/" && (
       <link
         rel="preload"
